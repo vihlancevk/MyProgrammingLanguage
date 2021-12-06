@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1638828121 source:/home/kostya/MyProgrammingLanguage/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	"FileOperations.h"
+	"Tree.h"
+	"ProgrammingLanguage.h"
+
+1638815968 source:/home/kostya/MyProgrammingLanguage/FileOperations.cpp
+	<assert.h>
+	<string.h>
+	"FileOperations.h"
+
+1638815982 /home/kostya/MyProgrammingLanguage/FileOperations.h
+	<stdio.h>
+
+1638818880 source:/home/kostya/MyProgrammingLanguage/Tree.cpp
+	<stdio.h>
+	<string.h>
+	<assert.h>
+	<cstddef>
+	"Tree.h"
+	"FileOperations.h"
+
+1638819784 /home/kostya/MyProgrammingLanguage/Tree.h
+	<fstream>
+
+1638828975 source:/home/kostya/MyProgrammingLanguage/ProgrammingLanguage.cpp
+	<assert.h>
+	<math.h>
+	<string.h>
+	"ProgrammingLanguage.h"
+
+1638822864 /home/kostya/MyProgrammingLanguage/ProgrammingLanguage.h
+	"Tree.h"
+
