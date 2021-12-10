@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "FileOperations.h"
 #include "Tree.h"
-#include "ProgrammingLanguage.h"
+#include "Lexer.h"
 
 const size_t BEGINING_SIZE  = 10;
 const char *NAME_INPUT_FILE = "data.txt";
