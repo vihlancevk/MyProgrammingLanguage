@@ -40,22 +40,17 @@ static void AddElemInNodeArray(Lexer *lexer, NodeType nodeType, double value, ch
 }
 
 const char *WHITESPACE_CHARACTERS = " \n\t";
-int count = 0;
+
 static void SkeapWhitespaceCharacters(Parser *parser)
 {
     assert(parser != nullptr);
 
     while (strchr(WHITESPACE_CHARACTERS, *(parser->str + parser->curOffset)) != nullptr)
     {
-        count++;
         parser->curOffset++;
-        if (count == 1000)
-        {
-            break;
-        }
     }
 }
-
+int cnt = 0;
 void LexicalAnalysis(Parser *parser, Lexer *lexer)
 {
     while(*(parser->str + parser->curOffset) != '\0')
@@ -66,18 +61,18 @@ void LexicalAnalysis(Parser *parser, Lexer *lexer)
             if (strncmp(parser->str + parser->curOffset, word, count) == 0) \
             {                                                               \
                 AddElemInNodeArray(lexer, nodeType, NO_VALUE);              \
+                parser->curOffset += count;                                 \
                 continue;                                                   \
             }
 
         #include "KeyWorld.h"
-
-        #undef KEY_WORD
 
         if (isdigit((int)(unsigned char)*(parser->str + parser->curOffset)) ||
             ((*(parser->str + parser->curOffset) == '-') && (isdigit((int)(unsigned char)*(parser->str + parser->curOffset + 1)))))
         {
             char *strPtr = parser->str + parser->curOffset;
             double value = strtod(strPtr, &strPtr);
+            parser->curOffset = strPtr - parser->str;
 
             AddElemInNodeArray(lexer, NUMBER, value);
             continue;
@@ -98,15 +93,18 @@ void LexicalAnalysis(Parser *parser, Lexer *lexer)
             continue;
         }
 
-        SkeapWhitespaceCharacters(parser);
-        count++;
-        if (count == 1000)
+        if (*(parser->str + parser->curOffset) == '$')
         {
-            printf("Error;");
-            break;
+            AddElemInNodeArray(lexer, END_PROGRAM, NO_VALUE, "$");
+            parser->curOffset++;
+            continue;
         }
+
+        SkeapWhitespaceCharacters(parser);
     }
 }
+
+#undef KEY_WORD
 
 static void GetG    (Lexer *lexer);
 static void GetE    (Lexer *lexer);

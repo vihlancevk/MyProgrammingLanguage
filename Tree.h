@@ -38,7 +38,8 @@ enum NodeType
     LR               = 5, // ;
     CON_OPERATOR     = 6, // if()
     CYCLE            = 7, // while()
-    FUNC             = 8  // main(), print(), ...
+    FUNC             = 8, // main(), print(), ...
+    END_PROGRAM      = 9  // $
 };
 
 struct Node_t

@@ -22,7 +22,6 @@ int main()
     lexer.capacity = BEGINING_SIZE;
 
     lexer.errorCode = NO_ERROR;
-
     LexicalAnalysis(&parser, &lexer);
     if (lexer.errorCode != NO_ERROR)
     {
@@ -37,6 +36,13 @@ int main()
     }
 
     free(parser.str);
+    for (size_t i = 0; i < lexer.curToken; i++)
+    {
+        if (lexer.token[i].str != nullptr)
+        {
+            free(lexer.token[i].str);
+        }
+    }
     free(lexer.token);
     fclose(finput);
     return 0;
