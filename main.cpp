@@ -17,26 +17,27 @@ int main()
     parser.str = (char*)calloc(numberBytesSize + 1, sizeof(char));
     parser.str = (char*)ReadFile(finput, parser.str, numberBytesSize);
 
-    parser.node = (Node_t*)calloc(BEGINING_SIZE, sizeof(Node_t));
-    parser.capacity = BEGINING_SIZE;
+    Lexer lexer = {};
+    lexer.token = (Node_t*)calloc(BEGINING_SIZE, sizeof(Node_t));
+    lexer.capacity = BEGINING_SIZE;
 
-    parser.errorCode = NO_ERROR;
+    lexer.errorCode = NO_ERROR;
 
-    LexicalAnalysis(&parser);
-    if (parser.errorCode != NO_ERROR)
+    LexicalAnalysis(&parser, &lexer);
+    if (lexer.errorCode != NO_ERROR)
     {
         printf("ERROR\n");
     }
     else
     {
-        for (size_t i = 0; i < parser.curSize; i++)
+        for (size_t i = 0; i < lexer.curToken; i++)
         {
-            printf("%d, %g\n", (int)parser.node[i].nodeType, parser.node[i].value);
+            printf("%d, %g\n", (int)lexer.token[i].nodeType, lexer.token[i].value);
         }
     }
 
     free(parser.str);
-    free(parser.node);
+    free(lexer.token);
     fclose(finput);
     return 0;
 }

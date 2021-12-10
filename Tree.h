@@ -28,23 +28,17 @@ enum TreeErrorCode
     TREE_OBJECT_DEFINITION_MODE_ERROR
 };
 
-//! Number of NodeType elements is number this symbol in ASCII table
-
 enum NodeType
 {
-    CONST         = 0   , // 1, 2, ...
-    VARIABLE      = 1   , // x, xy, asd, ...
-    SIN           = 115 , // sin()
-    COS           = 99  , // cos()
-    LN            = 108 , // ln()
-    ADD           = 43  , // +
-    SUB           = 45  , // -
-    MUL           = 42  , // *
-    DIV           = 47  , // /
-    POW           = 94  , // ^
-    R_PARENTHESIS = 40  , // (
-    L_PARENTHESIS = 41  , // )
-    END_STR       = 36    // $
+    NUMBER           = 0, // 1, 2, ...
+    VARIABLE         = 1, // x, ...
+    UNARY_OPERATION  = 2, // sin(), cos(), ln()
+    BINARY_OPERATION = 3, // +, -, *, /, ^, =, ==, !=, <, >, <=, >=
+    SEPARATOR        = 4, // (, ), {, }, ,
+    LR               = 5, // ;
+    CON_OPERATOR     = 6, // if()
+    CYCLE            = 7, // while()
+    FUNC             = 8  // main(), print(), ...
 };
 
 struct Node_t
@@ -54,6 +48,7 @@ struct Node_t
     Node_t *rightChild;
     NodeType nodeType;
     double value;
+    char *str;
 };
 
 struct Tree_t
@@ -67,8 +62,6 @@ void TreeDump(Tree_t *tree);
 
 TreeErrorCode TreeCtor(Tree_t *tree);
 
-Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, TreeErrorCode *treeError);
-
 void NodeDtor(Node_t *node);
 
 void SubtreeDtor(Node_t *node);
@@ -76,11 +69,5 @@ void SubtreeDtor(Node_t *node);
 TreeErrorCode TreeDtor(Tree_t *tree);
 
 void SetNodeTypeAndValue(Node_t *node, const NodeType nodeType,  const double value);
-
-TreeErrorCode TreeBuild(Tree_t *tree, FILE *finput);
-
-TreeErrorCode TreeSaveInFile(Tree_t *tree, FILE* data, const char *str);
-
-int SubtreeCompare(const Node_t *node1, const Node_t *node2);
 
 #endif // TREE_H_

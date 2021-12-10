@@ -14,9 +14,13 @@ struct Parser
 {
     char *str;
     size_t curOffset;
-    Node_t *node;
+};
+
+struct Lexer
+{
+    Node_t *token;
     size_t capacity;
-    size_t curSize;
+    size_t curToken;
     ErrorCode errorCode;
 };
 
@@ -27,6 +31,6 @@ struct UnaryOperation
     double (*operation) (double);
 };
 
-void LexicalAnalysis(Parser *parser);
+void LexicalAnalysis(Parser *parser, Lexer *lexer);
 
 #endif // PROGRAMMING_LANGUAGE_H_
