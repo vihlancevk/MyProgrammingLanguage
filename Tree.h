@@ -30,15 +30,47 @@ enum TreeErrorCode
 
 enum NodeType
 {
-    NUMBER           = 0, // 1, 2, ...
-    VARIABLE         = 1, // x, ...
-    UNARY_OPERATION  = 2, // sin(), cos(), ln()
-    BINARY_OPERATION = 3, // +, -, *, /, ^, =, ==, !=, <, >, <=, >=
-    SEPARATOR        = 4, // (, ), {, }, ,
-    LR               = 5, // ;
-    CON_OPERATOR     = 6, // if()
-    CYCLE            = 7, // while()
-    FUNC             = 8, // main(), print(), ...
+    NO_KEYWORD ,
+    MAIN       ,
+    RETURN     ,
+    SEMICOLON  ,
+    PRINT      ,
+    PRINTF     ,
+    SCAN       ,
+    IF         ,
+    WHILE      ,
+    ASSIGN     ,
+    LSB        ,
+    RSB        ,
+    LB         ,
+    RB         ,
+    COMMA      ,
+    ADD        ,
+    SUB        ,
+    MUL        ,
+    DIV        ,
+    POW        ,
+    BAA        ,
+    BAB        ,
+    BAE        ,
+    BAAE       ,
+    BABE       ,
+    BANE       ,
+    LN         ,
+    SIN        ,
+    COS        ,
+    TG         ,
+    CTG        ,
+    ARCSIN     ,
+    ARCCOS     ,
+    ARCTG      ,
+    ARCCTG     ,
+    SH         ,
+    CH         ,
+    TH         ,
+    CTH        ,
+    SQRT       ,
+    EXP
 };
 
 struct Node_t
@@ -68,6 +100,6 @@ void SubtreeDtor(Node_t *node);
 
 TreeErrorCode TreeDtor(Tree_t *tree);
 
-void SetNodeTypeAndValue(Node_t *node, const NodeType nodeType,  const double value);
+void SetNodeTypeAndValue(Node_t *node, const NodeType nodeType, const double value);
 
 #endif // TREE_H_

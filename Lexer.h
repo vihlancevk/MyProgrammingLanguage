@@ -3,6 +3,8 @@
 
 #include "Tree.h"
 
+const size_t STR_MAX_SIZE = 10;
+
 enum ErrorCode
 {
     NO_ERROR,
@@ -10,15 +12,16 @@ enum ErrorCode
     REALLOC_ERROR
 };
 
-struct Token
+union Token
 {
-    char *str;
-    size_t size;
+    double value;
+    NodeType keyword;
+    char id[STR_MAX_SIZE];
 };
 
 struct Lexer
 {
-    Token *token;
+    Token *tokens;
     size_t capacity;
     size_t curToken;
     ErrorCode errorCode;

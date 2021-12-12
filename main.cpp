@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "FileOperations.h"
 #include "Tree.h"
 #include "Lexer.h"
@@ -16,7 +17,7 @@ int main()
     str = (char*)ReadFile(finput, str, numberBytesSize);
 
     Lexer lexer = {};
-    lexer.token = (Token*)calloc(BEGINING_SIZE, sizeof(Token));
+    lexer.tokens = (Token*)calloc(BEGINING_SIZE, sizeof(Token));
     lexer.capacity = BEGINING_SIZE;
     lexer.errorCode = NO_ERROR;
 
@@ -29,19 +30,14 @@ int main()
     {
         for (size_t i = 0; i < lexer.curToken; i++)
         {
-            printf("%s\n", lexer.token[i].str);
+            printf("key word : %d\n", lexer.tokens[i].keyword);
+            printf("id : %s\n", lexer.tokens[i].id);
+            printf("value : %g\n\n", lexer.tokens[i].value);
         }
     }
 
     free(str);
-    for (size_t i = 0; i < lexer.curToken; i++)
-    {
-        if (lexer.token[i].str != nullptr)
-        {
-            free(lexer.token[i].str);
-        }
-    }
-    free(lexer.token);
+    free(lexer.tokens);
     fclose(finput);
     return 0;
 }
