@@ -10,15 +10,15 @@ enum ErrorCode
     REALLOC_ERROR
 };
 
-struct Parser
+struct Token
 {
     char *str;
-    size_t curOffset;
+    size_t size;
 };
 
 struct Lexer
 {
-    Node_t *token;
+    Token *token;
     size_t capacity;
     size_t curToken;
     ErrorCode errorCode;
@@ -31,7 +31,7 @@ struct UnaryOperation
     double (*operation) (double);
 };
 
-void LexicalAnalysis(Parser *parser, Lexer *lexer);
+void LexicalAnalysis(char *str, Lexer *lexer);
 
 #endif // PROGRAMMING_LANGUAGE_H_
 
