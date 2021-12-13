@@ -8,16 +8,16 @@
 #define DEBUG
 
 const size_t STR_MAX_SIZE = 120;
-const size_t NodeView_STR_MAX_SIZE = 20;
+const size_t NODEVIEW_STR_MAX_SIZE = 20;
 const int NOT_EQUAL = 0;
 const int EQUAL = 1;
 const char *TREE_GRAPHVIZ = "graphviz.gv";
 
 struct NodeView
 {
-    char shape[NodeView_STR_MAX_SIZE];
-    char color[NodeView_STR_MAX_SIZE];
-    char str[NodeView_STR_MAX_SIZE];
+    char shape[NODEVIEW_STR_MAX_SIZE];
+    char color[NODEVIEW_STR_MAX_SIZE];
+    char str[NODEVIEW_STR_MAX_SIZE];
 };
 
 static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
@@ -25,10 +25,34 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
     assert(node     != nullptr);
     assert(nodeView != nullptr);
 
-    sprintf(nodeView->str, "%g", node->value);
-    strcpy(nodeView->shape, "rectangle");
-    strcpy(nodeView->color, "green");
+    #define BUILD_NODEVIEW_(tShape, tColor)                                      \
+        if (node->str != nullptr) { sprintf(nodeView->str, "%s", node->str)  ; } \
+        else                      { sprintf(nodeView->str, "%g", node->value); } \
+        strcpy(nodeView->shape, tShape);                                         \
+        strcpy(nodeView->color, tColor);                                         \
+        break
 
+    switch ((int)node->nodeType)
+    {
+        case (int)CONST    : { BUILD_NODEVIEW_("circle"       , "yellow" ); }
+        case (int)VARIABLE : { BUILD_NODEVIEW_("rectangle"    , "blue"   ); }
+        case (int)STATEMENT: { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)DEFINE   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)FUNCTION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)MAIN     : { BUILD_NODEVIEW_("parallelogram", "blue"   ); }
+        case (int)ASSIGN   : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)ADD      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)SUB      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)MUL      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)DIV      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)POW      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)SIN      : { BUILD_NODEVIEW_("doubleoctagon", "red"    ); }
+        case (int)COS      : { BUILD_NODEVIEW_("doubleoctagon", "red"    ); }
+        case (int)LN       : { BUILD_NODEVIEW_("doubleoctagon", "red"    ); }
+        default            : { BUILD_NODEVIEW_("rectangle"    , "green"  ); }
+    }
+
+    #undef BUILD_NODEVIEW_
 }
 
 static void TreeVisitPrintNodeInFile(const Node_t *node, FILE *foutput)
@@ -37,7 +61,6 @@ static void TreeVisitPrintNodeInFile(const Node_t *node, FILE *foutput)
     assert(foutput != nullptr);
 
     NodeView nodeView = {};
-
     NodeViewBuild(node, &nodeView);
 
     char str[STR_MAX_SIZE] = {};
@@ -55,13 +78,13 @@ static void TreeVisitPrintArrowInFile(const Node_t *node, FILE *foutput)
     assert(foutput != nullptr);
 
     if (node->parent != nullptr)
-        fprintf(foutput, "\t%lu -> %lu[color=red, fontsize=12]\n", (long unsigned int)node, (long unsigned int)node->parent);
+        fprintf(foutput, "\t%lu -> %lu[label = \"P\", color=red, fontsize=12]\n", (long unsigned int)node, (long unsigned int)node->parent);
 
     if (node->leftChild  != nullptr)
-        fprintf(foutput, "\t%lu -> %lu[fontsize=12]\n", (long unsigned int)node, (long unsigned int)node->leftChild);
+        fprintf(foutput, "\t%lu -> %lu[label = \"L\", fontsize=12]\n", (long unsigned int)node, (long unsigned int)node->leftChild);
 
     if (node->rightChild != nullptr)
-        fprintf(foutput, "\t%lu -> %lu[fontsize=12]\n", (long unsigned int)node, (long unsigned int)node->rightChild);
+        fprintf(foutput, "\t%lu -> %lu[label = \"R\", fontsize=12]\n", (long unsigned int)node, (long unsigned int)node->rightChild);
 
     if (node->leftChild  != nullptr)
         TreeVisitPrintArrowInFile(node->leftChild, foutput);
@@ -109,10 +132,46 @@ TreeErrorCode TreeCtor(Tree_t *tree)
         treeError = TREE_CONSTRUCTED_ERROR;
     }
 
-    tree->size = 0;
+    tree->size = 1;
     tree->status = TREE_CONSTRUCTED;
 
     return treeError;
+}
+
+Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const NodeType tNodeType, const double tValue, const char *tStr)
+{
+    assert(tree != nullptr);
+    assert(node != nullptr);
+    assert(tStr != nullptr);
+
+    Node_t *newNode = nullptr;
+
+    #define TREE_INSERT_(branch)                                           \
+        do                                                                 \
+        {                                                                  \
+        node->branch = (Node_t*)calloc(1, sizeof(Node_t));                 \
+        node->branch->parent = node;                                       \
+        node->branch->nodeType = tNodeType;                                \
+        node->branch->value = tValue;                                      \
+        node->branch->str = (elem_t*)calloc(STR_MAX_SIZE, sizeof(elem_t)); \
+        strcpy(node->branch->str, tStr);                                   \
+        newNode = node->branch;                                            \
+        } while(0)
+
+    if (child == 1)
+    {
+        TREE_INSERT_(leftChild);
+    }
+    else
+    {
+        TREE_INSERT_(rightChild);
+    }
+
+    #undef TREE_INSERT_
+
+    tree->size = tree->size + 1;
+
+    return newNode;
 }
 
 void NodeDtor(Node_t *node)
@@ -129,6 +188,7 @@ void SubtreeDtor(Node_t *node)
     Node_t *leftChild  = node->leftChild;
     Node_t *rightChild = node->rightChild;
 
+    free(node->str);
     free(node);
 
     if (leftChild  != nullptr) SubtreeDtor(leftChild);
@@ -149,24 +209,6 @@ TreeErrorCode TreeDtor(Tree_t *tree)
     tree->size = TREE_DESTRUCTED;
 
     return TREE_NO_ERROR;
-}
-
-static char* TreeReadData(FILE *finput)
-{
-    assert(finput != nullptr);
-
-    int numberBytesFile = GetFileSize(finput);
-    char *str = (char*)calloc(numberBytesFile, sizeof(char));
-    str = (char*)ReadFile(finput, str, numberBytesFile);
-
-    return str;
-}
-
-static char* StrBufferFindEndStr(char *str)
-{
-    assert(str != nullptr);
-
-    return strchr(str, ')');
 }
 
 void SetNodeTypeAndValue(Node_t *node, const NodeType nodeType, const double value)

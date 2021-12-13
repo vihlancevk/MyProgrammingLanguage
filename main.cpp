@@ -4,6 +4,7 @@
 #include "FileOperations.h"
 #include "Tree.h"
 #include "Tokenizer.h"
+#include "Parser.h"
 
 const size_t BEGINING_SIZE  = 10;
 const char *NAME_INPUT_FILE = "data.txt";
@@ -22,7 +23,7 @@ int main()
     lexer.errorCode = NO_ERROR;
 
     Tokenizer(str, &lexer);
-    if (lexer.errorCode != NO_ERROR)
+    /*if (lexer.errorCode != NO_ERROR)
     {
         printf("ERROR\n");
     }
@@ -34,10 +35,19 @@ int main()
             printf("id : %s\n", lexer.tokens[i].id);
             printf("value : %g\n\n", lexer.tokens[i].value);
         }
-    }
+    }*/
+
+    Parser parser = {};
+    parser.tokens = lexer.tokens;
+    Tree_t tree = {};
+    TreeCtor(&tree);
+    parser.tree = &tree;
+    parser.tree = SyntacticAnalysis(&parser);
+    TreeDump(parser.tree);
 
     free(str);
     free(lexer.tokens);
+    //TreeDtor(&tree);
     fclose(finput);
     return 0;
 }

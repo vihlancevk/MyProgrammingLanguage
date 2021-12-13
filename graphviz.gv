@@ -1,0 +1,39 @@
+digraph Tree{
+
+	rankdir=UD;
+
+	node[fontsize=14];
+
+	93908220123200[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	93908220123296[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="define"];
+	93908220123488[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="function"];
+	93908220124416[shape=record, shape=parallelogram, style="filled", fillcolor=blue, label="main"];
+	93908220123680[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	93908220123744[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	93908220123936[shape=record, shape=rectangle, style="filled", fillcolor=blue, label="x"];
+	93908220124000[shape=record, shape=rectangle, style="filled", fillcolor=green, label="initializer"];
+	93908220124320[shape=record, shape=diamond, style="filled", fillcolor=red, label="+"];
+	93908220124192[shape=record, shape=rectangle, style="filled", fillcolor=blue, label="x"];
+	93908220124256[shape=record, shape=circle, style="filled", fillcolor=yellow, label="1"];
+
+	93908220123200 -> 93908220123296[label = "R", fontsize=12]
+	93908220123296 -> 93908220123200[label = "P", color=red, fontsize=12]
+	93908220123296 -> 93908220123488[label = "L", fontsize=12]
+	93908220123296 -> 93908220123680[label = "R", fontsize=12]
+	93908220123488 -> 93908220123296[label = "P", color=red, fontsize=12]
+	93908220123488 -> 93908220124416[label = "L", fontsize=12]
+	93908220124416 -> 93908220123488[label = "P", color=red, fontsize=12]
+	93908220123680 -> 93908220123296[label = "P", color=red, fontsize=12]
+	93908220123680 -> 93908220123744[label = "R", fontsize=12]
+	93908220123744 -> 93908220123680[label = "P", color=red, fontsize=12]
+	93908220123744 -> 93908220123936[label = "L", fontsize=12]
+	93908220123744 -> 93908220124000[label = "R", fontsize=12]
+	93908220123936 -> 93908220123744[label = "P", color=red, fontsize=12]
+	93908220124000 -> 93908220123744[label = "P", color=red, fontsize=12]
+	93908220124000 -> 93908220124320[label = "R", fontsize=12]
+	93908220124320 -> 93908220124192[label = "L", fontsize=12]
+	93908220124320 -> 93908220124256[label = "R", fontsize=12]
+	93908220124192 -> 93908220124320[label = "P", color=red, fontsize=12]
+	93908220124256 -> 93908220124320[label = "P", color=red, fontsize=12]
+
+}

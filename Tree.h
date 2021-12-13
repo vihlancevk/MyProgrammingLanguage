@@ -31,11 +31,16 @@ enum TreeErrorCode
 enum NodeType
 {
     NO_KEYWORD ,
+    CONST      ,
+    VARIABLE   ,
+    STATEMENT  ,
+    DEFINE     ,
+    FUNCTION   ,
     MAIN       ,
     RETURN     ,
+    INITIALIZER,
     SEMICOLON  ,
     PRINT      ,
-    PRINTF     ,
     SCAN       ,
     IF         ,
     WHILE      ,
@@ -56,21 +61,12 @@ enum NodeType
     BAAE       ,
     BABE       ,
     BANE       ,
+    OR         ,
+    AND        ,
+    NOT        ,
     LN         ,
     SIN        ,
-    COS        ,
-    TG         ,
-    CTG        ,
-    ARCSIN     ,
-    ARCCOS     ,
-    ARCTG      ,
-    ARCCTG     ,
-    SH         ,
-    CH         ,
-    TH         ,
-    CTH        ,
-    SQRT       ,
-    EXP
+    COS
 };
 
 struct Node_t
@@ -93,6 +89,8 @@ struct Tree_t
 void TreeDump(Tree_t *tree);
 
 TreeErrorCode TreeCtor(Tree_t *tree);
+
+Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const NodeType tNodeType, const double tValue, const char *tStr);
 
 void NodeDtor(Node_t *node);
 
