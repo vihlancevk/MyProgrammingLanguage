@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <math.h>
 #include <string.h>
-#include "Lexer.h"
+#include "Tokenizer.h"
 
 const size_t EXPANSION_COEFFICIENT = 2   ;
 const double NO_VALUE              = -1.0;
@@ -48,7 +48,7 @@ static size_t SkeapWhitespaceCharacters(char *str, size_t curOffset)
     return curOffset;
 }
 
-void LexicalAnalysis(char *str, Lexer *lexer)
+void Tokenizer(char *str, Lexer *lexer)
 {
     assert(str   != nullptr);
     assert(lexer != nullptr);

@@ -27,14 +27,7 @@ struct Lexer
     ErrorCode errorCode;
 };
 
-struct UnaryOperation
-{
-    const char *str;
-    size_t strSize;
-    double (*operation) (double);
-};
-
-void LexicalAnalysis(char *str, Lexer *lexer);
+void Tokenizer(char *str, Lexer *lexer);
 
 #endif // PROGRAMMING_LANGUAGE_H_
 

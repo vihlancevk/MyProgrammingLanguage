@@ -3,7 +3,7 @@
 #include <string.h>
 #include "FileOperations.h"
 #include "Tree.h"
-#include "Lexer.h"
+#include "Tokenizer.h"
 
 const size_t BEGINING_SIZE  = 10;
 const char *NAME_INPUT_FILE = "data.txt";
@@ -21,7 +21,7 @@ int main()
     lexer.capacity = BEGINING_SIZE;
     lexer.errorCode = NO_ERROR;
 
-    LexicalAnalysis(str, &lexer);
+    Tokenizer(str, &lexer);
     if (lexer.errorCode != NO_ERROR)
     {
         printf("ERROR\n");
