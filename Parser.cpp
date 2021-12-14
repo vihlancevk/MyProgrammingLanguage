@@ -153,6 +153,8 @@ static Node_t* GetF(Parser *parser)
     }
     parser->curToken++;
     node3->rightChild = GetPar(parser);
+    IS_PARSER_ERROR();
+    if (node3->rightChild != nullptr) {node3->rightChild->parent = node3; }
     Require(parser, RB);
 
     if (parser->tokens[parser->curToken].keyword == LSB)
@@ -185,16 +187,14 @@ static Node_t* GetPar(Parser *parser)
     while (parser->tokens[parser->curToken].keyword != RB)
     {
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
-        TreeInsert(parser->tree, node1, RIGHT_CHILD, VARIABLE, NO_VALUE, parser->tokens[parser->curToken].id);
+        node1->rightChild = GetE(parser);
+        IS_PARSER_ERROR();
+        node1->rightChild->parent = node1;
         node1->nodeType = PARAMETR;
         node1->value = NO_VALUE;
         node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
         strcpy(node1->str, (char*)"parametr");
-        if (parser->tokens[parser->curToken + 1].keyword == COMMA)
-        {
-            parser->curToken = parser->curToken + 2;
-        }
-        else
+        if (parser->tokens[parser->curToken].keyword == COMMA)
         {
             parser->curToken++;
         }
