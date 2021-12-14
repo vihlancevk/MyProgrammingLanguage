@@ -30,46 +30,48 @@ enum TreeErrorCode
 
 enum NodeType
 {
-    CONST      ,
-    VARIABLE   ,
-    FUNC       ,
-    DEFINE     ,
-    FUNCTION   ,
-    PARAMETR   ,
-    CALL       ,
-    MAIN       ,
-    RETURN     ,
-    STATEMENT  ,
-    DECISION   ,
-    SEMICOLON  ,
-    PRINT      ,
-    SCAN       ,
-    IF         ,
-    ELSE       ,
-    WHILE      ,
-    ASSIGN     ,
-    LSB        ,
-    RSB        ,
-    LB         ,
-    RB         ,
-    COMMA      ,
-    ADD        ,
-    SUB        ,
-    MUL        ,
-    DIV        ,
-    POW        ,
-    BAA        ,
-    BAB        ,
-    BAE        ,
-    BAAE       ,
-    BABE       ,
-    BANE       ,
-    OR         ,
-    AND        ,
-    NOT        ,
-    LN         ,
-    SIN        ,
-    COS
+    CONST      , // 0
+    VARIABLE   , // 1
+    FUNC       , // 2
+    DEFINE     , // 3
+    FUNCTION   , // 4
+    PARAMETR   , // 5
+    CALL       , // 6
+    MAIN       , // 7
+    RETURN     , // 8
+    STATEMENT  , // 9
+    DECISION   , // 10
+    SEMICOLON  , // 11
+    PRINT      , // 12
+    SCAN       , // 13
+    IF         , // 14
+    ELSE       , // 15
+    WHILE      , // 16
+    ASSIGN     , // 17
+    LSB        , // 18
+    RSB        , // 19
+    LB         , // 20
+    RB         , // 21
+    LAB        , // 22
+    RAB        , // 23
+    COMMA      , // 24
+    ADD        , // 25
+    SUB        , // 26
+    MUL        , // 27
+    DIV        , // 28
+    POW        , // 29
+    BAA        , // 30
+    BAB        , // 31
+    BAE        , // 32
+    BAAE       , // 33
+    BABE       , // 34
+    BANE       , // 35
+    OR         , // 36
+    AND        , // 37
+    NOT        , // 38
+    LN         , // 39
+    SIN        , // 40
+    COS          // 41
 };
 
 struct Node_t

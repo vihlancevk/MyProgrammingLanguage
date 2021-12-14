@@ -93,7 +93,7 @@ void Tokenizer(char *str, Lexer *lexer)
                 curOffset++;
             }
 
-            strcpy(token.id, strndup(strPtr, str + curOffset - strPtr));
+            sprintf(token.id, "'%s'", strndup(strPtr, str + curOffset - strPtr));
             AddElemInTokenArray(lexer, token);
             continue;
         }

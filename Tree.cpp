@@ -35,8 +35,8 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
     switch ((int)node->nodeType)
     {
         case (int)CONST    : { BUILD_NODEVIEW_("circle"       , "yellow" ); }
-        case (int)VARIABLE : { BUILD_NODEVIEW_("rectangle"    , "blue"   ); }
-        case (int)FUNC     : { BUILD_NODEVIEW_("octagon"      , "blue"   ); }
+        case (int)VARIABLE : { BUILD_NODEVIEW_("rectangle"    , "cyan"   ); }
+        case (int)FUNC     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)STATEMENT: { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)DEFINE   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)FUNCTION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
@@ -53,6 +53,15 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)MUL      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)DIV      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)POW      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)BAA      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)BAB      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)BAE      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)BAAE     : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)BABE     : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)BANE     : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)OR       : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)AND      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)NOT      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)SIN      : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
         case (int)COS      : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
         case (int)LN       : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }

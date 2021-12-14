@@ -1,14 +1,13 @@
-foo(first_param, second_param, third_param)
-{
-    var = first_param;
-    x = second_param + third_param;
-    
-    return 2 * var;
-}
-
 main()
 {
-    a = 11;
-    x = 5 * 2 + foo(a + 3, 0, a + 8 * a * 99);
+    x = GLOBAL_below_main + foo_below_main();
+
     return 0;
+}
+
+GLOBAL_below_main = 5;
+
+foo_below_main()
+{
+    return 2;
 }

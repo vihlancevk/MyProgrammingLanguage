@@ -23,19 +23,6 @@ int main()
     lexer.errorCode = NO_ERROR;
 
     Tokenizer(str, &lexer);
-    /*if (lexer.errorCode != NO_ERROR)
-    {
-        printf("ERROR\n");
-    }
-    else
-    {
-        for (size_t i = 0; i < lexer.curToken; i++)
-        {
-            printf("key word : %d\n", lexer.tokens[i].keyword);
-            printf("id : %s\n", lexer.tokens[i].id);
-            printf("value : %g\n\n", lexer.tokens[i].value);
-        }
-    }*/
 
     Parser parser = {};
     parser.tokens = lexer.tokens;
