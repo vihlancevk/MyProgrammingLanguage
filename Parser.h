@@ -18,6 +18,12 @@ struct UnaryOperation
     char *str;
 };
 
+struct BoolOperation
+{
+    const NodeType nodeType;
+    char *str;
+};
+
 struct Parser
 {
     Token *tokens;

@@ -41,6 +41,7 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)DEFINE   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)FUNCTION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)PARAMETR : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)CALL     : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)DECISION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)IF       : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)WHILE    : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }

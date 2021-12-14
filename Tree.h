@@ -36,6 +36,7 @@ enum NodeType
     DEFINE     ,
     FUNCTION   ,
     PARAMETR   ,
+    CALL       ,
     MAIN       ,
     RETURN     ,
     STATEMENT  ,

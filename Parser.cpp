@@ -21,20 +21,33 @@ static Node_t* GetA    (Parser *parser);
 static Node_t* GetIf   (Parser *parser);
 static Node_t* GetWhile(Parser *parser);
 static Node_t* GetRet  (Parser *parser);
+static Node_t* GetBool (Parser *parser);
 static Node_t* GetE    (Parser *parser);
 static Node_t* GetT    (Parser *parser);
 static Node_t* GetPow  (Parser *parser);
 static Node_t* GetUnary(Parser *parser);
 static Node_t* GetP    (Parser *parser);
 static Node_t* GetN    (Parser *parser);
+static Node_t* GetCall (Parser *parser);
 static Node_t* GetId   (Parser *parser);
 
-const int NUMBER_UNARY_OPERATIONS = 3;
+const int NUMBER_UNARY_OPERATIONS = 4;
+const int NUMBER_BOOL_OPERATIONS  = 8;
 const double NO_VALUE = -1.0;
 
 UnaryOperation unaryOperation[NUMBER_UNARY_OPERATIONS] = {{ SIN, (char*)"sin"},
                                                           { COS, (char*)"cos"},
-                                                          { LN , (char*)"lg" }};
+                                                          { LN , (char*)"lg" },
+                                                          { NOT, (char*)"!"  }};
+
+BoolOperation boolOperation[NUMBER_BOOL_OPERATIONS] = {{BAA , (char*)">" },
+                                                       {BAB , (char*)"<" },
+                                                       {BAE , (char*)"=="},
+                                                       {BAAE, (char*)">="},
+                                                       {BABE, (char*)"<="},
+                                                       {BANE, (char*)"!="},
+                                                       {OR  , (char*)"||"},
+                                                       {AND , (char*)"&&"}};
 
 static Node_t* NodeCtor(Node_t *thisNode)
 {
@@ -187,7 +200,7 @@ static Node_t* GetPar(Parser *parser)
     while (parser->tokens[parser->curToken].keyword != RB)
     {
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
-        node1->rightChild = GetE(parser);
+        node1->rightChild = GetBool(parser);
         IS_PARSER_ERROR();
         node1->rightChild->parent = node1;
         node1->nodeType = PARAMETR;
@@ -235,7 +248,7 @@ static Node_t* GetA(Parser *parser)
 
             parser->curToken = parser->curToken + 1;
 
-            node2->rightChild = GetE(parser);
+            node2->rightChild = GetBool(parser);
             IS_PARSER_ERROR();
             node2->rightChild->parent = node2;
             node1->nodeType = STATEMENT;
@@ -306,7 +319,7 @@ static Node_t* GetIf(Parser *parser)
 
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
         Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, IF, NO_VALUE, (char*)"if");
-        node2->leftChild = GetE(parser);
+        node2->leftChild = GetBool(parser);
         IS_PARSER_ERROR();
         node2->leftChild->parent = node2;
         Require(parser, RB);
@@ -373,7 +386,7 @@ static Node_t* GetWhile(Parser *parser)
 
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
         Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, WHILE, NO_VALUE, (char*)"while");
-        node2->leftChild = GetE(parser);
+        node2->leftChild = GetBool(parser);
         IS_PARSER_ERROR();
         node2->leftChild->parent = node2;
         Require(parser, RB);
@@ -428,7 +441,7 @@ static Node_t* GetRet(Parser *parser)
 
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
         Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, RETURN, NO_VALUE, (char*)"return");
-        node2->rightChild = GetE(parser);
+        node2->rightChild = GetBool(parser);
         IS_PARSER_ERROR();
         node1->nodeType = STATEMENT;
         node1->value = NO_VALUE;
@@ -440,6 +453,37 @@ static Node_t* GetRet(Parser *parser)
     }
 
     return node;
+}
+
+static size_t IsBoolOperation(NodeType nodeType)
+{
+    for (size_t i = 0; i < NUMBER_BOOL_OPERATIONS; i++)
+    {
+        if (nodeType == boolOperation[i].nodeType) { return i + 1; }
+    }
+
+    return 0;
+}
+
+static Node_t* GetBool (Parser *parser)
+{
+    assert(parser != nullptr);
+
+    Node_t *val = GetE(parser);
+    IS_PARSER_ERROR();
+
+    size_t numberBoolOperation = IsBoolOperation(parser->tokens[parser->curToken].keyword);
+    while (numberBoolOperation)
+    {
+        NodeType op = parser->tokens[parser->curToken].keyword;
+        parser->curToken++;
+        Node_t *val2 = GetE(parser);
+        IS_PARSER_ERROR();
+        Node_t node = {nullptr, val, val2, op, NO_VALUE, boolOperation[numberBoolOperation].str};
+        val =  NodeCtor(&node);
+    }
+
+    return val;
 }
 
 static Node_t* GetE(Parser *parser)
@@ -535,8 +579,9 @@ static Node_t* GetP(Parser *parser)
     {
         size_t curToken = parser->curToken;
         val = GetUnary(parser);
-        if (curToken == parser->curToken) { val = GetN(parser) ; }
-        if (curToken == parser->curToken) { val = GetId(parser); }
+        if (curToken == parser->curToken) { val = GetN(parser)   ; }
+        if (curToken == parser->curToken) { val = GetCall(parser); }
+        if (curToken == parser->curToken) { val = GetId(parser)  ; }
         IS_PARSER_ERROR();
     }
     return val;
@@ -574,6 +619,32 @@ static Node_t* GetN(Parser *parser)
         return NodeCtor(&node);
     }
     else {return nullptr; }
+}
+
+static Node_t* GetCall (Parser *parser)
+{
+    assert(parser != nullptr);
+
+    Node_t *node = nullptr;
+
+    if (strcmp(parser->tokens[parser->curToken].id, (char*)"\0") != 0 && parser->tokens[parser->curToken + 1].keyword == LB)
+    {
+        Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
+        TreeInsert(parser->tree, node1, LEFT_CHILD, VARIABLE, NO_VALUE, parser->tokens[parser->curToken].id);
+        parser->curToken = parser->curToken + 2;
+        node1->rightChild = GetPar(parser);
+        IS_PARSER_ERROR();
+        if (node1->rightChild != nullptr) { node1->rightChild->parent = node1; }
+        Require(parser, RB);
+        node1->nodeType = CALL;
+        node1->value = NO_VALUE;
+        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
+        strcpy(node1->str, (char*)"call");
+
+        node = node1;
+    }
+
+    return node;
 }
 
 static Node_t* GetId(Parser *parser)
