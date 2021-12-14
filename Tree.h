@@ -32,8 +32,10 @@ enum NodeType
 {
     CONST      ,
     VARIABLE   ,
+    FUNC       ,
     DEFINE     ,
     FUNCTION   ,
+    PARAMETR   ,
     MAIN       ,
     RETURN     ,
     STATEMENT  ,

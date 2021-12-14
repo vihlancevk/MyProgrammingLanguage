@@ -1,13 +1,17 @@
+foo(a, b)
+{
+    x = a;
+}
+
+GLOBAL_VAR   = 4;
+GLOBAL_VAR_2 = 28 * 4 + GLOBAL_VAR;
+
 main()
 {
-    a = 1;
-    b = 5;
-    if ((a + 2) - (28 * sin(b)))
-    {
-        x = 1;
-    }
-    else
-    {
-        x = 2;
-    }
+    var = 3 * 8 + 1;
+}
+
+bar()
+{
+    x = GLOBAL_VAR;
 }

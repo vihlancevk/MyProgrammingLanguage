@@ -36,11 +36,15 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
     {
         case (int)CONST    : { BUILD_NODEVIEW_("circle"       , "yellow" ); }
         case (int)VARIABLE : { BUILD_NODEVIEW_("rectangle"    , "blue"   ); }
+        case (int)FUNC     : { BUILD_NODEVIEW_("octagon"      , "blue"   ); }
         case (int)STATEMENT: { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)DEFINE   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)FUNCTION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)PARAMETR : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)DECISION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)IF       : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)WHILE    : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)RETURN   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)MAIN     : { BUILD_NODEVIEW_("parallelogram", "blue"   ); }
         case (int)ASSIGN   : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)ADD      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
@@ -48,9 +52,9 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)MUL      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)DIV      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)POW      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)SIN      : { BUILD_NODEVIEW_("doubleoctagon", "red"    ); }
-        case (int)COS      : { BUILD_NODEVIEW_("doubleoctagon", "red"    ); }
-        case (int)LN       : { BUILD_NODEVIEW_("doubleoctagon", "red"    ); }
+        case (int)SIN      : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
+        case (int)COS      : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
+        case (int)LN       : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
         default            : { BUILD_NODEVIEW_("rectangle"    , "green"  ); }
     }
 
@@ -140,11 +144,11 @@ TreeErrorCode TreeCtor(Tree_t *tree)
     return treeError;
 }
 
-Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const NodeType tNodeType, const double tValue, const char *tStr)
+Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const NodeType thisNodeType, const double thisValue, const char *thisStr)
 {
-    assert(tree != nullptr);
-    assert(node != nullptr);
-    assert(tStr != nullptr);
+    assert(tree    != nullptr);
+    assert(node    != nullptr);
+    assert(thisStr != nullptr);
 
     Node_t *newNode = nullptr;
 
@@ -153,10 +157,10 @@ Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const Node
         {                                                                  \
         node->branch = (Node_t*)calloc(1, sizeof(Node_t));                 \
         node->branch->parent = node;                                       \
-        node->branch->nodeType = tNodeType;                                \
-        node->branch->value = tValue;                                      \
+        node->branch->nodeType = thisNodeType;                             \
+        node->branch->value = thisValue;                                   \
         node->branch->str = (elem_t*)calloc(STR_MAX_SIZE, sizeof(elem_t)); \
-        strcpy(node->branch->str, tStr);                                   \
+        strcpy(node->branch->str, thisStr);                                \
         newNode = node->branch;                                            \
         } while(0)
 
