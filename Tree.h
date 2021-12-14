@@ -30,19 +30,19 @@ enum TreeErrorCode
 
 enum NodeType
 {
-    NO_KEYWORD ,
     CONST      ,
     VARIABLE   ,
-    STATEMENT  ,
     DEFINE     ,
     FUNCTION   ,
     MAIN       ,
     RETURN     ,
-    INITIALIZER,
+    STATEMENT  ,
+    DECISION   ,
     SEMICOLON  ,
     PRINT      ,
     SCAN       ,
     IF         ,
+    ELSE       ,
     WHILE      ,
     ASSIGN     ,
     LSB        ,
@@ -91,8 +91,6 @@ void TreeDump(Tree_t *tree);
 TreeErrorCode TreeCtor(Tree_t *tree);
 
 Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const NodeType tNodeType, const double tValue, const char *tStr);
-
-void NodeDtor(Node_t *node);
 
 void SubtreeDtor(Node_t *node);
 

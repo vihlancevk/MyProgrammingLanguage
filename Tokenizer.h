@@ -12,6 +12,41 @@ enum ErrorCode
     REALLOC_ERROR
 };
 
+/*enum Keyword
+{
+    MAIN     ,
+    RETURN   ,
+    SEMICOLON,
+    PRINT    ,
+    SCAN     ,
+    IF       ,
+    ELSE     ,
+    WHILE    ,
+    ASSIGN   ,
+    LSB      ,
+    RSB      ,
+    LB       ,
+    RB       ,
+    COMMA    ,
+    ADD      ,
+    SUB      ,
+    MUL      ,
+    DIV      ,
+    POW      ,
+    BAA      ,
+    BAB      ,
+    BAE      ,
+    BAAE     ,
+    BABE     ,
+    BANE     ,
+    OR       ,
+    AND      ,
+    NOT      ,
+    SIN      ,
+    COS      ,
+    LN
+}*/
+
 union Token
 {
     double value;

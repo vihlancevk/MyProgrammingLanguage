@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Tokenizer.h"
+#include "Tree.h"
 
 enum ParserErrorCode
 {

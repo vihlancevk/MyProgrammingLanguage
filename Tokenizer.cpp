@@ -60,13 +60,13 @@ void Tokenizer(char *str, Lexer *lexer)
     {
         curOffset = SkeapWhitespaceCharacters(str, curOffset);
 
-        #define KEY_WORD(word, count, replace, typeKeyword, nodeType) \
-            if (strncmp(str + curOffset, word, count) == 0)           \
-            {                                                         \
-                token.keyword = nodeType;                             \
-                AddElemInTokenArray(lexer, token);                    \
-                curOffset += count;                                   \
-                continue;                                             \
+        #define KEY_WORD(word, count, replace, thisKeyword) \
+            if (strncmp(str + curOffset, word, count) == 0) \
+            {                                               \
+                token.keyword = thisKeyword;                \
+                AddElemInTokenArray(lexer, token);          \
+                curOffset += count;                         \
+                continue;                                   \
             }
 
         #include "Keyworld.h"

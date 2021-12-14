@@ -47,7 +47,7 @@ int main()
 
     free(str);
     free(lexer.tokens);
-    //TreeDtor(&tree);
+    TreeDtor(parser.tree);
     fclose(finput);
     return 0;
 }

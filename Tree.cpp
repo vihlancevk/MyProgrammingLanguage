@@ -25,11 +25,11 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
     assert(node     != nullptr);
     assert(nodeView != nullptr);
 
-    #define BUILD_NODEVIEW_(tShape, tColor)                                      \
+    #define BUILD_NODEVIEW_(thisShape, thisColor)                                \
         if (node->str != nullptr) { sprintf(nodeView->str, "%s", node->str)  ; } \
         else                      { sprintf(nodeView->str, "%g", node->value); } \
-        strcpy(nodeView->shape, tShape);                                         \
-        strcpy(nodeView->color, tColor);                                         \
+        strcpy(nodeView->shape, thisShape);                                      \
+        strcpy(nodeView->color, thisColor);                                      \
         break
 
     switch ((int)node->nodeType)
@@ -39,6 +39,8 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)STATEMENT: { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)DEFINE   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)FUNCTION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)DECISION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)IF       : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)MAIN     : { BUILD_NODEVIEW_("parallelogram", "blue"   ); }
         case (int)ASSIGN   : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)ADD      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
@@ -174,13 +176,6 @@ Node_t* TreeInsert(Tree_t *tree, Node_t *node, const NodeChild child, const Node
     return newNode;
 }
 
-void NodeDtor(Node_t *node)
-{
-    assert(node != nullptr);
-
-    free(node);
-}
-
 void SubtreeDtor(Node_t *node)
 {
     assert(node != nullptr);
@@ -188,7 +183,7 @@ void SubtreeDtor(Node_t *node)
     Node_t *leftChild  = node->leftChild;
     Node_t *rightChild = node->rightChild;
 
-    free(node->str);
+    if (node->str != nullptr) { free(node->str); }
     free(node);
 
     if (leftChild  != nullptr) SubtreeDtor(leftChild);

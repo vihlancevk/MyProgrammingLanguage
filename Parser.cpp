@@ -3,7 +3,7 @@
 #include <string.h>
 #include "Parser.h"
 
-#define IS_CALCULATOR_ERROR()                       \
+#define IS_PARSER_ERROR()                           \
     do                                              \
     {                                               \
         if (parser->parserError != PARSER_NO_ERROR) \
@@ -15,6 +15,7 @@
 
 static Node_t* GetG    (Parser *parser);
 static Node_t* GetA    (Parser *parser);
+static Node_t* GetIf   (Parser *parser);
 static Node_t* GetE    (Parser *parser);
 static Node_t* GetT    (Parser *parser);
 static Node_t* GetPow  (Parser *parser);
@@ -30,22 +31,30 @@ UnaryOperation unaryOperation[NUMBER_UNARY_OPERATIONS] = {{ SIN, (char*)"sin"},
                                                           { COS, (char*)"cos"},
                                                           { LN , (char*)"lg" }};
 
-static Node_t* NodeCtor(Node_t *node)
+static Node_t* NodeCtor(Node_t *thisNode)
 {
-    assert(node != nullptr);
+    assert(thisNode != nullptr);
 
-    Node_t *tNode = (Node_t*)calloc(1, sizeof(Node_t));
-    tNode->parent = node->parent;
-    tNode->leftChild  = node->leftChild;
-    tNode->rightChild = node->rightChild;
-    tNode->nodeType = node->nodeType;
-    tNode->value = node->value;
-    tNode->str = node->str;
+    Node_t *node = (Node_t*)calloc(1, sizeof(Node_t));
+    node->parent = thisNode->parent;
+    node->leftChild  = thisNode->leftChild;
+    node->rightChild = thisNode->rightChild;
+    node->nodeType = thisNode->nodeType;
+    node->value = thisNode->value;
+    if (thisNode->str != nullptr)
+    {
+        node->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
+        strcpy(node->str, thisNode->str);
+    }
+    else
+    {
+        node->str = thisNode->str;
+    }
 
-    if (node->leftChild  != nullptr) { node->leftChild->parent  = tNode; }
-    if (node->rightChild != nullptr) { node->rightChild->parent = tNode; }
+    if (thisNode->leftChild  != nullptr) { thisNode->leftChild->parent  = node; }
+    if (thisNode->rightChild != nullptr) { thisNode->rightChild->parent = node; }
 
-    return tNode;
+    return node;
 }
 
 static void Require(Parser *parser, const NodeType nodeType)
@@ -75,8 +84,8 @@ static Node_t* GetG(Parser *parser)
         Node_t *node  = TreeInsert(parser->tree, parser->tree->root, RIGHT_CHILD, DEFINE, NO_VALUE, "define");
         Node_t *node2 = TreeInsert(parser->tree, node, LEFT_CHILD, FUNCTION, NO_VALUE, "function");
         node->rightChild = GetA(parser);
+        IS_PARSER_ERROR();
         if (node->rightChild != nullptr) { node->rightChild->parent = node; }
-        IS_CALCULATOR_ERROR();
 
         TreeInsert(parser->tree, node2, LEFT_CHILD, MAIN, NO_VALUE, "main");
 
@@ -84,34 +93,117 @@ static Node_t* GetG(Parser *parser)
     }
 
     return parser->tree->root;
+
 }
 
 static Node_t* GetA(Parser *parser)
 {
     assert(parser != nullptr);
 
-    while (parser->tokens[parser->curToken + 1].keyword == ASSIGN)
+    Node_t *node = nullptr;
+
+    if (parser->tokens[parser->curToken + 1].keyword == ASSIGN)
     {
-        Node_t *node = (Node_t*)calloc(1, sizeof(Node_t));
-        Node_t *node2 = TreeInsert(parser->tree, node, RIGHT_CHILD, ASSIGN, NO_VALUE, (char*)"=");
-        node2->leftChild = GetId(parser);
-        node2->leftChild->parent = node2;
+        while (parser->tokens[parser->curToken + 1].keyword == ASSIGN)
+        {
+            Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
+            Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, ASSIGN, NO_VALUE, (char*)"=");
+            node2->leftChild = GetId(parser);
+            IS_PARSER_ERROR();
+            node2->leftChild->parent = node2;
 
-        parser->curToken = parser->curToken + 1;
+            parser->curToken = parser->curToken + 1;
 
-        TreeInsert(parser->tree, node2, RIGHT_CHILD, INITIALIZER, NO_VALUE, "initializer");
-        node2->rightChild->rightChild = GetE(parser);
-        IS_CALCULATOR_ERROR();
-        node->nodeType = STATEMENT;
-        node->value = NO_VALUE;
-        node->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-        strcpy(node->str, "statement");
-        Require(parser, SEMICOLON);
+            node2->rightChild = GetE(parser);
+            IS_PARSER_ERROR();
+            node2->rightChild->parent = node2;
+            node1->nodeType = STATEMENT;
+            node1->value = NO_VALUE;
+            node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
+            strcpy(node1->str, "statement");
+            Require(parser, SEMICOLON);
 
-        return node;
+            if (node != nullptr)
+            {
+                node1->leftChild = node;
+                node->parent = node1;
+                node = node1;
+            }
+            else
+            {
+                node = node1;
+            }
+        }
     }
 
-    return nullptr;
+    Node_t *node1 = GetIf(parser);
+    IS_PARSER_ERROR();
+
+    if (node1 != nullptr)
+    {
+        if (node != nullptr)
+        {
+            node1->leftChild = node;
+            node->parent = node1;
+            node = node1;
+        }
+        else
+        {
+            node = node1;
+        }
+    }
+
+    return node;
+}
+
+static Node_t* GetIf(Parser *parser)
+{
+    assert(parser != nullptr);
+
+    Node_t *node = nullptr;
+
+    if (parser->tokens[parser->curToken].keyword == IF && parser->tokens[parser->curToken + 1].keyword == LB)
+    {
+        parser->curToken = parser->curToken + 2;
+
+        Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
+        Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, IF, NO_VALUE, (char*)"if");
+        node2->leftChild = GetE(parser);
+        IS_PARSER_ERROR();
+        node2->leftChild->parent = node2;
+        Require(parser, RB);
+
+        Node_t *node3 = TreeInsert(parser->tree, node2, RIGHT_CHILD, DECISION, NO_VALUE, (char*)"decision");
+
+        if (parser->tokens[parser->curToken].keyword == LSB)
+        {
+            parser->curToken++;
+
+            node3->leftChild = GetA(parser);
+            IS_PARSER_ERROR();
+            node3->leftChild->parent = node3;
+            Require(parser, RSB);
+        }
+
+        if (parser->tokens[parser->curToken].keyword == ELSE && parser->tokens[parser->curToken + 1].keyword == LSB)
+        {
+            parser->curToken = parser->curToken + 2;
+
+            node3->rightChild = GetA(parser);
+            IS_PARSER_ERROR();
+            node3->rightChild->parent = node3;
+            Require(parser, RSB);
+        }
+
+        node1->nodeType = STATEMENT;
+        node1->value = NO_VALUE;
+        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
+        strcpy(node1->str, (char*)"statement");
+
+        node = node1;
+    }
+
+    return node;
 }
 
 static Node_t* GetE(Parser *parser)
@@ -119,14 +211,14 @@ static Node_t* GetE(Parser *parser)
     assert(parser != nullptr);
 
     Node_t *val = GetT(parser);
-    IS_CALCULATOR_ERROR();
+    IS_PARSER_ERROR();
 
     while (parser->tokens[parser->curToken].keyword == ADD || parser->tokens[parser->curToken].keyword == SUB)
     {
         NodeType op = parser->tokens[parser->curToken].keyword;
         parser->curToken++;
         Node_t *val2 = GetT(parser);
-        IS_CALCULATOR_ERROR();
+        IS_PARSER_ERROR();
         if (op == ADD)
         {
             Node_t node = {nullptr, val, val2, ADD, NO_VALUE, (char*)"+"};
@@ -147,14 +239,14 @@ static Node_t* GetT(Parser *parser)
     assert(parser != nullptr);
 
     Node_t *val = GetPow(parser);
-    IS_CALCULATOR_ERROR();
+    IS_PARSER_ERROR();
 
     while (parser->tokens[parser->curToken].keyword == MUL || parser->tokens[parser->curToken].keyword == DIV)
     {
         NodeType op = parser->tokens[parser->curToken].keyword;
         parser->curToken++;
         Node_t *val2 = GetPow(parser);
-        IS_CALCULATOR_ERROR();
+        IS_PARSER_ERROR();
         if (op == MUL)
         {
             Node_t node = {nullptr, val, val2, MUL, NO_VALUE, (char*)"*"};
@@ -180,7 +272,7 @@ static Node_t* GetPow(Parser *parser)
     {
         parser->curToken++;
         Node_t *val2 = GetP(parser);
-        IS_CALCULATOR_ERROR();
+        IS_PARSER_ERROR();
 
         Node_t node = {nullptr, val, val2, POW, NO_VALUE, (char*)"^"};
 
@@ -200,7 +292,7 @@ static Node_t* GetP(Parser *parser)
     {
         parser->curToken++;
         val = GetE(parser);
-        IS_CALCULATOR_ERROR();
+        IS_PARSER_ERROR();
         Require(parser, RB);
     }
     else
@@ -209,7 +301,7 @@ static Node_t* GetP(Parser *parser)
         val = GetUnary(parser);
         if (curToken == parser->curToken) { val = GetN(parser) ; }
         if (curToken == parser->curToken) { val = GetId(parser); }
-        IS_CALCULATOR_ERROR();
+        IS_PARSER_ERROR();
     }
     return val;
 }
@@ -224,7 +316,7 @@ static Node_t* GetUnary(Parser *parser)
         {
             parser->curToken++;
             Node_t *val = GetP(parser);
-            IS_CALCULATOR_ERROR();
+            IS_PARSER_ERROR();
             Node_t node = {nullptr, nullptr, val, unaryOperation[i].nodeType, NO_VALUE, unaryOperation[i].str};
 
             return NodeCtor(&node);
@@ -259,7 +351,7 @@ static Node_t* GetId(Parser *parser)
     return NodeCtor(&node);
 }
 
-#undef IS_CALCULATOR_ERROR
+#undef IS_PARSER_ERROR
 
 Tree_t* SyntacticAnalysis(Parser *parser)
 {
