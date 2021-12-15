@@ -5,6 +5,7 @@
 #include "Tree.h"
 #include "Tokenizer.h"
 #include "Parser.h"
+#include "GenerateAsmCode.h"
 
 const size_t BEGINING_SIZE  = 10;
 const char *NAME_INPUT_FILE = "data.txt";
@@ -31,6 +32,8 @@ int main()
     TreeCtor(parser.tree);
     parser.tree = SyntacticAnalysis(&parser);
     TreeDump(parser.tree);
+
+    GenerateAsmCode(&tree);
 
     free(str);
     free(lexer.tokens);

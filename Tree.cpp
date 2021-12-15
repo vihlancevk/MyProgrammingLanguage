@@ -48,7 +48,7 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)IF       : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)WHILE    : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)RETURN   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
-        case (int)MAIN     : { BUILD_NODEVIEW_("parallelogram", "blue"   ); }
+        case (int)MAIN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)ASSIGN   : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)ADD      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)SUB      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }

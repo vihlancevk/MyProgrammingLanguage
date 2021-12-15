@@ -1,4 +1,11 @@
 main()
 {
-    x = scan();
+    a = scan();
+    b = scan();
+    
+    c = a + b;
+    
+    print(c);
+    
+    return 0;
 }

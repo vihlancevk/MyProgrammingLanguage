@@ -164,7 +164,6 @@ static Node_t* GetF(Parser *parser)
     if (parser->tokens[parser->curToken].keyword == MAIN)
     {
         TreeInsert(parser->tree, node3, LEFT_CHILD, MAIN, NO_VALUE, (char*)"main");
-        node3->leftChild->nodeType = FUNC;
         parser->curToken++;
     }
     else
@@ -658,21 +657,22 @@ static Node_t* GetCall (Parser *parser)
     if (strcmp(parser->tokens[parser->curToken].id, (char*)"\0") != 0 && parser->tokens[parser->curToken + 1].keyword == LB)
     {
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
+        Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, CALL, NO_VALUE, (char*)"call");
         if (parser->tokens[parser->curToken].keyword != PRINT && parser->tokens[parser->curToken].keyword != SCAN)
         {
-            TreeInsert(parser->tree, node1, LEFT_CHILD, FUNC, NO_VALUE, parser->tokens[parser->curToken].id);
+            TreeInsert(parser->tree, node2, LEFT_CHILD, FUNC, NO_VALUE, parser->tokens[parser->curToken].id);
         }
         else
         {
-            if (parser->tokens[parser->curToken].keyword == PRINT) { TreeInsert(parser->tree, node1, LEFT_CHILD, PRINT, NO_VALUE, (char*)"print"); }
-            else                                                   { TreeInsert(parser->tree, node1, LEFT_CHILD, SCAN , NO_VALUE, (char*)"scan") ; }
+            if (parser->tokens[parser->curToken].keyword == PRINT) { TreeInsert(parser->tree, node2, LEFT_CHILD, PRINT, NO_VALUE, (char*)"print"); }
+            else                                                   { TreeInsert(parser->tree, node2, LEFT_CHILD, SCAN , NO_VALUE, (char*)"scan") ; }
         }
         parser->curToken = parser->curToken + 2;
-        node1->rightChild = GetPar(parser);
+        node2->rightChild = GetPar(parser);
         IS_PARSER_ERROR();
-        if (node1->rightChild != nullptr) { node1->rightChild->parent = node1; }
+        if (node2->rightChild != nullptr) { node2->rightChild->parent = node2; }
         Require(parser, RB);
-        SetNodeTypeValueStr(node1, CALL, NO_VALUE, (char*)"call");
+        SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
 
         node = node1;
     }

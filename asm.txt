@@ -1,0 +1,6 @@
+CRT
+PUSH
+POP
+CALL MAIN
+hlt
+:MAIN
