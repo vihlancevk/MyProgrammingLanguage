@@ -471,6 +471,13 @@ static Node_t* GetRet(Parser *parser)
 
         node = node1;
     }
+    else
+    {
+        Node_t *node1 = GetBool(parser);
+        IS_PARSER_ERROR();
+
+        node = node1;
+    }
 
     return node;
 }
@@ -651,7 +658,15 @@ static Node_t* GetCall (Parser *parser)
     if (strcmp(parser->tokens[parser->curToken].id, (char*)"\0") != 0 && parser->tokens[parser->curToken + 1].keyword == LB)
     {
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
-        TreeInsert(parser->tree, node1, LEFT_CHILD, VARIABLE, NO_VALUE, parser->tokens[parser->curToken].id);
+        if (parser->tokens[parser->curToken].keyword != PRINT && parser->tokens[parser->curToken].keyword != SCAN)
+        {
+            TreeInsert(parser->tree, node1, LEFT_CHILD, FUNC, NO_VALUE, parser->tokens[parser->curToken].id);
+        }
+        else
+        {
+            if (parser->tokens[parser->curToken].keyword == PRINT) { TreeInsert(parser->tree, node1, LEFT_CHILD, PRINT, NO_VALUE, (char*)"print"); }
+            else                                                   { TreeInsert(parser->tree, node1, LEFT_CHILD, SCAN , NO_VALUE, (char*)"scan") ; }
+        }
         parser->curToken = parser->curToken + 2;
         node1->rightChild = GetPar(parser);
         IS_PARSER_ERROR();
@@ -669,11 +684,21 @@ static Node_t* GetId(Parser *parser)
 {
     assert(parser != nullptr);
 
-    Node_t node = {nullptr, nullptr, nullptr, VARIABLE, NO_VALUE, parser->tokens[parser->curToken].id};
+    Node_t *node = nullptr;
 
-    parser->curToken++;
+    if (parser->tokens[parser->curToken].keyword != SEMICOLON)
+    {
+        Node_t node1 = {nullptr, nullptr, nullptr, VARIABLE, NO_VALUE, parser->tokens[parser->curToken].id};
+        node = NodeCtor(&node1);
 
-    return NodeCtor(&node);
+        parser->curToken++;
+    }
+    else
+    {
+        parser->curToken++;
+    }
+
+    return node;
 }
 
 #undef IS_PARSER_ERROR
