@@ -126,10 +126,7 @@ static Node_t* GetG(Parser *parser)
             node2->rightChild = GetBool(parser);
             IS_PARSER_ERROR();
             node2->rightChild->parent = node2;
-            node1->nodeType = STATEMENT;
-            node1->value = NO_VALUE;
-            node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-            strcpy(node1->str, "statement");
+            SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
             Require(parser, SEMICOLON);
 
             if (node1 != nullptr)
@@ -160,8 +157,6 @@ static Node_t* GetG(Parser *parser)
 static Node_t* GetF(Parser *parser)
 {
     assert(parser != nullptr);
-
-    Node_t *node = nullptr;
 
     Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
     Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, DEFINE, NO_VALUE, (char*)"define");
@@ -194,14 +189,9 @@ static Node_t* GetF(Parser *parser)
         Require(parser, RSB);
     }
 
-    node1->nodeType = STATEMENT;
-    node1->value = NO_VALUE;
-    node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-    strcpy(node1->str, (char*)"statement");
+    SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
 
-    node = node1;
-
-    return node;
+    return node1;
 }
 
 static Node_t* GetPar(Parser *parser)
@@ -216,10 +206,7 @@ static Node_t* GetPar(Parser *parser)
         node1->rightChild = GetBool(parser);
         IS_PARSER_ERROR();
         node1->rightChild->parent = node1;
-        node1->nodeType = PARAMETR;
-        node1->value = NO_VALUE;
-        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-        strcpy(node1->str, (char*)"parametr");
+        SetNodeTypeValueStr(node1, PARAMETR, NO_VALUE, (char*)"parametr");
         if (parser->tokens[parser->curToken].keyword == COMMA)
         {
             parser->curToken++;
@@ -263,10 +250,7 @@ static Node_t* GetA(Parser *parser)
             node2->rightChild = GetBool(parser);
             IS_PARSER_ERROR();
             node2->rightChild->parent = node2;
-            node1->nodeType = STATEMENT;
-            node1->value = NO_VALUE;
-            node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-            strcpy(node1->str, "statement");
+            SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
             Require(parser, SEMICOLON);
 
             if (node != nullptr)
@@ -342,10 +326,7 @@ static Node_t* GetArray(Parser *parser)
     IS_PARSER_ERROR();
     node2->rightChild->parent = node2;
     Require(parser, SEMICOLON);
-    node1->nodeType = STATEMENT;
-    node1->value = NO_VALUE;
-    node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-    strcpy(node1->str, (char*)"statement");
+    SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
 
     return node1;
 }
@@ -389,10 +370,7 @@ static Node_t* GetIf(Parser *parser)
             Require(parser, RSB);
         }
 
-        node1->nodeType = STATEMENT;
-        node1->value = NO_VALUE;
-        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-        strcpy(node1->str, (char*)"statement");
+        SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
 
         node = node1;
     }
@@ -446,10 +424,7 @@ static Node_t* GetWhile(Parser *parser)
             Require(parser, RSB);
         }
 
-        node1->nodeType = STATEMENT;
-        node1->value = NO_VALUE;
-        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-        strcpy(node1->str, (char*)"statement");
+        SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
 
         node = node1;
     }
@@ -491,10 +466,7 @@ static Node_t* GetRet(Parser *parser)
         node2->rightChild = GetBool(parser);
         IS_PARSER_ERROR();
         if (node2->rightChild != nullptr) { node2->rightChild->parent = node2; }
-        node1->nodeType = STATEMENT;
-        node1->value = NO_VALUE;
-        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-        strcpy(node1->str, (char*)"statement");
+        SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
         Require(parser, SEMICOLON);
 
         node = node1;
@@ -685,10 +657,7 @@ static Node_t* GetCall (Parser *parser)
         IS_PARSER_ERROR();
         if (node1->rightChild != nullptr) { node1->rightChild->parent = node1; }
         Require(parser, RB);
-        node1->nodeType = CALL;
-        node1->value = NO_VALUE;
-        node1->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
-        strcpy(node1->str, (char*)"call");
+        SetNodeTypeValueStr(node1, CALL, NO_VALUE, (char*)"call");
 
         node = node1;
     }

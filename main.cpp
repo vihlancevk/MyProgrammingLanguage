@@ -27,8 +27,8 @@ int main()
     Parser parser = {};
     parser.tokens = lexer.tokens;
     Tree_t tree = {};
-    TreeCtor(&tree);
     parser.tree = &tree;
+    TreeCtor(parser.tree);
     parser.tree = SyntacticAnalysis(&parser);
     TreeDump(parser.tree);
 
@@ -38,3 +38,5 @@ int main()
     fclose(finput);
     return 0;
 }
+
+//main.cpp Tokenizer.cpp Parser.cpp Tree.cpp FileOperations.cpp

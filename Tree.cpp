@@ -220,10 +220,13 @@ TreeErrorCode TreeDtor(Tree_t *tree)
     return TREE_NO_ERROR;
 }
 
-void SetNodeTypeAndValue(Node_t *node, const NodeType nodeType, const double value)
+void SetNodeTypeValueStr(Node_t *node, const NodeType nodeType, const double value, char *str)
 {
     assert(node != nullptr);
+    assert(str  != nullptr);
 
     node->nodeType = nodeType;
     node->value    = value;
+    node->str = (char*)calloc(STR_MAX_SIZE, sizeof(char));
+    strcpy(node->str, str);
 }

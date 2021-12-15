@@ -101,6 +101,6 @@ void SubtreeDtor(Node_t *node);
 
 TreeErrorCode TreeDtor(Tree_t *tree);
 
-void SetNodeTypeAndValue(Node_t *node, const NodeType nodeType, const double value);
+void SetNodeTypeValueStr(Node_t *node, const NodeType nodeType, const double value, char *str);
 
 #endif // TREE_H_
