@@ -4,6 +4,10 @@ main()
 {
     a = globalVar1 * (globalVar2 - globalVar3);
     
+    b = scan();
+    
+    a = a + b;
+    
     print(a);
     
     return ;

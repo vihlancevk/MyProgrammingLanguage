@@ -8,9 +8,9 @@ const int NO_VARIABLE_IN_TABLE_NAME = -1;
 
 TableGlobalNames globalNames = {{}, 0, 1};
 
-size_t curLabel = 0;
+int curLabel = 0;
 
-static size_t GenerateLabel()
+static int GenerateLabel()
 {
     return curLabel++;
 }
@@ -183,7 +183,7 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
         //! ToDo smth
     }
 
-    TableLocalNames newLocalNames = {{}, 0, 1};
+    TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
 
     ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
 }
@@ -306,18 +306,18 @@ static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLoca
     ConvertSubtreeInCode(node->rightChild, code, localNames);
     switch ((int)node->nodeType)
     {
-        case (int)ADD : { fprintf(code, "ADD\n")                          ; break; }
-        case (int)SUB : { fprintf(code, "SUB\n")                          ; break; }
-        case (int)MUL : { fprintf(code, "MUL\n")                          ; break; }
-        case (int)DIV : { fprintf(code, "ADD\n")                          ; break; }
-        case (int)POW : { fprintf(code, "ADD\n")                          ; break; }
-        case (int)JA  : { fprintf(code, "JA next%zu\n" , GenerateLabel()) ; break; }
-        case (int)JB  : { fprintf(code, "JB next%zu\n" , GenerateLabel()) ; break; }
-        case (int)JE  : { fprintf(code, "JE next%zu\n" , GenerateLabel()) ; break; }
-        case (int)JAE : { fprintf(code, "JAE next%zu\n", GenerateLabel()) ; break; }
-        case (int)JBE : { fprintf(code, "JBE next%zu\n", GenerateLabel()) ; break; }
-        case (int)JNE : { fprintf(code, "JNE next%zu\n", GenerateLabel()) ; break; }
-        default       : { printf("Invalid binary operations\n")           ; break; }
+        case (int)ADD : { fprintf(code, "ADD\n")                         ; break; }
+        case (int)SUB : { fprintf(code, "SUB\n")                         ; break; }
+        case (int)MUL : { fprintf(code, "MUL\n")                         ; break; }
+        case (int)DIV : { fprintf(code, "ADD\n")                         ; break; }
+        case (int)POW : { fprintf(code, "ADD\n")                         ; break; }
+        case (int)JA  : { fprintf(code, "JA next%d\n" , GenerateLabel()) ; break; }
+        case (int)JB  : { fprintf(code, "JB next%d\n" , GenerateLabel()) ; break; }
+        case (int)JE  : { fprintf(code, "JE next%d\n" , GenerateLabel()) ; break; }
+        case (int)JAE : { fprintf(code, "JAE next%d\n", GenerateLabel()) ; break; }
+        case (int)JBE : { fprintf(code, "JBE next%d\n", GenerateLabel()) ; break; }
+        case (int)JNE : { fprintf(code, "JNE next%d\n", GenerateLabel()) ; break; }
+        default       : { printf("Invalid binary operations\n")          ; break; }
     }
 }
 
