@@ -5,3 +5,5 @@ MyProgrammingLanguage.layout
 /obj
 factorial.txt
 quadraticEquation.txt
+graphviz.gv
+graphviz.png
