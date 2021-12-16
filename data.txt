@@ -3,12 +3,27 @@ globalVar1 = 1;
 main()
 {
     a = globalVar1 * (globalVar2 - globalVar3);
+    b = 0;
+    
+    print(a);
+    
+    foo();
+    
+    a = a + 1;
     
     print(a);
     
     return ;
 }
 
+foo()
+{
+    a = 3;
+    
+    print(a);
+    
+    return ;
+}
 
 globalVar2 = 2;
 

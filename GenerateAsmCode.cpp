@@ -5,8 +5,10 @@
 
 const char *NAME_OUTPUT_FILE = "asm.txt";
 const int NO_VARIABLE_IN_TABLE_NAME = -1;
+const int NO_FUNCTION_IN_TABLE_NAME = -1;
 
 TableGlobalNames globalNames = {{}, 0, 1};
+TableFunctions functions = {};
 
 int curLabel = 0;
 
@@ -79,6 +81,14 @@ static void NodeVisitorForFindAndPrintGlobalVar(Tree_t *tree, Node_t *node, FILE
                 SubtreeDtor(ptrNode);
             }
         }
+        else
+        {
+            NodeVisitorForFindAndPrintGlobalVar(tree, node->leftChild, code);
+        }
+    }
+    else
+    {
+        return ;
     }
 }
 
@@ -167,13 +177,45 @@ static int CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
         localNames->localNames[localNames->curName].curOffset = curOffset;
         localNames->curName++;
         localNames->curOffset++;
-        return curOffset;
     }
     else
     {
         printf("Invalid number of local variables!\n");
-        return curOffset;
     }
+
+    return curOffset;
+}
+
+static void FillTableFunctions(Node_t *node)
+{
+    assert(node != nullptr);
+
+    if (node->rightChild->nodeType == DEFINE && node->rightChild->leftChild->leftChild->nodeType != MAIN)
+    {
+        strcpy(functions.functions[functions.curName].str, node->rightChild->leftChild->leftChild->str);
+        functions.functions[functions.curName].curOffset = functions.curName;
+        functions.curName++;
+    }
+
+    if (node->leftChild != nullptr) { FillTableFunctions(node->leftChild); }
+}
+
+static int CheckTableFunctions(Node_t *node)
+{
+    assert(node != nullptr);
+
+    int curOffset = NO_FUNCTION_IN_TABLE_NAME;
+
+    for (int i = 0; i < NUMBERS_FUNCTION; i++)
+    {
+        if (strcmp(node->str, functions.functions[i].str) == 0)
+        {
+            curOffset = functions.functions[i].curOffset;
+            return curOffset;
+        }
+    }
+
+    return curOffset;
 }
 
 static void ConvertSubtreeInCode            (Node_t *node, FILE *code, TableLocalNames *localNames);
@@ -189,26 +231,37 @@ static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLoca
 
 static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
 {
-    assert(node       != nullptr);
-    assert(code       != nullptr);
+    assert(node != nullptr);
+    assert(code != nullptr);
 
     if (node->leftChild->leftChild->nodeType == MAIN)
     {
         fprintf(code, ":MAIN\n");
+
+        TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
+        ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
+        memcpy(localNames, &newLocalNames, sizeof(TableLocalNames));
     }
     else
     {
-        //! ToDo smth
+        if (functions.curName < NUMBERS_FUNCTION)
+        {
+            fprintf(code, ":%s\n", node->leftChild->leftChild->str);
+
+            TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
+            ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
+        }
+        else
+        {
+            printf("Invalid number of local variables!\n");
+            return;
+        }
     }
 
     if (node->leftChild->rightChild != nullptr)
     {
         //! ToDo smth
     }
-
-    TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
-
-    ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
 }
 
 //! gx - register for return value from function
@@ -246,7 +299,17 @@ static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *loc
     }
     else
     {
-        //! ToDo smth
+        int isFunctionInTableFunctions = CheckTableFunctions(node->leftChild);
+
+        if (CheckTableFunctions(node->leftChild) != NO_FUNCTION_IN_TABLE_NAME)
+        {
+            fprintf(code, "CALL %s\n", node->leftChild->str);
+        }
+        else
+        {
+            printf("Invalid function call!\n");
+            return;
+        }
     }
 }
 
@@ -392,6 +455,7 @@ void GenerateAsmCode(Tree_t *tree)
 
     fprintf(code, "CRT\n");
 
+    FillTableFunctions(tree->root);
     FindAndPrintGlobalVar(tree, code);
     /*for (int i = 0; i < globalNames.curName; i++)
     {
