@@ -20,14 +20,12 @@ struct TableLocalNames
 {
     Name localNames[NUMBERS_VARIABLE];
     int curName;
-    int curOffset;
 };
 
 struct TableGlobalNames
 {
     Name globalNames[NUMBERS_VARIABLE];
     int curName;
-    int curOffset;
 };
 
 struct TableFunctions

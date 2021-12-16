@@ -7,7 +7,7 @@ const char *NAME_OUTPUT_FILE = "asm.txt";
 const int NO_VARIABLE_IN_TABLE_NAME = -1;
 const int NO_FUNCTION_IN_TABLE_NAME = -1;
 
-TableGlobalNames globalNames = {{}, 0, 0};
+TableGlobalNames globalNames = {{}, 0};
 TableFunctions functions = {};
 
 int curLabel = 0;
@@ -49,11 +49,11 @@ static void NodeVisitorForFindAndPrintGlobalVar(Tree_t *tree, Node_t *node, FILE
         if (node->leftChild->nodeType == STATEMENT && node->leftChild->rightChild->nodeType == ASSIGN)
         {
             strcpy(globalNames.globalNames[globalNames.curName].str, node->leftChild->rightChild->leftChild->str);
-            globalNames.globalNames[globalNames.curName].curOffset = globalNames.curOffset;
+            globalNames.globalNames[globalNames.curName].curOffset = globalNames.curName;
             if (node->leftChild->rightChild->rightChild->nodeType == CONST)
             {
                 fprintf(code, "PUSH %g\n"
-                              "POP [%d]\n", node->leftChild->rightChild->rightChild->value, globalNames.curOffset);
+                              "POP [%d]\n", node->leftChild->rightChild->rightChild->value, globalNames.curName);
             }
             else
             {
@@ -61,7 +61,6 @@ static void NodeVisitorForFindAndPrintGlobalVar(Tree_t *tree, Node_t *node, FILE
                 return;
             }
             globalNames.curName++;
-            globalNames.curOffset++;
             if (node->leftChild->leftChild != nullptr)
             {
                 ptrNode = node->leftChild;
@@ -105,11 +104,11 @@ static void FindAndPrintGlobalVar(Tree_t *tree, FILE *code)
         if (globalNames.curName < NUMBERS_VARIABLE)
         {
             strcpy(globalNames.globalNames[globalNames.curName].str, node->rightChild->leftChild->str);
-            globalNames.globalNames[globalNames.curName].curOffset = globalNames.curOffset;
+            globalNames.globalNames[globalNames.curName].curOffset = globalNames.curName;
             if (node->rightChild->rightChild->nodeType == CONST)
             {
                 fprintf(code, "PUSH %g\n"
-                              "POP [%d]\n", node->rightChild->rightChild->value, globalNames.curOffset);
+                              "POP [%d]\n", node->rightChild->rightChild->value, globalNames.curName);
             }
             else
             {
@@ -117,7 +116,6 @@ static void FindAndPrintGlobalVar(Tree_t *tree, FILE *code)
                 return;
             }
             globalNames.curName++;
-            globalNames.curOffset++;
             node = node->leftChild;
             if (node->leftChild == nullptr) { break; }
         }
@@ -173,10 +171,9 @@ static int CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
     if (localNames->curName < NUMBERS_VARIABLE)
     {
         strcpy(localNames->localNames[localNames->curName].str, node->str);
-        curOffset = localNames->curOffset;
+        curOffset = localNames->curName;
         localNames->localNames[localNames->curName].curOffset = curOffset;
         localNames->curName++;
-        localNames->curOffset++;
     }
     else
     {
@@ -234,7 +231,7 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
     assert(node != nullptr);
     assert(code != nullptr);
 
-    TableLocalNames newLocalNames = {{}, 0, 0};
+    TableLocalNames newLocalNames = {{}, 0};
 
     if (node->leftChild->leftChild->nodeType == MAIN)
     {
@@ -347,7 +344,7 @@ static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *loc
                           "PUSH %d\n"
                           "ADD\n"
                           "POP ex\n"
-                          "CALL %s\n", localNames->curOffset, node->leftChild->str);
+                          "CALL %s\n", localNames->curName, node->leftChild->str);
 
             fprintf(code, "POP ex\n"
                           "PUSH gx\n");
@@ -514,7 +511,7 @@ void GenerateAsmCode(Tree_t *tree)
 
     fprintf(code, "CRT\n"
                   "PUSH %d\n"
-                  "POP ex\n", globalNames.curOffset);
+                  "POP ex\n", globalNames.curName);
 
     FillTableFunctions(tree->root);
     FindAndPrintGlobalVar(tree, code);
@@ -523,7 +520,7 @@ void GenerateAsmCode(Tree_t *tree)
         printf("%s - %d\n", globalNames.globalNames[i].str, globalNames.globalNames[i].curOffset);
     }*/
 
-    TableLocalNames localNames = {{}, 0, 0};
+    TableLocalNames localNames = {{}, 0};
 
     fprintf(code, "CALL MAIN\n"
                   "HLT\n");
