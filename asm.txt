@@ -118,6 +118,178 @@ PUSH [dx]
 OUT
 RET
 :next1
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+MUL
+PUSH 4
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+MUL
+PUSH ex
+PUSH 2
+ADD
+POP dx
+PUSH [dx]
+MUL
+SUB
+PUSH ex
+PUSH 3
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 3
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JB next6
+JMP next7
+:next6
+PUSH 0
+OUT
+RET
+:next7
+PUSH ex
+PUSH 3
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JE next8
+JMP next9
+:next8
+PUSH 0
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+SUB
+PUSH 2
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+MUL
+DIV
+PUSH ex
+PUSH 4
+ADD
+POP dx
+POP [dx]
+PUSH 1
+OUT
+PUSH ex
+PUSH 4
+ADD
+POP dx
+PUSH [dx]
+OUT
+RET
+:next9
+PUSH ex
+PUSH 3
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JA next10
+JMP next11
+:next10
+PUSH ex
+PUSH 3
+ADD
+POP dx
+PUSH [dx]
+POP fx
+SQRT fx
+PUSH fx
+PUSH ex
+PUSH 3
+ADD
+POP dx
+POP [dx]
+PUSH 0
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+SUB
+PUSH ex
+PUSH 3
+ADD
+POP dx
+PUSH [dx]
+ADD
+PUSH 2
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+MUL
+DIV
+PUSH ex
+PUSH 4
+ADD
+POP dx
+POP [dx]
+PUSH 0
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+SUB
+PUSH ex
+PUSH 3
+ADD
+POP dx
+PUSH [dx]
+SUB
+PUSH 2
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+MUL
+DIV
+PUSH ex
+PUSH 5
+ADD
+POP dx
+POP [dx]
+PUSH 2
+OUT
+PUSH ex
+PUSH 4
+ADD
+POP dx
+PUSH [dx]
+OUT
+PUSH ex
+PUSH 5
+ADD
+POP dx
+PUSH [dx]
+OUT
+RET
+:next11
 RET
 :'f'
 PUSH ax
@@ -138,7 +310,7 @@ ADD
 POP dx
 PUSH [dx]
 PUSH 0
-JE next6
+JE next12
 PUSH 0
 PUSH ex
 PUSH 0
@@ -154,24 +326,24 @@ PUSH [dx]
 DIV
 POP gx
 RET
-JMP next7
-:next6
+JMP next13
+:next12
 PUSH ex
 PUSH 0
 ADD
 POP dx
 PUSH [dx]
 PUSH 0
-JE next8
+JE next14
 PUSH 0
 POP gx
 RET
-JMP next9
-:next8
+JMP next15
+:next14
 PUSH 0
 PUSH 1
 SUB
 POP gx
 RET
-:next9
-:next7
+:next15
+:next13
