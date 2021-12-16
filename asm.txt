@@ -1,30 +1,80 @@
 CRT
+PUSH 0
+POP ex
 CALL MAIN
 HLT
 :MAIN
+PUSH ex
+PUSH 1
+ADD
+POP ex
 IN
-POP [1]
-PUSH [1]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
 POP ax
+PUSH ex
+PUSH ex
+PUSH 1
+ADD
+POP ex
 CALL 'fac'
+POP ex
 PUSH gx
-POP [1]
-PUSH [1]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
 OUT
 RET
 :'fac'
 PUSH ax
-POP [3]
-PUSH [3]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
 PUSH 0
 JE next0
-PUSH [3]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
 PUSH 1
 SUB
 POP ax
+PUSH ex
+PUSH ex
+PUSH 1
+ADD
+POP ex
 CALL 'fac'
+POP ex
 PUSH gx
-PUSH [3]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
 MUL
 POP gx
 RET

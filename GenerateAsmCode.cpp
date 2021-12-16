@@ -7,7 +7,7 @@ const char *NAME_OUTPUT_FILE = "asm.txt";
 const int NO_VARIABLE_IN_TABLE_NAME = -1;
 const int NO_FUNCTION_IN_TABLE_NAME = -1;
 
-TableGlobalNames globalNames = {{}, 0, 1};
+TableGlobalNames globalNames = {{}, 0, 0};
 TableFunctions functions = {};
 
 int curLabel = 0;
@@ -234,11 +234,16 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
     assert(node != nullptr);
     assert(code != nullptr);
 
-    TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
+    TableLocalNames newLocalNames = {{}, 0, 0};
 
     if (node->leftChild->leftChild->nodeType == MAIN)
     {
         fprintf(code, ":MAIN\n");
+
+        fprintf(code, "PUSH ex\n"
+                      "PUSH 1\n"
+                      "ADD\n"
+                      "POP ex\n");
 
         ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
         memcpy(localNames, &newLocalNames, sizeof(TableLocalNames));
@@ -252,15 +257,23 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
             if (node->leftChild->rightChild != nullptr)
             {
                 Node_t *node1 = node->leftChild->rightChild;
-                CheckTableLocalNames(node->rightChild, &newLocalNames);
+                CheckTableLocalNames(node1->rightChild, &newLocalNames);
                 fprintf(code, "PUSH ax\n"
-                              "POP [%d]\n", newLocalNames.curOffset);
+                              "PUSH ex\n"
+                              "PUSH %d\n"
+                              "ADD\n"
+                              "POP dx\n"
+                              "POP [dx]\n", CheckTableLocalNames(node1->rightChild,&newLocalNames));
                 while (node1->leftChild != nullptr)
                 {
                     node1 = node1->leftChild;
-                    CheckTableLocalNames(node->rightChild, &newLocalNames);
+                    CheckTableLocalNames(node1->rightChild, &newLocalNames);
                     fprintf(code, "PUSH bx\n"
-                                  "POP [%d]\n", newLocalNames.curOffset);
+                                  "PUSH ex\n"
+                                  "PUSH %d\n"
+                                  "PUSH ADD\n"
+                                  "POP dx\n"
+                                  "POP [dx]\n", CheckTableLocalNames(node1->rightChild,&newLocalNames));
                     //! ToDo other register (extensibility)
                 }
             }
@@ -296,7 +309,7 @@ static void ConvertReturnNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
 }
 
 //! fx - helpful register for sqrt operation
-//! ax - helpful register for passing parameters to the function
+//! ax and bx - helpful register for passing parameters to the function
 static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
 {
     assert(node       != nullptr);
@@ -328,8 +341,16 @@ static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *loc
                     //! ToDo other register (extensibility)
                 }
             }
-            fprintf(code, "CALL %s\n", node->leftChild->str);
-            fprintf(code, "PUSH gx\n");
+            fprintf(code, "PUSH ex\n");
+
+            fprintf(code, "PUSH ex\n"
+                          "PUSH %d\n"
+                          "ADD\n"
+                          "POP ex\n"
+                          "CALL %s\n", localNames->curOffset, node->leftChild->str);
+
+            fprintf(code, "POP ex\n"
+                          "PUSH gx\n");
         }
         else
         {
@@ -380,8 +401,12 @@ static void ConvertAssignNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
     assert(localNames != nullptr);
 
     ConvertSubtreeInCode(node->rightChild, code, localNames);
-    size_t curOffset = CheckTableLocalNames(node->leftChild, localNames);
-    fprintf(code, "POP [%zu]\n", curOffset);
+    int curOffset = CheckTableLocalNames(node->leftChild, localNames);
+    fprintf(code, "PUSH ex\n"
+                  "PUSH %d\n"
+                  "ADD\n"
+                  "POP dx\n"
+                  "POP [dx]\n", curOffset);
 }
 
 static void ConvertConstNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
@@ -403,9 +428,16 @@ static void ConvertLocVariableNodeIncode(Node_t *node, FILE *code, TableLocalNam
     if (curOffset == NO_VARIABLE_IN_TABLE_NAME)
     {
         curOffset = CheckTableLocalNames(node, localNames);
+        fprintf(code, "PUSH ex\n"
+                      "PUSH %d\n"
+                      "ADD\n"
+                      "POP dx\n"
+                      "PUSH [dx]\n", curOffset);
     }
-
-    fprintf(code, "PUSH [%d]\n", curOffset);
+    else
+    {
+        fprintf(code, "PUSH [%d]\n", curOffset);
+    }
 }
 
 static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
@@ -467,6 +499,7 @@ static void ConvertSubtreeInCode(Node_t *node, FILE *code, TableLocalNames *loca
     if (node->rightChild != nullptr) { ConvertSubtreeInCode(node->rightChild, code, localNames); }
 }
 
+//! dx and ex - register for fixing the shift
 void GenerateAsmCode(Tree_t *tree)
 {
     assert(tree != nullptr);
@@ -479,7 +512,9 @@ void GenerateAsmCode(Tree_t *tree)
         return;
     }
 
-    fprintf(code, "CRT\n");
+    fprintf(code, "CRT\n"
+                  "PUSH %d\n"
+                  "POP ex\n", globalNames.curOffset);
 
     FillTableFunctions(tree->root);
     FindAndPrintGlobalVar(tree, code);
@@ -488,7 +523,7 @@ void GenerateAsmCode(Tree_t *tree)
         printf("%s - %d\n", globalNames.globalNames[i].str, globalNames.globalNames[i].curOffset);
     }*/
 
-    TableLocalNames localNames = {{}, 0, globalNames.curOffset};
+    TableLocalNames localNames = {{}, 0, 0};
 
     fprintf(code, "CALL MAIN\n"
                   "HLT\n");
