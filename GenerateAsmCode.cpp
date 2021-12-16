@@ -268,7 +268,7 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
                     fprintf(code, "PUSH bx\n"
                                   "PUSH ex\n"
                                   "PUSH %d\n"
-                                  "PUSH ADD\n"
+                                  "ADD\n"
                                   "POP dx\n"
                                   "POP [dx]\n", CheckTableLocalNames(node1->rightChild,&newLocalNames));
                     //! ToDo other register (extensibility)
@@ -323,7 +323,7 @@ static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *loc
     {
         int isFunctionInTableFunctions = CheckTableFunctions(node->leftChild);
 
-        if (CheckTableFunctions(node->leftChild) != NO_FUNCTION_IN_TABLE_NAME)
+        if (isFunctionInTableFunctions != NO_FUNCTION_IN_TABLE_NAME)
         {
             if (node->rightChild != nullptr)
             {
@@ -367,7 +367,8 @@ static void ConvertIfNodeInCode(Node_t *node, FILE *code, TableLocalNames *local
 
     ConvertSubtreeInCode(node->leftChild, code, localNames);
     label = GenerateLabel();
-    if (node->rightChild->rightChild != nullptr) { ConvertSubtreeInCode(node->rightChild->rightChild, code, localNames); fprintf(code, "JMP next%zu\n", label); }
+    if (node->rightChild->rightChild != nullptr) { ConvertSubtreeInCode(node->rightChild->rightChild, code, localNames); }
+    fprintf(code, "JMP next%zu\n", label);
     fprintf(code, ":next%zu\n", label - 1);
     ConvertSubtreeInCode(node->rightChild->leftChild, code, localNames);
     fprintf(code, ":next%zu\n", label);
@@ -450,8 +451,8 @@ static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLoca
         case (int)ADD : { fprintf(code, "ADD\n")                         ; break; }
         case (int)SUB : { fprintf(code, "SUB\n")                         ; break; }
         case (int)MUL : { fprintf(code, "MUL\n")                         ; break; }
-        case (int)DIV : { fprintf(code, "ADD\n")                         ; break; }
-        case (int)POW : { fprintf(code, "ADD\n")                         ; break; }
+        case (int)DIV : { fprintf(code, "DIV\n")                         ; break; }
+        case (int)POW : { fprintf(code, "POW\n")                         ; break; }
         case (int)JA  : { fprintf(code, "JA next%d\n" , GenerateLabel()) ; break; }
         case (int)JB  : { fprintf(code, "JB next%d\n" , GenerateLabel()) ; break; }
         case (int)JE  : { fprintf(code, "JE next%d\n" , GenerateLabel()) ; break; }
@@ -514,6 +515,10 @@ void GenerateAsmCode(Tree_t *tree)
                   "POP ex\n", globalNames.curName);
 
     FillTableFunctions(tree->root);
+    /*for (int i = 0; i < functions.curName; i++)
+    {
+        printf("%s - %d\n", functions.functions[i].str, functions.functions[i].curOffset);
+    }*/
     FindAndPrintGlobalVar(tree, code);
     /*for (int i = 0; i < globalNames.curName; i++)
     {

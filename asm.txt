@@ -14,36 +14,33 @@ PUSH 0
 ADD
 POP dx
 POP [dx]
-PUSH ex
-PUSH 0
-ADD
-POP dx
-PUSH [dx]
-POP ax
-PUSH ex
+IN
 PUSH ex
 PUSH 1
 ADD
-POP ex
-CALL 'fac'
-POP ex
-PUSH gx
+POP dx
+POP [dx]
+IN
 PUSH ex
-PUSH 0
+PUSH 2
 ADD
 POP dx
 POP [dx]
-PUSH ex
 PUSH 0
+PUSH ex
+PUSH 3
 ADD
 POP dx
-PUSH [dx]
-OUT
-RET
-:'fac'
-PUSH ax
-PUSH ex
+POP [dx]
 PUSH 0
+PUSH ex
+PUSH 4
+ADD
+POP dx
+POP [dx]
+PUSH 0
+PUSH ex
+PUSH 5
 ADD
 POP dx
 POP [dx]
@@ -54,33 +51,127 @@ POP dx
 PUSH [dx]
 PUSH 0
 JE next0
+JMP next1
+:next0
 PUSH ex
-PUSH 0
+PUSH 2
 ADD
 POP dx
 PUSH [dx]
-PUSH 1
-SUB
 POP ax
-PUSH ex
 PUSH ex
 PUSH 1
 ADD
+POP dx
+PUSH [dx]
+POP bx
+PUSH ex
+PUSH ex
+PUSH 6
+ADD
 POP ex
-CALL 'fac'
+CALL 'f'
 POP ex
 PUSH gx
 PUSH ex
+PUSH 4
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 4
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+PUSH 1
+SUB
+JE next2
+JMP next3
+:next2
+PUSH 0
+PUSH 1
+SUB
+OUT
+RET
+:next3
+PUSH ex
+PUSH 4
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JE next4
+JMP next5
+:next4
+PUSH 0
+OUT
+RET
+:next5
+PUSH 1
+OUT
+PUSH ex
+PUSH 4
+ADD
+POP dx
+PUSH [dx]
+OUT
+RET
+:next1
+RET
+:'f'
+PUSH ax
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH bx
+PUSH ex
+PUSH 1
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JE next6
+PUSH 0
+PUSH ex
 PUSH 0
 ADD
 POP dx
 PUSH [dx]
-MUL
-POP gx
-RET
-JMP next1
-:next0
+SUB
+PUSH ex
 PUSH 1
+ADD
+POP dx
+PUSH [dx]
+DIV
 POP gx
 RET
-:next1
+JMP next7
+:next6
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JE next8
+PUSH 0
+POP gx
+RET
+JMP next9
+:next8
+PUSH 0
+PUSH 1
+SUB
+POP gx
+RET
+:next9
+:next7
