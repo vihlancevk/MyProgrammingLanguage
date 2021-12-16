@@ -1,10 +1,14 @@
+globalVar1 = 1;
+
 main()
 {
-    a = scan();
-    
-    a = sqrt(a);
+    a = globalVar1 * (globalVar2 - globalVar3);
     
     print(a);
     
     return ;
 }
+
+globalVar2 = 2;
+
+globalVar3 = 3;

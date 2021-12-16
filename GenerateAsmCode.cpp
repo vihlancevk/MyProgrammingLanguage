@@ -4,6 +4,9 @@
 #include "GenerateAsmCode.h"
 
 const char *NAME_OUTPUT_FILE = "asm.txt";
+const int NO_VARIABLE_IN_TABLE_NAME = -1;
+
+TableGlobalNames globalNames = {{}, 0, 1};
 
 size_t curLabel = 0;
 
@@ -12,20 +15,14 @@ static size_t GenerateLabel()
     return curLabel++;
 }
 
-static size_t GetLabel()
-{
-    curLabel--;
-    return curLabel++;
-}
-
-static int NodeVisitor(Node_t *node)
+static int NodeVisitorForSearchMain(Node_t *node)
 {
     assert(node != nullptr);
 
     if (node->nodeType == MAIN) { return 1; }
 
-    if (node->leftChild  != nullptr) { if (NodeVisitor(node->leftChild )) { return 1; } }
-    if (node->rightChild != nullptr) { if (NodeVisitor(node->rightChild)) { return 1; } }
+    if (node->leftChild  != nullptr) { if (NodeVisitorForSearchMain(node->leftChild )) { return 1; } }
+    if (node->rightChild != nullptr) { if (NodeVisitorForSearchMain(node->rightChild)) { return 1; } }
 
     return 0;
 }
@@ -34,17 +31,86 @@ static int FindMain(Tree_t *tree)
 {
     assert(tree != nullptr);
 
-    return NodeVisitor(tree->root);
+    return NodeVisitorForSearchMain(tree->root);
 }
 
-static size_t CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
+static void NodeVisitorForFindGlobalVar(Tree_t *tree, Node_t *node)
+{
+    assert(tree != nullptr);
+    assert(node != nullptr);
+
+    Node_t *ptrNode = nullptr;
+
+    if (node->leftChild != nullptr)
+    {
+        if (node->leftChild->nodeType == STATEMENT && node->leftChild->rightChild->nodeType == ASSIGN)
+        {
+            strcpy(globalNames.globalNames[globalNames.curName].str, node->leftChild->rightChild->str);
+            globalNames.globalNames[globalNames.curName].curOffset = globalNames.curOffset;
+            globalNames.curName++;
+            globalNames.curOffset++;
+            if (node->leftChild->leftChild != nullptr)
+            {
+                ptrNode = node->leftChild;
+                node->leftChild = ptrNode->leftChild;
+                ptrNode->leftChild->parent = node;
+                ptrNode->leftChild = nullptr;
+                ptrNode->parent = nullptr;
+                SubtreeDtor(ptrNode);
+                node = node->leftChild;
+                NodeVisitorForFindGlobalVar(tree, node);
+            }
+            else
+            {
+                ptrNode = node->leftChild;
+                node->leftChild = ptrNode->leftChild;
+                ptrNode->parent = nullptr;
+                SubtreeDtor(ptrNode);
+            }
+        }
+    }
+}
+
+static void FindGlobalVar(Tree_t *tree)
+{
+    assert(tree != nullptr);
+
+    Node_t *node = tree->root;
+
+    while (node->nodeType == STATEMENT && node->rightChild->nodeType == ASSIGN)
+    {
+        if (globalNames.curName < NUMBERS_VARIABLE)
+        {
+            strcpy(globalNames.globalNames[globalNames.curName].str, node->rightChild->leftChild->str);
+            globalNames.globalNames[globalNames.curName].curOffset = globalNames.curOffset;
+            globalNames.curName++;
+            globalNames.curOffset++;
+            node = node->leftChild;
+            if (node->leftChild == nullptr) { break; }
+        }
+        else
+        {
+            printf("Invalid number of global variables\n");
+            return;
+        }
+    }
+
+    tree->root = node;
+    tree->root->parent = nullptr;
+
+    NodeVisitorForFindGlobalVar(tree, tree->root);
+
+    TreeDump(tree);
+}
+
+static int CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
 {
     assert(node       != nullptr);
     assert(localNames != nullptr);
 
-    size_t curOffset = -1;
+    int curOffset = NO_VARIABLE_IN_TABLE_NAME;
 
-    for (size_t i = 0; i < NUMBERS_VARIABLE; i++)
+    for (int i = 0; i < NUMBERS_VARIABLE; i++)
     {
         if (strcmp(node->str, localNames->localNames[i].str) == 0)
         {
@@ -53,7 +119,7 @@ static size_t CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
         }
     }
 
-    if (localNames->curName <= NUMBERS_VARIABLE)
+    if (localNames->curName < NUMBERS_VARIABLE)
     {
         strcpy(localNames->localNames[localNames->curName].str, node->str);
         curOffset = localNames->curOffset;
@@ -64,9 +130,27 @@ static size_t CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
     }
     else
     {
-        printf("Invalid number of variables\n");
+        printf("Invalid number of local variables\n");
         return curOffset;
     }
+}
+
+static int CheckTableGlobalNames(Node_t *node)
+{
+    assert(node != nullptr);
+
+    int curOffset = NO_VARIABLE_IN_TABLE_NAME;
+
+    for (int i = 0; i < NUMBERS_VARIABLE; i++)
+    {
+        if (strcmp(node->str, globalNames.globalNames[i].str) == 0)
+        {
+            curOffset = globalNames.globalNames[i].curOffset;
+            return curOffset;
+        }
+    }
+
+    return curOffset;
 }
 
 static void ConvertSubtreeInCode            (Node_t *node, FILE *code, TableLocalNames *localNames);
@@ -99,9 +183,7 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
         //! ToDo smth
     }
 
-    TableLocalNames newLocalNames = {};
-    newLocalNames.curName = 1;
-    newLocalNames.curOffset = 1;
+    TableLocalNames newLocalNames = {{}, 0, 1};
 
     ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
 }
@@ -205,8 +287,13 @@ static void ConvertVariableNodeIncode(Node_t *node, FILE *code, TableLocalNames 
     assert(code       != nullptr);
     assert(localNames != nullptr);
 
-    size_t curOffset = CheckTableLocalNames(node, localNames);
-    fprintf(code, "PUSH [%zu]\n", curOffset);
+    int  curOffset = CheckTableGlobalNames(node);
+    if (curOffset == NO_VARIABLE_IN_TABLE_NAME)
+    {
+        curOffset = CheckTableLocalNames(node, localNames);
+    }
+
+    fprintf(code, "PUSH [%d]\n", curOffset);
 }
 
 static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
@@ -280,9 +367,9 @@ void GenerateAsmCode(Tree_t *tree)
         return;
     }
 
-    TableLocalNames localNames = {};
-    localNames.curName = 1;
-    localNames.curOffset = 1;
+    FindGlobalVar(tree);
+
+    TableLocalNames localNames = {{}, 0, globalNames.curOffset};
 
     fprintf(code, "CRT\n"
                   "CALL MAIN\n"

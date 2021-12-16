@@ -29,6 +29,7 @@ int main()
     parser.tokens = lexer.tokens;
     Tree_t tree = {};
     parser.tree = &tree;
+    Tree_t *ptrBeginTree = parser.tree;
     TreeCtor(parser.tree);
     parser.tree = SyntacticAnalysis(&parser);
     TreeDump(parser.tree);
@@ -37,7 +38,7 @@ int main()
 
     free(str);
     free(lexer.tokens);
-    TreeDtor(parser.tree);
+    TreeDtor(ptrBeginTree);
     fclose(finput);
     return 0;
 }
