@@ -34,10 +34,11 @@ static int FindMain(Tree_t *tree)
     return NodeVisitorForSearchMain(tree->root);
 }
 
-static void NodeVisitorForFindGlobalVar(Tree_t *tree, Node_t *node)
+static void NodeVisitorForFindAndPrintGlobalVar(Tree_t *tree, Node_t *node, FILE *code)
 {
     assert(tree != nullptr);
     assert(node != nullptr);
+    assert(code != nullptr);
 
     Node_t *ptrNode = nullptr;
 
@@ -45,8 +46,18 @@ static void NodeVisitorForFindGlobalVar(Tree_t *tree, Node_t *node)
     {
         if (node->leftChild->nodeType == STATEMENT && node->leftChild->rightChild->nodeType == ASSIGN)
         {
-            strcpy(globalNames.globalNames[globalNames.curName].str, node->leftChild->rightChild->str);
+            strcpy(globalNames.globalNames[globalNames.curName].str, node->leftChild->rightChild->leftChild->str);
             globalNames.globalNames[globalNames.curName].curOffset = globalNames.curOffset;
+            if (node->leftChild->rightChild->rightChild->nodeType == CONST)
+            {
+                fprintf(code, "PUSH %g\n"
+                              "POP [%d]\n", node->leftChild->rightChild->rightChild->value, globalNames.curOffset);
+            }
+            else
+            {
+                printf("The global variable is not assigned a constant!\n");
+                return;
+            }
             globalNames.curName++;
             globalNames.curOffset++;
             if (node->leftChild->leftChild != nullptr)
@@ -58,7 +69,7 @@ static void NodeVisitorForFindGlobalVar(Tree_t *tree, Node_t *node)
                 ptrNode->parent = nullptr;
                 SubtreeDtor(ptrNode);
                 node = node->leftChild;
-                NodeVisitorForFindGlobalVar(tree, node);
+                NodeVisitorForFindAndPrintGlobalVar(tree, node, code);
             }
             else
             {
@@ -71,9 +82,11 @@ static void NodeVisitorForFindGlobalVar(Tree_t *tree, Node_t *node)
     }
 }
 
-static void FindGlobalVar(Tree_t *tree)
+//! Only a constant can be assigned to a global variable, otherwise it will lead to an error
+static void FindAndPrintGlobalVar(Tree_t *tree, FILE *code)
 {
     assert(tree != nullptr);
+    assert(code != nullptr);
 
     Node_t *node = tree->root;
 
@@ -83,6 +96,16 @@ static void FindGlobalVar(Tree_t *tree)
         {
             strcpy(globalNames.globalNames[globalNames.curName].str, node->rightChild->leftChild->str);
             globalNames.globalNames[globalNames.curName].curOffset = globalNames.curOffset;
+            if (node->rightChild->rightChild->nodeType == CONST)
+            {
+                fprintf(code, "PUSH %g\n"
+                              "POP [%d]\n", node->rightChild->rightChild->value, globalNames.curOffset);
+            }
+            else
+            {
+                printf("The global variable is not assigned a constant!\n");
+                return;
+            }
             globalNames.curName++;
             globalNames.curOffset++;
             node = node->leftChild;
@@ -90,7 +113,7 @@ static void FindGlobalVar(Tree_t *tree)
         }
         else
         {
-            printf("Invalid number of global variables\n");
+            printf("Invalid number of global variables!\n");
             return;
         }
     }
@@ -98,9 +121,27 @@ static void FindGlobalVar(Tree_t *tree)
     tree->root = node;
     tree->root->parent = nullptr;
 
-    NodeVisitorForFindGlobalVar(tree, tree->root);
+    NodeVisitorForFindAndPrintGlobalVar(tree, tree->root, code);
 
     TreeDump(tree);
+}
+
+static int CheckTableGlobalNames(Node_t *node)
+{
+    assert(node != nullptr);
+
+    int curOffset = NO_VARIABLE_IN_TABLE_NAME;
+
+    for (int i = 0; i < NUMBERS_VARIABLE; i++)
+    {
+        if (strcmp(node->str, globalNames.globalNames[i].str) == 0)
+        {
+            curOffset = globalNames.globalNames[i].curOffset;
+            return curOffset;
+        }
+    }
+
+    return curOffset;
 }
 
 static int CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
@@ -130,27 +171,9 @@ static int CheckTableLocalNames(Node_t *node, TableLocalNames *localNames)
     }
     else
     {
-        printf("Invalid number of local variables\n");
+        printf("Invalid number of local variables!\n");
         return curOffset;
     }
-}
-
-static int CheckTableGlobalNames(Node_t *node)
-{
-    assert(node != nullptr);
-
-    int curOffset = NO_VARIABLE_IN_TABLE_NAME;
-
-    for (int i = 0; i < NUMBERS_VARIABLE; i++)
-    {
-        if (strcmp(node->str, globalNames.globalNames[i].str) == 0)
-        {
-            curOffset = globalNames.globalNames[i].curOffset;
-            return curOffset;
-        }
-    }
-
-    return curOffset;
 }
 
 static void ConvertSubtreeInCode            (Node_t *node, FILE *code, TableLocalNames *localNames);
@@ -161,7 +184,7 @@ static void ConvertIfNodeInCode             (Node_t *node, FILE *code, TableLoca
 static void ConvertWhileNodeInCode          (Node_t *node, FILE *code, TableLocalNames *localNames);
 static void ConvertAssignNodeInCode         (Node_t *node, FILE *code, TableLocalNames *localNames);
 static void ConvertConstNodeInCode          (Node_t *node, FILE *code, TableLocalNames *localNames);
-static void ConvertVariableNodeIncode       (Node_t *node, FILE *code, TableLocalNames *localNames);
+static void ConvertLocVariableNodeIncode    (Node_t *node, FILE *code, TableLocalNames *localNames);
 static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames);
 
 static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
@@ -281,7 +304,7 @@ static void ConvertConstNodeInCode(Node_t *node, FILE *code, TableLocalNames *lo
     fprintf(code, "PUSH %g\n", node->value);
 }
 
-static void ConvertVariableNodeIncode(Node_t *node, FILE *code, TableLocalNames *localNames)
+static void ConvertLocVariableNodeIncode(Node_t *node, FILE *code, TableLocalNames *localNames)
 {
     assert(node       != nullptr);
     assert(code       != nullptr);
@@ -317,7 +340,7 @@ static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLoca
         case (int)JAE : { fprintf(code, "JAE next%d\n", GenerateLabel()) ; break; }
         case (int)JBE : { fprintf(code, "JBE next%d\n", GenerateLabel()) ; break; }
         case (int)JNE : { fprintf(code, "JNE next%d\n", GenerateLabel()) ; break; }
-        default       : { printf("Invalid binary operations\n")          ; break; }
+        default       : { printf("Invalid binary operations!\n")         ; break; }
     }
 }
 
@@ -336,7 +359,7 @@ static void ConvertSubtreeInCode(Node_t *node, FILE *code, TableLocalNames *loca
         case (int)WHILE    : { ConvertWhileNodeInCode          (node, code, localNames); return; }
         case (int)ASSIGN   : { ConvertAssignNodeInCode         (node, code, localNames); return; }
         case (int)CONST    : { ConvertConstNodeInCode          (node, code, localNames); return; }
-        case (int)VARIABLE : { ConvertVariableNodeIncode       (node, code, localNames); return; }
+        case (int)VARIABLE : { ConvertLocVariableNodeIncode    (node, code, localNames); return; }
         case (int)ADD      : { ConvertBinaryOperationNodeInCode(node, code, localNames); return; }
         case (int)SUB      : { ConvertBinaryOperationNodeInCode(node, code, localNames); return; }
         case (int)MUL      : { ConvertBinaryOperationNodeInCode(node, code, localNames); return; }
@@ -363,16 +386,21 @@ void GenerateAsmCode(Tree_t *tree)
 
     if (!FindMain(tree))
     {
-        printf("No main declaration\n");
+        printf("No main declaration!\n");
         return;
     }
 
-    FindGlobalVar(tree);
+    fprintf(code, "CRT\n");
+
+    FindAndPrintGlobalVar(tree, code);
+    /*for (int i = 0; i < globalNames.curName; i++)
+    {
+        printf("%s - %d\n", globalNames.globalNames[i].str, globalNames.globalNames[i].curOffset);
+    }*/
 
     TableLocalNames localNames = {{}, 0, globalNames.curOffset};
 
-    fprintf(code, "CRT\n"
-                  "CALL MAIN\n"
+    fprintf(code, "CALL MAIN\n"
                   "HLT\n");
 
     ConvertSubtreeInCode(tree->root, code, &localNames);
