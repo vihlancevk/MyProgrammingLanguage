@@ -1,6 +1,14 @@
 CRT
-PUSH
-POP
 CALL MAIN
-hlt
+HLT
 :MAIN
+IN
+POP [1]
+PUSH [1]
+POP fx
+SQRT fx
+PUSH fx
+POP [1]
+PUSH [1]
+OUT
+RET

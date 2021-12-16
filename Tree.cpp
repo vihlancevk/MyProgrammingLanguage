@@ -7,7 +7,6 @@
 
 #define DEBUG
 
-const size_t STR_MAX_SIZE = 120;
 const size_t NODEVIEW_STR_MAX_SIZE = 20;
 const int NOT_EQUAL = 0;
 const int EQUAL = 1;
@@ -37,36 +36,31 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)CONST    : { BUILD_NODEVIEW_("circle"       , "yellow" ); }
         case (int)VARIABLE : { BUILD_NODEVIEW_("rectangle"    , "cyan"   ); }
         case (int)FUNC     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
-        case (int)PRINT    : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
-        case (int)SCAN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)STATEMENT: { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)DEFINE   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)FUNCTION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)PARAMETR : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)CALL     : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
-        case (int)DECISION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
+        case (int)MAIN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)SCAN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)PRINT    : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)SQRT     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)RETURN   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)IF       : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)WHILE    : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
-        case (int)RETURN   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
-        case (int)MAIN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)DECISION : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)ASSIGN   : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)ADD      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)SUB      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)MUL      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)DIV      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         case (int)POW      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)BAA      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)BAB      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)BAE      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)BAAE     : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)BABE     : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)BANE     : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)OR       : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)AND      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)NOT      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
-        case (int)SIN      : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
-        case (int)COS      : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
-        case (int)LN       : { BUILD_NODEVIEW_("pentagon"     , "red"    ); }
+        case (int)JA       : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)JB       : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)JE       : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)JAE      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)JBE      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
+        case (int)JNE      : { BUILD_NODEVIEW_("diamond"      , "red"    ); }
         default            : { BUILD_NODEVIEW_("rectangle"    , "green"  ); }
     }
 

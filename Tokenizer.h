@@ -3,8 +3,6 @@
 
 #include "Tree.h"
 
-const size_t STR_MAX_SIZE = 400;
-
 enum ErrorCode
 {
     NO_ERROR,

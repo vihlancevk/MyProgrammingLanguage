@@ -5,6 +5,8 @@
 
 typedef char elem_t;
 
+const size_t STR_MAX_SIZE = 400;
+
 enum NodeChild
 {
     RIGHT_CHILD,
@@ -33,20 +35,20 @@ enum NodeType
     CONST      , // 0
     VARIABLE   , // 1
     FUNC       , // 2
-    DEFINE     , // 3
-    FUNCTION   , // 4
-    PARAMETR   , // 5
-    CALL       , // 6
-    MAIN       , // 7
-    RETURN     , // 8
-    STATEMENT  , // 9
-    DECISION   , // 10
-    SEMICOLON  , // 11
-    PRINT      , // 12
-    SCAN       , // 13
-    IF         , // 14
-    ELSE       , // 15
-    WHILE      , // 16
+    STATEMENT  , // 3
+    DEFINE     , // 4
+    FUNCTION   , // 5
+    PARAMETR   , // 6
+    CALL       , // 7
+    MAIN       , // 8
+    SCAN       , // 9
+    PRINT      , // 10
+    SQRT       , // 11
+    RETURN     , // 12
+    IF         , // 13
+    ELSE       , // 14
+    WHILE      , // 15
+    DECISION   , // 16
     ASSIGN     , // 17
     LSB        , // 18
     RSB        , // 19
@@ -55,23 +57,18 @@ enum NodeType
     LAB        , // 22
     RAB        , // 23
     COMMA      , // 24
-    ADD        , // 25
-    SUB        , // 26
-    MUL        , // 27
-    DIV        , // 28
-    POW        , // 29
-    BAA        , // 30
-    BAB        , // 31
-    BAE        , // 32
-    BAAE       , // 33
-    BABE       , // 34
-    BANE       , // 35
-    OR         , // 36
-    AND        , // 37
-    NOT        , // 38
-    LN         , // 39
-    SIN        , // 40
-    COS          // 41
+    SEMICOLON  , // 25
+    ADD        , // 26
+    SUB        , // 27
+    MUL        , // 28
+    DIV        , // 29
+    POW        , // 30
+    JA         , // 31
+    JB         , // 32
+    JE         , // 33
+    JAE        , // 34
+    JBE        , // 35
+    JNE          // 36
 };
 
 struct Node_t

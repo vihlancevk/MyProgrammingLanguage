@@ -32,23 +32,18 @@ static Node_t* GetCall (Parser *parser);
 static Node_t* GetArray(Parser *parser);
 static Node_t* GetId   (Parser *parser);
 
-const int NUMBER_UNARY_OPERATIONS = 4;
+const int NUMBER_UNARY_OPERATIONS = 0;
 const int NUMBER_BOOL_OPERATIONS  = 8;
 const double NO_VALUE = -1.0;
 
-UnaryOperation unaryOperation[NUMBER_UNARY_OPERATIONS] = {{ SIN, (char*)"sin"},
-                                                          { COS, (char*)"cos"},
-                                                          { LN , (char*)"lg" },
-                                                          { NOT, (char*)"!"  }};
+UnaryOperation unaryOperation[NUMBER_UNARY_OPERATIONS] = {};
 
-BoolOperation boolOperation[NUMBER_BOOL_OPERATIONS] = {{BAA , (char*)">" },
-                                                       {BAB , (char*)"<" },
-                                                       {BAE , (char*)"=="},
-                                                       {BAAE, (char*)">="},
-                                                       {BABE, (char*)"<="},
-                                                       {BANE, (char*)"!="},
-                                                       {OR  , (char*)"||"},
-                                                       {AND , (char*)"&&"}};
+BoolOperation boolOperation[NUMBER_BOOL_OPERATIONS] = {{JA , (char*)">" },
+                                                       {JB , (char*)"<" },
+                                                       {JE , (char*)"=="},
+                                                       {JAE, (char*)">="},
+                                                       {JBE, (char*)"<="},
+                                                       {JNE, (char*)"!="}};
 
 static Node_t* NodeCtor(Node_t *thisNode)
 {
@@ -465,6 +460,7 @@ static Node_t* GetRet(Parser *parser)
         node2->rightChild = GetBool(parser);
         IS_PARSER_ERROR();
         if (node2->rightChild != nullptr) { node2->rightChild->parent = node2; }
+        else                              { parser->curToken--;                }
         SetNodeTypeValueStr(node1, STATEMENT, NO_VALUE, (char*)"statement");
         Require(parser, SEMICOLON);
 
@@ -658,14 +654,15 @@ static Node_t* GetCall (Parser *parser)
     {
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
         Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, CALL, NO_VALUE, (char*)"call");
-        if (parser->tokens[parser->curToken].keyword != PRINT && parser->tokens[parser->curToken].keyword != SCAN)
+        if (parser->tokens[parser->curToken].keyword != SCAN && parser->tokens[parser->curToken].keyword != PRINT && parser->tokens[parser->curToken].keyword != SQRT)
         {
             TreeInsert(parser->tree, node2, LEFT_CHILD, FUNC, NO_VALUE, parser->tokens[parser->curToken].id);
         }
         else
         {
-            if (parser->tokens[parser->curToken].keyword == PRINT) { TreeInsert(parser->tree, node2, LEFT_CHILD, PRINT, NO_VALUE, (char*)"print"); }
-            else                                                   { TreeInsert(parser->tree, node2, LEFT_CHILD, SCAN , NO_VALUE, (char*)"scan") ; }
+            if (parser->tokens[parser->curToken].keyword == SCAN)       { TreeInsert(parser->tree, node2, LEFT_CHILD, SCAN , NO_VALUE, (char*)"scan") ; }
+            else if (parser->tokens[parser->curToken].keyword == PRINT) { TreeInsert(parser->tree, node2, LEFT_CHILD, PRINT, NO_VALUE, (char*)"print"); }
+            else                                                        { TreeInsert(parser->tree, node2, LEFT_CHILD, SQRT , NO_VALUE, (char*)"sqrt") ; }
         }
         parser->curToken = parser->curToken + 2;
         node2->rightChild = GetPar(parser);
