@@ -1,34 +1,36 @@
 CRT
-PUSH 3
-POP [1]
-PUSH 2
-POP [2]
-PUSH 1
-POP [3]
 CALL MAIN
 HLT
 :MAIN
-PUSH [3]
-PUSH [2]
+IN
+POP [1]
 PUSH [1]
-SUB
-MUL
-POP [4]
+POP ax
+CALL 'fac'
+PUSH gx
+POP [1]
+PUSH [1]
+OUT
+RET
+:'fac'
+PUSH ax
+POP [3]
+PUSH [3]
 PUSH 0
-POP [5]
-PUSH [4]
-OUT
-CALL 'foo'
-PUSH [4]
+JE next0
+PUSH [3]
 PUSH 1
-ADD
-POP [4]
-PUSH [4]
-OUT
+SUB
+POP ax
+CALL 'fac'
+PUSH gx
+PUSH [3]
+MUL
+POP gx
 RET
-:'foo'
-PUSH 3
-POP [6]
-PUSH [6]
-OUT
+JMP next1
+:next0
+PUSH 1
+POP gx
 RET
+:next1

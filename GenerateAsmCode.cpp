@@ -234,11 +234,12 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
     assert(node != nullptr);
     assert(code != nullptr);
 
+    TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
+
     if (node->leftChild->leftChild->nodeType == MAIN)
     {
         fprintf(code, ":MAIN\n");
 
-        TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
         ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
         memcpy(localNames, &newLocalNames, sizeof(TableLocalNames));
     }
@@ -248,7 +249,22 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
         {
             fprintf(code, ":%s\n", node->leftChild->leftChild->str);
 
-            TableLocalNames newLocalNames = {{}, 0, localNames->curOffset};
+            if (node->leftChild->rightChild != nullptr)
+            {
+                Node_t *node1 = node->leftChild->rightChild;
+                CheckTableLocalNames(node->rightChild, &newLocalNames);
+                fprintf(code, "PUSH ax\n"
+                              "POP [%d]\n", newLocalNames.curOffset);
+                while (node1->leftChild != nullptr)
+                {
+                    node1 = node1->leftChild;
+                    CheckTableLocalNames(node->rightChild, &newLocalNames);
+                    fprintf(code, "PUSH bx\n"
+                                  "POP [%d]\n", newLocalNames.curOffset);
+                    //! ToDo other register (extensibility)
+                }
+            }
+
             ConvertSubtreeInCode(node->rightChild, code, &newLocalNames);
         }
         else
@@ -256,11 +272,6 @@ static void ConvertDefineNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
             printf("Invalid number of local variables!\n");
             return;
         }
-    }
-
-    if (node->leftChild->rightChild != nullptr)
-    {
-        //! ToDo smth
     }
 }
 
@@ -285,6 +296,7 @@ static void ConvertReturnNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
 }
 
 //! fx - helpful register for sqrt operation
+//! ax - helpful register for passing parameters to the function
 static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
 {
     assert(node       != nullptr);
@@ -303,7 +315,21 @@ static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *loc
 
         if (CheckTableFunctions(node->leftChild) != NO_FUNCTION_IN_TABLE_NAME)
         {
+            if (node->rightChild != nullptr)
+            {
+                Node_t *node1 = node->rightChild;
+                ConvertSubtreeInCode(node1->rightChild, code, localNames);
+                fprintf(code, "POP ax\n");
+                while (node1->leftChild != nullptr)
+                {
+                    node1 = node1->leftChild;
+                    ConvertSubtreeInCode(node1->rightChild, code, localNames);
+                    fprintf(code, "POP bx\n");
+                    //! ToDo other register (extensibility)
+                }
+            }
             fprintf(code, "CALL %s\n", node->leftChild->str);
+            fprintf(code, "PUSH gx\n");
         }
         else
         {
