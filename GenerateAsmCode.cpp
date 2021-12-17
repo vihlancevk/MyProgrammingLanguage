@@ -313,11 +313,16 @@ static void ConvertCallNodeInCode(Node_t *node, FILE *code, TableLocalNames *loc
     assert(code       != nullptr);
     assert(localNames != nullptr);
 
-    if (node->leftChild->nodeType == SCAN || node->leftChild->nodeType == PRINT || node->leftChild->nodeType == SQRT)
+    if (node->leftChild->nodeType == SCAN || node->leftChild->nodeType == PRINT
+        || node->leftChild->nodeType == P_CDOT || node->leftChild->nodeType == P_SPACE
+        || node->leftChild->nodeType == NEW_LINE || node->leftChild->nodeType == SQRT)
     {
-        if (node->leftChild->nodeType == SCAN)       {                                                           fprintf(code, "IN\n")                      ; }
-        else if (node->leftChild->nodeType == PRINT) { ConvertSubtreeInCode(node->rightChild, code, localNames); fprintf(code, "OUT\n")                     ; }
-        else                                         { ConvertSubtreeInCode(node->rightChild, code, localNames); fprintf(code, "POP fx\nSQRT fx\nPUSH fx\n"); }
+        if (node->leftChild->nodeType == SCAN)          {                                                           fprintf(code, "IN\n")                      ; }
+        else if (node->leftChild->nodeType == PRINT)    { ConvertSubtreeInCode(node->rightChild, code, localNames); fprintf(code, "OUT\n")                     ; }
+        else if (node->leftChild->nodeType == P_CDOT)   {                                                           fprintf(code, "P_CDOT\n")                  ; }
+        else if (node->leftChild->nodeType == P_SPACE)  {                                                           fprintf(code, "P_SPACE\n")                 ; }
+        else if (node->leftChild->nodeType == NEW_LINE) {                                                           fprintf(code, "NEW_LINE\n")                ; }
+        else                                            { ConvertSubtreeInCode(node->rightChild, code, localNames); fprintf(code, "POP fx\nSQRT fx\nPUSH fx\n"); }
     }
     else
     {

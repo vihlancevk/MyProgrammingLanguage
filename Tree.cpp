@@ -44,6 +44,9 @@ static void NodeViewBuild(const Node_t *node, NodeView *nodeView)
         case (int)MAIN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)SCAN     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)PRINT    : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)P_CDOT   : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)P_SPACE  : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
+        case (int)NEW_LINE : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)SQRT     : { BUILD_NODEVIEW_("octagon"      , "cyan"   ); }
         case (int)RETURN   : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }
         case (int)IF       : { BUILD_NODEVIEW_("parallelogram", "grey"   ); }

@@ -2,7 +2,6 @@
 #define GENERATE_ASM_CODE_H_
 
 #include "Tree.h"
-#include "Stack.h"
 
 const int INITIAL_CAPACITY = 20;
 const int REG_NAME_SIZE    = 2;

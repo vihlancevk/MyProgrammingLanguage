@@ -654,15 +654,20 @@ static Node_t* GetCall (Parser *parser)
     {
         Node_t *node1 = (Node_t*)calloc(1, sizeof(Node_t));
         Node_t *node2 = TreeInsert(parser->tree, node1, RIGHT_CHILD, CALL, NO_VALUE, (char*)"call");
-        if (parser->tokens[parser->curToken].keyword != SCAN && parser->tokens[parser->curToken].keyword != PRINT && parser->tokens[parser->curToken].keyword != SQRT)
+        if (parser->tokens[parser->curToken].keyword != SCAN && parser->tokens[parser->curToken].keyword != PRINT
+            && parser->tokens[parser->curToken].keyword != P_CDOT && parser->tokens[parser->curToken].keyword != P_SPACE
+            && parser->tokens[parser->curToken].keyword != NEW_LINE && parser->tokens[parser->curToken].keyword != SQRT)
         {
             TreeInsert(parser->tree, node2, LEFT_CHILD, FUNC, NO_VALUE, parser->tokens[parser->curToken].id);
         }
         else
         {
-            if (parser->tokens[parser->curToken].keyword == SCAN)       { TreeInsert(parser->tree, node2, LEFT_CHILD, SCAN , NO_VALUE, (char*)"scan") ; }
-            else if (parser->tokens[parser->curToken].keyword == PRINT) { TreeInsert(parser->tree, node2, LEFT_CHILD, PRINT, NO_VALUE, (char*)"print"); }
-            else                                                        { TreeInsert(parser->tree, node2, LEFT_CHILD, SQRT , NO_VALUE, (char*)"sqrt") ; }
+            if (parser->tokens[parser->curToken].keyword == SCAN)          { TreeInsert(parser->tree, node2, LEFT_CHILD, SCAN     , NO_VALUE, (char*)"scan")    ; }
+            else if (parser->tokens[parser->curToken].keyword == PRINT)    { TreeInsert(parser->tree, node2, LEFT_CHILD, PRINT    , NO_VALUE, (char*)"print")   ; }
+            else if (parser->tokens[parser->curToken].keyword == P_CDOT)   { TreeInsert(parser->tree, node2, LEFT_CHILD, P_CDOT, NO_VALUE, (char*)"pCdot")      ; }
+            else if (parser->tokens[parser->curToken].keyword == P_SPACE)  { TreeInsert(parser->tree, node2, LEFT_CHILD, P_SPACE, NO_VALUE, (char*)"pSpace")    ; }
+            else if (parser->tokens[parser->curToken].keyword == NEW_LINE) { TreeInsert(parser->tree, node2, LEFT_CHILD, NEW_LINE , NO_VALUE, (char*)"newLine") ; }
+            else                                                           { TreeInsert(parser->tree, node2, LEFT_CHILD, SQRT     , NO_VALUE, (char*)"sqrt")    ; }
         }
         parser->curToken = parser->curToken + 2;
         node2->rightChild = GetPar(parser);

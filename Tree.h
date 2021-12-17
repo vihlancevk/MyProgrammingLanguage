@@ -32,43 +32,46 @@ enum TreeErrorCode
 
 enum NodeType
 {
-    CONST      , // 0
-    VARIABLE   , // 1
-    FUNC       , // 2
-    STATEMENT  , // 3
-    DEFINE     , // 4
-    FUNCTION   , // 5
-    PARAMETR   , // 6
-    CALL       , // 7
-    MAIN       , // 8
-    SCAN       , // 9
-    PRINT      , // 10
-    SQRT       , // 11
-    RETURN     , // 12
-    IF         , // 13
-    ELSE       , // 14
-    WHILE      , // 15
-    DECISION   , // 16
-    ASSIGN     , // 17
-    LSB        , // 18
-    RSB        , // 19
-    LB         , // 20
-    RB         , // 21
-    LAB        , // 22
-    RAB        , // 23
-    COMMA      , // 24
-    SEMICOLON  , // 25
-    ADD        , // 26
-    SUB        , // 27
-    MUL        , // 28
-    DIV        , // 29
-    POW        , // 30
-    JA         , // 31
-    JB         , // 32
-    JE         , // 33
-    JAE        , // 34
-    JBE        , // 35
-    JNE          // 36
+    CONST     , // 0
+    VARIABLE  , // 1
+    FUNC      , // 2
+    STATEMENT , // 3
+    DEFINE    , // 4
+    FUNCTION  , // 5
+    PARAMETR  , // 6
+    CALL      , // 7
+    MAIN      , // 8
+    SCAN      , // 9
+    PRINT     , // 10
+    P_CDOT    , // 11
+    P_SPACE   , // 12
+    NEW_LINE  , // 13
+    SQRT      , // 14
+    RETURN    , // 15
+    IF        , // 16
+    ELSE      , // 17
+    WHILE     , // 18
+    DECISION  , // 19
+    ASSIGN    , // 20
+    LSB       , // 21
+    RSB       , // 22
+    LB        , // 23
+    RB        , // 24
+    LAB       , // 25
+    RAB       , // 26
+    COMMA     , // 27
+    SEMICOLON , // 28
+    ADD       , // 29
+    SUB       , // 30
+    MUL       , // 31
+    DIV       , // 32
+    POW       , // 33
+    JA        , // 34
+    JB        , // 35
+    JE        , // 36
+    JAE       , // 37
+    JBE       , // 38
+    JNE         // 39
 };
 
 struct Node_t

@@ -1,0 +1,86 @@
+CRT
+PUSH 0
+POP ex
+CALL MAIN
+HLT
+:MAIN
+PUSH ex
+PUSH 1
+ADD
+POP ex
+IN
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+POP ax
+PUSH ex
+PUSH ex
+PUSH 1
+ADD
+POP ex
+CALL 'fac'
+POP ex
+PUSH gx
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+OUT
+RET
+:'fac'
+PUSH ax
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JE next0
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+PUSH 1
+SUB
+POP ax
+PUSH ex
+PUSH ex
+PUSH 1
+ADD
+POP ex
+CALL 'fac'
+POP ex
+PUSH gx
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+MUL
+POP gx
+RET
+JMP next1
+:next0
+PUSH 1
+POP gx
+RET
+:next1

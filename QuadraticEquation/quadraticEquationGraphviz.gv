@@ -1,0 +1,718 @@
+digraph Tree{
+
+	rankdir=UD;
+
+	node[fontsize=14];
+
+	94325622650528[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622435424[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622435488[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="define"];
+	94325622435968[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="function"];
+	94325622436448[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="main"];
+	94325622649152[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622625248[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622613472[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622608064[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622602720[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622578208[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622576704[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622575200[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622573696[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622570816[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622567936[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622436928[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622436992[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622437472[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622566080[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622566144[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622566624[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="scan"];
+	94325622568000[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622568480[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622568960[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622569024[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622569504[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="scan"];
+	94325622570880[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622571360[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'c'"];
+	94325622571840[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622571904[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622572384[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="scan"];
+	94325622573760[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622574240[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622574720[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622575264[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622575744[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622576224[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622576768[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622577248[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x2'"];
+	94325622577728[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622578272[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622579296[shape=record, shape=diamond, style="filled", fillcolor=red, label="=="];
+	94325622578752[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622579232[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622579776[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622601344[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622598944[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622596960[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622591552[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622585056[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622580256[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622580320[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622580800[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622581280[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622581344[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622581824[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="'f'"];
+	94325622583264[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622582304[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622582368[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622583328[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'c'"];
+	94325622585120[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622586688[shape=record, shape=diamond, style="filled", fillcolor=red, label="=="];
+	94325622585600[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622586208[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622586080[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622586144[shape=record, shape=circle, style="filled", fillcolor=yellow, label="1"];
+	94325622587168[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622590176[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622587648[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622587712[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622588192[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622588672[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622588864[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622588736[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622588800[shape=record, shape=circle, style="filled", fillcolor=yellow, label="1"];
+	94325622590240[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622591616[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622592640[shape=record, shape=diamond, style="filled", fillcolor=red, label="=="];
+	94325622592096[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622592576[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622593120[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622595584[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622593600[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622593664[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622594144[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622594624[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622594688[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622595648[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622597024[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622597504[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622597984[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622598048[shape=record, shape=circle, style="filled", fillcolor=yellow, label="1"];
+	94325622599008[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622599488[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622599968[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622600032[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622601408[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622602784[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622603264[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622607168[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622604704[shape=record, shape=diamond, style="filled", fillcolor=red, label="*"];
+	94325622603744[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622604224[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622606688[shape=record, shape=diamond, style="filled", fillcolor=red, label="*"];
+	94325622605728[shape=record, shape=diamond, style="filled", fillcolor=red, label="*"];
+	94325622605184[shape=record, shape=circle, style="filled", fillcolor=yellow, label="4"];
+	94325622605248[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622606208[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'c'"];
+	94325622608128[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622609152[shape=record, shape=diamond, style="filled", fillcolor=red, label="<"];
+	94325622608608[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622609088[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622609632[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622612096[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622610112[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622610176[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622610656[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622611136[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622611200[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622612160[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622613536[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622614560[shape=record, shape=diamond, style="filled", fillcolor=red, label="=="];
+	94325622614016[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622614496[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622615040[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622623872[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622621472[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622619488[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622615520[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622615584[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622616064[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622618592[shape=record, shape=diamond, style="filled", fillcolor=red, label="/"];
+	94325622617088[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622616544[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622616608[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622618112[shape=record, shape=diamond, style="filled", fillcolor=red, label="*"];
+	94325622617568[shape=record, shape=circle, style="filled", fillcolor=yellow, label="2"];
+	94325622617632[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622619552[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622620032[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622620512[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622620576[shape=record, shape=circle, style="filled", fillcolor=yellow, label="1"];
+	94325622621536[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622622016[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622622496[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622622560[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622623936[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622625312[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622626336[shape=record, shape=diamond, style="filled", fillcolor=red, label=">"];
+	94325622625792[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622626272[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622626816[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622647776[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622645376[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622642976[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622640992[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622636064[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622631136[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622627296[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622627360[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622627840[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622628320[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622628384[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622628864[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="sqrt"];
+	94325622629344[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622629408[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622631200[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622631680[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622635168[shape=record, shape=diamond, style="filled", fillcolor=red, label="/"];
+	94325622633664[shape=record, shape=diamond, style="filled", fillcolor=red, label="+"];
+	94325622632704[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622632160[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622632224[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622633184[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622634688[shape=record, shape=diamond, style="filled", fillcolor=red, label="*"];
+	94325622634144[shape=record, shape=circle, style="filled", fillcolor=yellow, label="2"];
+	94325622634208[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622636128[shape=record, shape=diamond, style="filled", fillcolor=red, label="="];
+	94325622636608[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x2'"];
+	94325622640096[shape=record, shape=diamond, style="filled", fillcolor=red, label="/"];
+	94325622638592[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622637632[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622637088[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622637152[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622638112[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'d'"];
+	94325622639616[shape=record, shape=diamond, style="filled", fillcolor=red, label="*"];
+	94325622639072[shape=record, shape=circle, style="filled", fillcolor=yellow, label="2"];
+	94325622639136[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622641056[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622641536[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622642016[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622642080[shape=record, shape=circle, style="filled", fillcolor=yellow, label="2"];
+	94325622643040[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622643520[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622644000[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622644064[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x1'"];
+	94325622645440[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="call"];
+	94325622645920[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="print"];
+	94325622646400[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622646464[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'x2'"];
+	94325622647840[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622649216[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622650592[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="define"];
+	94325622651072[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="function"];
+	94325622651552[shape=record, shape=octagon, style="filled", fillcolor=cyan, label="'f'"];
+	94325622652992[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622652032[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="parametr"];
+	94325622652096[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622653056[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622653952[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622654016[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622655040[shape=record, shape=diamond, style="filled", fillcolor=red, label="=="];
+	94325622654496[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+	94325622654976[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622655520[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622656000[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622656064[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="if"];
+	94325622657088[shape=record, shape=diamond, style="filled", fillcolor=red, label="=="];
+	94325622656544[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622657024[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622657568[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="decision"];
+	94325622658048[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622658112[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622658720[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622658592[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622658656[shape=record, shape=circle, style="filled", fillcolor=yellow, label="1"];
+	94325622659616[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622659680[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622660160[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622661056[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="statement"];
+	94325622661120[shape=record, shape=parallelogram, style="filled", fillcolor=grey, label="return"];
+	94325622663104[shape=record, shape=diamond, style="filled", fillcolor=red, label="/"];
+	94325622662144[shape=record, shape=diamond, style="filled", fillcolor=red, label="-"];
+	94325622661600[shape=record, shape=circle, style="filled", fillcolor=yellow, label="0"];
+	94325622661664[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'b'"];
+	94325622662624[shape=record, shape=rectangle, style="filled", fillcolor=cyan, label="'a'"];
+
+	94325622650528 -> 94325622435424[label = "L", fontsize=12]
+	94325622650528 -> 94325622650592[label = "R", fontsize=12]
+	94325622435424 -> 94325622650528[label = "P", color=red, fontsize=12]
+	94325622435424 -> 94325622435488[label = "R", fontsize=12]
+	94325622435488 -> 94325622435424[label = "P", color=red, fontsize=12]
+	94325622435488 -> 94325622435968[label = "L", fontsize=12]
+	94325622435488 -> 94325622649152[label = "R", fontsize=12]
+	94325622435968 -> 94325622435488[label = "P", color=red, fontsize=12]
+	94325622435968 -> 94325622436448[label = "L", fontsize=12]
+	94325622436448 -> 94325622435968[label = "P", color=red, fontsize=12]
+	94325622649152 -> 94325622435488[label = "P", color=red, fontsize=12]
+	94325622649152 -> 94325622625248[label = "L", fontsize=12]
+	94325622649152 -> 94325622649216[label = "R", fontsize=12]
+	94325622625248 -> 94325622649152[label = "P", color=red, fontsize=12]
+	94325622625248 -> 94325622613472[label = "L", fontsize=12]
+	94325622625248 -> 94325622625312[label = "R", fontsize=12]
+	94325622613472 -> 94325622625248[label = "P", color=red, fontsize=12]
+	94325622613472 -> 94325622608064[label = "L", fontsize=12]
+	94325622613472 -> 94325622613536[label = "R", fontsize=12]
+	94325622608064 -> 94325622613472[label = "P", color=red, fontsize=12]
+	94325622608064 -> 94325622602720[label = "L", fontsize=12]
+	94325622608064 -> 94325622608128[label = "R", fontsize=12]
+	94325622602720 -> 94325622608064[label = "P", color=red, fontsize=12]
+	94325622602720 -> 94325622578208[label = "L", fontsize=12]
+	94325622602720 -> 94325622602784[label = "R", fontsize=12]
+	94325622578208 -> 94325622602720[label = "P", color=red, fontsize=12]
+	94325622578208 -> 94325622576704[label = "L", fontsize=12]
+	94325622578208 -> 94325622578272[label = "R", fontsize=12]
+	94325622576704 -> 94325622578208[label = "P", color=red, fontsize=12]
+	94325622576704 -> 94325622575200[label = "L", fontsize=12]
+	94325622576704 -> 94325622576768[label = "R", fontsize=12]
+	94325622575200 -> 94325622576704[label = "P", color=red, fontsize=12]
+	94325622575200 -> 94325622573696[label = "L", fontsize=12]
+	94325622575200 -> 94325622575264[label = "R", fontsize=12]
+	94325622573696 -> 94325622575200[label = "P", color=red, fontsize=12]
+	94325622573696 -> 94325622570816[label = "L", fontsize=12]
+	94325622573696 -> 94325622573760[label = "R", fontsize=12]
+	94325622570816 -> 94325622573696[label = "P", color=red, fontsize=12]
+	94325622570816 -> 94325622567936[label = "L", fontsize=12]
+	94325622570816 -> 94325622570880[label = "R", fontsize=12]
+	94325622567936 -> 94325622570816[label = "P", color=red, fontsize=12]
+	94325622567936 -> 94325622436928[label = "L", fontsize=12]
+	94325622567936 -> 94325622568000[label = "R", fontsize=12]
+	94325622436928 -> 94325622567936[label = "P", color=red, fontsize=12]
+	94325622436928 -> 94325622436992[label = "R", fontsize=12]
+	94325622436992 -> 94325622436928[label = "P", color=red, fontsize=12]
+	94325622436992 -> 94325622437472[label = "L", fontsize=12]
+	94325622436992 -> 94325622566080[label = "R", fontsize=12]
+	94325622437472 -> 94325622436992[label = "P", color=red, fontsize=12]
+	94325622566080 -> 94325622436992[label = "P", color=red, fontsize=12]
+	94325622566080 -> 94325622566144[label = "R", fontsize=12]
+	94325622566144 -> 94325622566080[label = "P", color=red, fontsize=12]
+	94325622566144 -> 94325622566624[label = "L", fontsize=12]
+	94325622566624 -> 94325622566144[label = "P", color=red, fontsize=12]
+	94325622568000 -> 94325622567936[label = "P", color=red, fontsize=12]
+	94325622568000 -> 94325622568480[label = "L", fontsize=12]
+	94325622568000 -> 94325622568960[label = "R", fontsize=12]
+	94325622568480 -> 94325622568000[label = "P", color=red, fontsize=12]
+	94325622568960 -> 94325622568000[label = "P", color=red, fontsize=12]
+	94325622568960 -> 94325622569024[label = "R", fontsize=12]
+	94325622569024 -> 94325622568960[label = "P", color=red, fontsize=12]
+	94325622569024 -> 94325622569504[label = "L", fontsize=12]
+	94325622569504 -> 94325622569024[label = "P", color=red, fontsize=12]
+	94325622570880 -> 94325622570816[label = "P", color=red, fontsize=12]
+	94325622570880 -> 94325622571360[label = "L", fontsize=12]
+	94325622570880 -> 94325622571840[label = "R", fontsize=12]
+	94325622571360 -> 94325622570880[label = "P", color=red, fontsize=12]
+	94325622571840 -> 94325622570880[label = "P", color=red, fontsize=12]
+	94325622571840 -> 94325622571904[label = "R", fontsize=12]
+	94325622571904 -> 94325622571840[label = "P", color=red, fontsize=12]
+	94325622571904 -> 94325622572384[label = "L", fontsize=12]
+	94325622572384 -> 94325622571904[label = "P", color=red, fontsize=12]
+	94325622573760 -> 94325622573696[label = "P", color=red, fontsize=12]
+	94325622573760 -> 94325622574240[label = "L", fontsize=12]
+	94325622573760 -> 94325622574720[label = "R", fontsize=12]
+	94325622574240 -> 94325622573760[label = "P", color=red, fontsize=12]
+	94325622574720 -> 94325622573760[label = "P", color=red, fontsize=12]
+	94325622575264 -> 94325622575200[label = "P", color=red, fontsize=12]
+	94325622575264 -> 94325622575744[label = "L", fontsize=12]
+	94325622575264 -> 94325622576224[label = "R", fontsize=12]
+	94325622575744 -> 94325622575264[label = "P", color=red, fontsize=12]
+	94325622576224 -> 94325622575264[label = "P", color=red, fontsize=12]
+	94325622576768 -> 94325622576704[label = "P", color=red, fontsize=12]
+	94325622576768 -> 94325622577248[label = "L", fontsize=12]
+	94325622576768 -> 94325622577728[label = "R", fontsize=12]
+	94325622577248 -> 94325622576768[label = "P", color=red, fontsize=12]
+	94325622577728 -> 94325622576768[label = "P", color=red, fontsize=12]
+	94325622578272 -> 94325622578208[label = "P", color=red, fontsize=12]
+	94325622578272 -> 94325622579296[label = "L", fontsize=12]
+	94325622578272 -> 94325622579776[label = "R", fontsize=12]
+	94325622579296 -> 94325622578272[label = "P", color=red, fontsize=12]
+	94325622579296 -> 94325622578752[label = "L", fontsize=12]
+	94325622579296 -> 94325622579232[label = "R", fontsize=12]
+	94325622578752 -> 94325622579296[label = "P", color=red, fontsize=12]
+	94325622579232 -> 94325622579296[label = "P", color=red, fontsize=12]
+	94325622579776 -> 94325622578272[label = "P", color=red, fontsize=12]
+	94325622579776 -> 94325622601344[label = "L", fontsize=12]
+	94325622601344 -> 94325622579776[label = "P", color=red, fontsize=12]
+	94325622601344 -> 94325622598944[label = "L", fontsize=12]
+	94325622601344 -> 94325622601408[label = "R", fontsize=12]
+	94325622598944 -> 94325622601344[label = "P", color=red, fontsize=12]
+	94325622598944 -> 94325622596960[label = "L", fontsize=12]
+	94325622598944 -> 94325622599008[label = "R", fontsize=12]
+	94325622596960 -> 94325622598944[label = "P", color=red, fontsize=12]
+	94325622596960 -> 94325622591552[label = "L", fontsize=12]
+	94325622596960 -> 94325622597024[label = "R", fontsize=12]
+	94325622591552 -> 94325622596960[label = "P", color=red, fontsize=12]
+	94325622591552 -> 94325622585056[label = "L", fontsize=12]
+	94325622591552 -> 94325622591616[label = "R", fontsize=12]
+	94325622585056 -> 94325622591552[label = "P", color=red, fontsize=12]
+	94325622585056 -> 94325622580256[label = "L", fontsize=12]
+	94325622585056 -> 94325622585120[label = "R", fontsize=12]
+	94325622580256 -> 94325622585056[label = "P", color=red, fontsize=12]
+	94325622580256 -> 94325622580320[label = "R", fontsize=12]
+	94325622580320 -> 94325622580256[label = "P", color=red, fontsize=12]
+	94325622580320 -> 94325622580800[label = "L", fontsize=12]
+	94325622580320 -> 94325622581280[label = "R", fontsize=12]
+	94325622580800 -> 94325622580320[label = "P", color=red, fontsize=12]
+	94325622581280 -> 94325622580320[label = "P", color=red, fontsize=12]
+	94325622581280 -> 94325622581344[label = "R", fontsize=12]
+	94325622581344 -> 94325622581280[label = "P", color=red, fontsize=12]
+	94325622581344 -> 94325622581824[label = "L", fontsize=12]
+	94325622581344 -> 94325622583264[label = "R", fontsize=12]
+	94325622581824 -> 94325622581344[label = "P", color=red, fontsize=12]
+	94325622583264 -> 94325622581344[label = "P", color=red, fontsize=12]
+	94325622583264 -> 94325622582304[label = "L", fontsize=12]
+	94325622583264 -> 94325622583328[label = "R", fontsize=12]
+	94325622582304 -> 94325622583264[label = "P", color=red, fontsize=12]
+	94325622582304 -> 94325622582368[label = "R", fontsize=12]
+	94325622582368 -> 94325622582304[label = "P", color=red, fontsize=12]
+	94325622583328 -> 94325622583264[label = "P", color=red, fontsize=12]
+	94325622585120 -> 94325622585056[label = "P", color=red, fontsize=12]
+	94325622585120 -> 94325622586688[label = "L", fontsize=12]
+	94325622585120 -> 94325622587168[label = "R", fontsize=12]
+	94325622586688 -> 94325622585120[label = "P", color=red, fontsize=12]
+	94325622586688 -> 94325622585600[label = "L", fontsize=12]
+	94325622586688 -> 94325622586208[label = "R", fontsize=12]
+	94325622585600 -> 94325622586688[label = "P", color=red, fontsize=12]
+	94325622586208 -> 94325622586688[label = "P", color=red, fontsize=12]
+	94325622586208 -> 94325622586080[label = "L", fontsize=12]
+	94325622586208 -> 94325622586144[label = "R", fontsize=12]
+	94325622586080 -> 94325622586208[label = "P", color=red, fontsize=12]
+	94325622586144 -> 94325622586208[label = "P", color=red, fontsize=12]
+	94325622587168 -> 94325622585120[label = "P", color=red, fontsize=12]
+	94325622587168 -> 94325622590176[label = "L", fontsize=12]
+	94325622590176 -> 94325622587168[label = "P", color=red, fontsize=12]
+	94325622590176 -> 94325622587648[label = "L", fontsize=12]
+	94325622590176 -> 94325622590240[label = "R", fontsize=12]
+	94325622587648 -> 94325622590176[label = "P", color=red, fontsize=12]
+	94325622587648 -> 94325622587712[label = "R", fontsize=12]
+	94325622587712 -> 94325622587648[label = "P", color=red, fontsize=12]
+	94325622587712 -> 94325622588192[label = "L", fontsize=12]
+	94325622587712 -> 94325622588672[label = "R", fontsize=12]
+	94325622588192 -> 94325622587712[label = "P", color=red, fontsize=12]
+	94325622588672 -> 94325622587712[label = "P", color=red, fontsize=12]
+	94325622588672 -> 94325622588864[label = "R", fontsize=12]
+	94325622588864 -> 94325622588672[label = "P", color=red, fontsize=12]
+	94325622588864 -> 94325622588736[label = "L", fontsize=12]
+	94325622588864 -> 94325622588800[label = "R", fontsize=12]
+	94325622588736 -> 94325622588864[label = "P", color=red, fontsize=12]
+	94325622588800 -> 94325622588864[label = "P", color=red, fontsize=12]
+	94325622590240 -> 94325622590176[label = "P", color=red, fontsize=12]
+	94325622591616 -> 94325622591552[label = "P", color=red, fontsize=12]
+	94325622591616 -> 94325622592640[label = "L", fontsize=12]
+	94325622591616 -> 94325622593120[label = "R", fontsize=12]
+	94325622592640 -> 94325622591616[label = "P", color=red, fontsize=12]
+	94325622592640 -> 94325622592096[label = "L", fontsize=12]
+	94325622592640 -> 94325622592576[label = "R", fontsize=12]
+	94325622592096 -> 94325622592640[label = "P", color=red, fontsize=12]
+	94325622592576 -> 94325622592640[label = "P", color=red, fontsize=12]
+	94325622593120 -> 94325622591616[label = "P", color=red, fontsize=12]
+	94325622593120 -> 94325622595584[label = "L", fontsize=12]
+	94325622595584 -> 94325622593120[label = "P", color=red, fontsize=12]
+	94325622595584 -> 94325622593600[label = "L", fontsize=12]
+	94325622595584 -> 94325622595648[label = "R", fontsize=12]
+	94325622593600 -> 94325622595584[label = "P", color=red, fontsize=12]
+	94325622593600 -> 94325622593664[label = "R", fontsize=12]
+	94325622593664 -> 94325622593600[label = "P", color=red, fontsize=12]
+	94325622593664 -> 94325622594144[label = "L", fontsize=12]
+	94325622593664 -> 94325622594624[label = "R", fontsize=12]
+	94325622594144 -> 94325622593664[label = "P", color=red, fontsize=12]
+	94325622594624 -> 94325622593664[label = "P", color=red, fontsize=12]
+	94325622594624 -> 94325622594688[label = "R", fontsize=12]
+	94325622594688 -> 94325622594624[label = "P", color=red, fontsize=12]
+	94325622595648 -> 94325622595584[label = "P", color=red, fontsize=12]
+	94325622597024 -> 94325622596960[label = "P", color=red, fontsize=12]
+	94325622597024 -> 94325622597504[label = "L", fontsize=12]
+	94325622597024 -> 94325622597984[label = "R", fontsize=12]
+	94325622597504 -> 94325622597024[label = "P", color=red, fontsize=12]
+	94325622597984 -> 94325622597024[label = "P", color=red, fontsize=12]
+	94325622597984 -> 94325622598048[label = "R", fontsize=12]
+	94325622598048 -> 94325622597984[label = "P", color=red, fontsize=12]
+	94325622599008 -> 94325622598944[label = "P", color=red, fontsize=12]
+	94325622599008 -> 94325622599488[label = "L", fontsize=12]
+	94325622599008 -> 94325622599968[label = "R", fontsize=12]
+	94325622599488 -> 94325622599008[label = "P", color=red, fontsize=12]
+	94325622599968 -> 94325622599008[label = "P", color=red, fontsize=12]
+	94325622599968 -> 94325622600032[label = "R", fontsize=12]
+	94325622600032 -> 94325622599968[label = "P", color=red, fontsize=12]
+	94325622601408 -> 94325622601344[label = "P", color=red, fontsize=12]
+	94325622602784 -> 94325622602720[label = "P", color=red, fontsize=12]
+	94325622602784 -> 94325622603264[label = "L", fontsize=12]
+	94325622602784 -> 94325622607168[label = "R", fontsize=12]
+	94325622603264 -> 94325622602784[label = "P", color=red, fontsize=12]
+	94325622607168 -> 94325622602784[label = "P", color=red, fontsize=12]
+	94325622607168 -> 94325622604704[label = "L", fontsize=12]
+	94325622607168 -> 94325622606688[label = "R", fontsize=12]
+	94325622604704 -> 94325622607168[label = "P", color=red, fontsize=12]
+	94325622604704 -> 94325622603744[label = "L", fontsize=12]
+	94325622604704 -> 94325622604224[label = "R", fontsize=12]
+	94325622603744 -> 94325622604704[label = "P", color=red, fontsize=12]
+	94325622604224 -> 94325622604704[label = "P", color=red, fontsize=12]
+	94325622606688 -> 94325622607168[label = "P", color=red, fontsize=12]
+	94325622606688 -> 94325622605728[label = "L", fontsize=12]
+	94325622606688 -> 94325622606208[label = "R", fontsize=12]
+	94325622605728 -> 94325622606688[label = "P", color=red, fontsize=12]
+	94325622605728 -> 94325622605184[label = "L", fontsize=12]
+	94325622605728 -> 94325622605248[label = "R", fontsize=12]
+	94325622605184 -> 94325622605728[label = "P", color=red, fontsize=12]
+	94325622605248 -> 94325622605728[label = "P", color=red, fontsize=12]
+	94325622606208 -> 94325622606688[label = "P", color=red, fontsize=12]
+	94325622608128 -> 94325622608064[label = "P", color=red, fontsize=12]
+	94325622608128 -> 94325622609152[label = "L", fontsize=12]
+	94325622608128 -> 94325622609632[label = "R", fontsize=12]
+	94325622609152 -> 94325622608128[label = "P", color=red, fontsize=12]
+	94325622609152 -> 94325622608608[label = "L", fontsize=12]
+	94325622609152 -> 94325622609088[label = "R", fontsize=12]
+	94325622608608 -> 94325622609152[label = "P", color=red, fontsize=12]
+	94325622609088 -> 94325622609152[label = "P", color=red, fontsize=12]
+	94325622609632 -> 94325622608128[label = "P", color=red, fontsize=12]
+	94325622609632 -> 94325622612096[label = "L", fontsize=12]
+	94325622612096 -> 94325622609632[label = "P", color=red, fontsize=12]
+	94325622612096 -> 94325622610112[label = "L", fontsize=12]
+	94325622612096 -> 94325622612160[label = "R", fontsize=12]
+	94325622610112 -> 94325622612096[label = "P", color=red, fontsize=12]
+	94325622610112 -> 94325622610176[label = "R", fontsize=12]
+	94325622610176 -> 94325622610112[label = "P", color=red, fontsize=12]
+	94325622610176 -> 94325622610656[label = "L", fontsize=12]
+	94325622610176 -> 94325622611136[label = "R", fontsize=12]
+	94325622610656 -> 94325622610176[label = "P", color=red, fontsize=12]
+	94325622611136 -> 94325622610176[label = "P", color=red, fontsize=12]
+	94325622611136 -> 94325622611200[label = "R", fontsize=12]
+	94325622611200 -> 94325622611136[label = "P", color=red, fontsize=12]
+	94325622612160 -> 94325622612096[label = "P", color=red, fontsize=12]
+	94325622613536 -> 94325622613472[label = "P", color=red, fontsize=12]
+	94325622613536 -> 94325622614560[label = "L", fontsize=12]
+	94325622613536 -> 94325622615040[label = "R", fontsize=12]
+	94325622614560 -> 94325622613536[label = "P", color=red, fontsize=12]
+	94325622614560 -> 94325622614016[label = "L", fontsize=12]
+	94325622614560 -> 94325622614496[label = "R", fontsize=12]
+	94325622614016 -> 94325622614560[label = "P", color=red, fontsize=12]
+	94325622614496 -> 94325622614560[label = "P", color=red, fontsize=12]
+	94325622615040 -> 94325622613536[label = "P", color=red, fontsize=12]
+	94325622615040 -> 94325622623872[label = "L", fontsize=12]
+	94325622623872 -> 94325622615040[label = "P", color=red, fontsize=12]
+	94325622623872 -> 94325622621472[label = "L", fontsize=12]
+	94325622623872 -> 94325622623936[label = "R", fontsize=12]
+	94325622621472 -> 94325622623872[label = "P", color=red, fontsize=12]
+	94325622621472 -> 94325622619488[label = "L", fontsize=12]
+	94325622621472 -> 94325622621536[label = "R", fontsize=12]
+	94325622619488 -> 94325622621472[label = "P", color=red, fontsize=12]
+	94325622619488 -> 94325622615520[label = "L", fontsize=12]
+	94325622619488 -> 94325622619552[label = "R", fontsize=12]
+	94325622615520 -> 94325622619488[label = "P", color=red, fontsize=12]
+	94325622615520 -> 94325622615584[label = "R", fontsize=12]
+	94325622615584 -> 94325622615520[label = "P", color=red, fontsize=12]
+	94325622615584 -> 94325622616064[label = "L", fontsize=12]
+	94325622615584 -> 94325622618592[label = "R", fontsize=12]
+	94325622616064 -> 94325622615584[label = "P", color=red, fontsize=12]
+	94325622618592 -> 94325622615584[label = "P", color=red, fontsize=12]
+	94325622618592 -> 94325622617088[label = "L", fontsize=12]
+	94325622618592 -> 94325622618112[label = "R", fontsize=12]
+	94325622617088 -> 94325622618592[label = "P", color=red, fontsize=12]
+	94325622617088 -> 94325622616544[label = "L", fontsize=12]
+	94325622617088 -> 94325622616608[label = "R", fontsize=12]
+	94325622616544 -> 94325622617088[label = "P", color=red, fontsize=12]
+	94325622616608 -> 94325622617088[label = "P", color=red, fontsize=12]
+	94325622618112 -> 94325622618592[label = "P", color=red, fontsize=12]
+	94325622618112 -> 94325622617568[label = "L", fontsize=12]
+	94325622618112 -> 94325622617632[label = "R", fontsize=12]
+	94325622617568 -> 94325622618112[label = "P", color=red, fontsize=12]
+	94325622617632 -> 94325622618112[label = "P", color=red, fontsize=12]
+	94325622619552 -> 94325622619488[label = "P", color=red, fontsize=12]
+	94325622619552 -> 94325622620032[label = "L", fontsize=12]
+	94325622619552 -> 94325622620512[label = "R", fontsize=12]
+	94325622620032 -> 94325622619552[label = "P", color=red, fontsize=12]
+	94325622620512 -> 94325622619552[label = "P", color=red, fontsize=12]
+	94325622620512 -> 94325622620576[label = "R", fontsize=12]
+	94325622620576 -> 94325622620512[label = "P", color=red, fontsize=12]
+	94325622621536 -> 94325622621472[label = "P", color=red, fontsize=12]
+	94325622621536 -> 94325622622016[label = "L", fontsize=12]
+	94325622621536 -> 94325622622496[label = "R", fontsize=12]
+	94325622622016 -> 94325622621536[label = "P", color=red, fontsize=12]
+	94325622622496 -> 94325622621536[label = "P", color=red, fontsize=12]
+	94325622622496 -> 94325622622560[label = "R", fontsize=12]
+	94325622622560 -> 94325622622496[label = "P", color=red, fontsize=12]
+	94325622623936 -> 94325622623872[label = "P", color=red, fontsize=12]
+	94325622625312 -> 94325622625248[label = "P", color=red, fontsize=12]
+	94325622625312 -> 94325622626336[label = "L", fontsize=12]
+	94325622625312 -> 94325622626816[label = "R", fontsize=12]
+	94325622626336 -> 94325622625312[label = "P", color=red, fontsize=12]
+	94325622626336 -> 94325622625792[label = "L", fontsize=12]
+	94325622626336 -> 94325622626272[label = "R", fontsize=12]
+	94325622625792 -> 94325622626336[label = "P", color=red, fontsize=12]
+	94325622626272 -> 94325622626336[label = "P", color=red, fontsize=12]
+	94325622626816 -> 94325622625312[label = "P", color=red, fontsize=12]
+	94325622626816 -> 94325622647776[label = "L", fontsize=12]
+	94325622647776 -> 94325622626816[label = "P", color=red, fontsize=12]
+	94325622647776 -> 94325622645376[label = "L", fontsize=12]
+	94325622647776 -> 94325622647840[label = "R", fontsize=12]
+	94325622645376 -> 94325622647776[label = "P", color=red, fontsize=12]
+	94325622645376 -> 94325622642976[label = "L", fontsize=12]
+	94325622645376 -> 94325622645440[label = "R", fontsize=12]
+	94325622642976 -> 94325622645376[label = "P", color=red, fontsize=12]
+	94325622642976 -> 94325622640992[label = "L", fontsize=12]
+	94325622642976 -> 94325622643040[label = "R", fontsize=12]
+	94325622640992 -> 94325622642976[label = "P", color=red, fontsize=12]
+	94325622640992 -> 94325622636064[label = "L", fontsize=12]
+	94325622640992 -> 94325622641056[label = "R", fontsize=12]
+	94325622636064 -> 94325622640992[label = "P", color=red, fontsize=12]
+	94325622636064 -> 94325622631136[label = "L", fontsize=12]
+	94325622636064 -> 94325622636128[label = "R", fontsize=12]
+	94325622631136 -> 94325622636064[label = "P", color=red, fontsize=12]
+	94325622631136 -> 94325622627296[label = "L", fontsize=12]
+	94325622631136 -> 94325622631200[label = "R", fontsize=12]
+	94325622627296 -> 94325622631136[label = "P", color=red, fontsize=12]
+	94325622627296 -> 94325622627360[label = "R", fontsize=12]
+	94325622627360 -> 94325622627296[label = "P", color=red, fontsize=12]
+	94325622627360 -> 94325622627840[label = "L", fontsize=12]
+	94325622627360 -> 94325622628320[label = "R", fontsize=12]
+	94325622627840 -> 94325622627360[label = "P", color=red, fontsize=12]
+	94325622628320 -> 94325622627360[label = "P", color=red, fontsize=12]
+	94325622628320 -> 94325622628384[label = "R", fontsize=12]
+	94325622628384 -> 94325622628320[label = "P", color=red, fontsize=12]
+	94325622628384 -> 94325622628864[label = "L", fontsize=12]
+	94325622628384 -> 94325622629344[label = "R", fontsize=12]
+	94325622628864 -> 94325622628384[label = "P", color=red, fontsize=12]
+	94325622629344 -> 94325622628384[label = "P", color=red, fontsize=12]
+	94325622629344 -> 94325622629408[label = "R", fontsize=12]
+	94325622629408 -> 94325622629344[label = "P", color=red, fontsize=12]
+	94325622631200 -> 94325622631136[label = "P", color=red, fontsize=12]
+	94325622631200 -> 94325622631680[label = "L", fontsize=12]
+	94325622631200 -> 94325622635168[label = "R", fontsize=12]
+	94325622631680 -> 94325622631200[label = "P", color=red, fontsize=12]
+	94325622635168 -> 94325622631200[label = "P", color=red, fontsize=12]
+	94325622635168 -> 94325622633664[label = "L", fontsize=12]
+	94325622635168 -> 94325622634688[label = "R", fontsize=12]
+	94325622633664 -> 94325622635168[label = "P", color=red, fontsize=12]
+	94325622633664 -> 94325622632704[label = "L", fontsize=12]
+	94325622633664 -> 94325622633184[label = "R", fontsize=12]
+	94325622632704 -> 94325622633664[label = "P", color=red, fontsize=12]
+	94325622632704 -> 94325622632160[label = "L", fontsize=12]
+	94325622632704 -> 94325622632224[label = "R", fontsize=12]
+	94325622632160 -> 94325622632704[label = "P", color=red, fontsize=12]
+	94325622632224 -> 94325622632704[label = "P", color=red, fontsize=12]
+	94325622633184 -> 94325622633664[label = "P", color=red, fontsize=12]
+	94325622634688 -> 94325622635168[label = "P", color=red, fontsize=12]
+	94325622634688 -> 94325622634144[label = "L", fontsize=12]
+	94325622634688 -> 94325622634208[label = "R", fontsize=12]
+	94325622634144 -> 94325622634688[label = "P", color=red, fontsize=12]
+	94325622634208 -> 94325622634688[label = "P", color=red, fontsize=12]
+	94325622636128 -> 94325622636064[label = "P", color=red, fontsize=12]
+	94325622636128 -> 94325622636608[label = "L", fontsize=12]
+	94325622636128 -> 94325622640096[label = "R", fontsize=12]
+	94325622636608 -> 94325622636128[label = "P", color=red, fontsize=12]
+	94325622640096 -> 94325622636128[label = "P", color=red, fontsize=12]
+	94325622640096 -> 94325622638592[label = "L", fontsize=12]
+	94325622640096 -> 94325622639616[label = "R", fontsize=12]
+	94325622638592 -> 94325622640096[label = "P", color=red, fontsize=12]
+	94325622638592 -> 94325622637632[label = "L", fontsize=12]
+	94325622638592 -> 94325622638112[label = "R", fontsize=12]
+	94325622637632 -> 94325622638592[label = "P", color=red, fontsize=12]
+	94325622637632 -> 94325622637088[label = "L", fontsize=12]
+	94325622637632 -> 94325622637152[label = "R", fontsize=12]
+	94325622637088 -> 94325622637632[label = "P", color=red, fontsize=12]
+	94325622637152 -> 94325622637632[label = "P", color=red, fontsize=12]
+	94325622638112 -> 94325622638592[label = "P", color=red, fontsize=12]
+	94325622639616 -> 94325622640096[label = "P", color=red, fontsize=12]
+	94325622639616 -> 94325622639072[label = "L", fontsize=12]
+	94325622639616 -> 94325622639136[label = "R", fontsize=12]
+	94325622639072 -> 94325622639616[label = "P", color=red, fontsize=12]
+	94325622639136 -> 94325622639616[label = "P", color=red, fontsize=12]
+	94325622641056 -> 94325622640992[label = "P", color=red, fontsize=12]
+	94325622641056 -> 94325622641536[label = "L", fontsize=12]
+	94325622641056 -> 94325622642016[label = "R", fontsize=12]
+	94325622641536 -> 94325622641056[label = "P", color=red, fontsize=12]
+	94325622642016 -> 94325622641056[label = "P", color=red, fontsize=12]
+	94325622642016 -> 94325622642080[label = "R", fontsize=12]
+	94325622642080 -> 94325622642016[label = "P", color=red, fontsize=12]
+	94325622643040 -> 94325622642976[label = "P", color=red, fontsize=12]
+	94325622643040 -> 94325622643520[label = "L", fontsize=12]
+	94325622643040 -> 94325622644000[label = "R", fontsize=12]
+	94325622643520 -> 94325622643040[label = "P", color=red, fontsize=12]
+	94325622644000 -> 94325622643040[label = "P", color=red, fontsize=12]
+	94325622644000 -> 94325622644064[label = "R", fontsize=12]
+	94325622644064 -> 94325622644000[label = "P", color=red, fontsize=12]
+	94325622645440 -> 94325622645376[label = "P", color=red, fontsize=12]
+	94325622645440 -> 94325622645920[label = "L", fontsize=12]
+	94325622645440 -> 94325622646400[label = "R", fontsize=12]
+	94325622645920 -> 94325622645440[label = "P", color=red, fontsize=12]
+	94325622646400 -> 94325622645440[label = "P", color=red, fontsize=12]
+	94325622646400 -> 94325622646464[label = "R", fontsize=12]
+	94325622646464 -> 94325622646400[label = "P", color=red, fontsize=12]
+	94325622647840 -> 94325622647776[label = "P", color=red, fontsize=12]
+	94325622649216 -> 94325622649152[label = "P", color=red, fontsize=12]
+	94325622650592 -> 94325622650528[label = "P", color=red, fontsize=12]
+	94325622650592 -> 94325622651072[label = "L", fontsize=12]
+	94325622650592 -> 94325622653952[label = "R", fontsize=12]
+	94325622651072 -> 94325622650592[label = "P", color=red, fontsize=12]
+	94325622651072 -> 94325622651552[label = "L", fontsize=12]
+	94325622651072 -> 94325622652992[label = "R", fontsize=12]
+	94325622651552 -> 94325622651072[label = "P", color=red, fontsize=12]
+	94325622652992 -> 94325622651072[label = "P", color=red, fontsize=12]
+	94325622652992 -> 94325622652032[label = "L", fontsize=12]
+	94325622652992 -> 94325622653056[label = "R", fontsize=12]
+	94325622652032 -> 94325622652992[label = "P", color=red, fontsize=12]
+	94325622652032 -> 94325622652096[label = "R", fontsize=12]
+	94325622652096 -> 94325622652032[label = "P", color=red, fontsize=12]
+	94325622653056 -> 94325622652992[label = "P", color=red, fontsize=12]
+	94325622653952 -> 94325622650592[label = "P", color=red, fontsize=12]
+	94325622653952 -> 94325622654016[label = "R", fontsize=12]
+	94325622654016 -> 94325622653952[label = "P", color=red, fontsize=12]
+	94325622654016 -> 94325622655040[label = "L", fontsize=12]
+	94325622654016 -> 94325622655520[label = "R", fontsize=12]
+	94325622655040 -> 94325622654016[label = "P", color=red, fontsize=12]
+	94325622655040 -> 94325622654496[label = "L", fontsize=12]
+	94325622655040 -> 94325622654976[label = "R", fontsize=12]
+	94325622654496 -> 94325622655040[label = "P", color=red, fontsize=12]
+	94325622654976 -> 94325622655040[label = "P", color=red, fontsize=12]
+	94325622655520 -> 94325622654016[label = "P", color=red, fontsize=12]
+	94325622655520 -> 94325622656000[label = "L", fontsize=12]
+	94325622655520 -> 94325622661056[label = "R", fontsize=12]
+	94325622656000 -> 94325622655520[label = "P", color=red, fontsize=12]
+	94325622656000 -> 94325622656064[label = "R", fontsize=12]
+	94325622656064 -> 94325622656000[label = "P", color=red, fontsize=12]
+	94325622656064 -> 94325622657088[label = "L", fontsize=12]
+	94325622656064 -> 94325622657568[label = "R", fontsize=12]
+	94325622657088 -> 94325622656064[label = "P", color=red, fontsize=12]
+	94325622657088 -> 94325622656544[label = "L", fontsize=12]
+	94325622657088 -> 94325622657024[label = "R", fontsize=12]
+	94325622656544 -> 94325622657088[label = "P", color=red, fontsize=12]
+	94325622657024 -> 94325622657088[label = "P", color=red, fontsize=12]
+	94325622657568 -> 94325622656064[label = "P", color=red, fontsize=12]
+	94325622657568 -> 94325622658048[label = "L", fontsize=12]
+	94325622657568 -> 94325622659616[label = "R", fontsize=12]
+	94325622658048 -> 94325622657568[label = "P", color=red, fontsize=12]
+	94325622658048 -> 94325622658112[label = "R", fontsize=12]
+	94325622658112 -> 94325622658048[label = "P", color=red, fontsize=12]
+	94325622658112 -> 94325622658720[label = "R", fontsize=12]
+	94325622658720 -> 94325622658112[label = "P", color=red, fontsize=12]
+	94325622658720 -> 94325622658592[label = "L", fontsize=12]
+	94325622658720 -> 94325622658656[label = "R", fontsize=12]
+	94325622658592 -> 94325622658720[label = "P", color=red, fontsize=12]
+	94325622658656 -> 94325622658720[label = "P", color=red, fontsize=12]
+	94325622659616 -> 94325622657568[label = "P", color=red, fontsize=12]
+	94325622659616 -> 94325622659680[label = "R", fontsize=12]
+	94325622659680 -> 94325622659616[label = "P", color=red, fontsize=12]
+	94325622659680 -> 94325622660160[label = "R", fontsize=12]
+	94325622660160 -> 94325622659680[label = "P", color=red, fontsize=12]
+	94325622661056 -> 94325622655520[label = "P", color=red, fontsize=12]
+	94325622661056 -> 94325622661120[label = "R", fontsize=12]
+	94325622661120 -> 94325622661056[label = "P", color=red, fontsize=12]
+	94325622661120 -> 94325622663104[label = "R", fontsize=12]
+	94325622663104 -> 94325622661120[label = "P", color=red, fontsize=12]
+	94325622663104 -> 94325622662144[label = "L", fontsize=12]
+	94325622663104 -> 94325622662624[label = "R", fontsize=12]
+	94325622662144 -> 94325622663104[label = "P", color=red, fontsize=12]
+	94325622662144 -> 94325622661600[label = "L", fontsize=12]
+	94325622662144 -> 94325622661664[label = "R", fontsize=12]
+	94325622661600 -> 94325622662144[label = "P", color=red, fontsize=12]
+	94325622661664 -> 94325622662144[label = "P", color=red, fontsize=12]
+	94325622662624 -> 94325622663104[label = "P", color=red, fontsize=12]
+
+}

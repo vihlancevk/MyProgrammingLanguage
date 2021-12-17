@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "FileOperations.h"
-#include "Tree.h"
 #include "Tokenizer.h"
 #include "Parser.h"
 #include "GenerateAsmCode.h"
