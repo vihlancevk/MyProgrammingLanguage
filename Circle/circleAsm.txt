@@ -1,6 +1,8 @@
 CRT
-PUSH 0
+PUSH 1
 POP ex
+PUSH 0
+POP [1]
 CALL MAIN
 HLT
 :'pth'
@@ -49,6 +51,10 @@ PUSH ex
 PUSH 1
 ADD
 POP ex
+PUSH 0
+PUSH 1
+SUB
+POP [1]
 PUSH 0
 PUSH ex
 PUSH 0
@@ -107,23 +113,23 @@ PUSH 4
 ADD
 POP dx
 PUSH [dx]
-PUSH 0
+PUSH [1]
 PUSH ex
 PUSH 2
 ADD
 POP dx
 PUSH [dx]
-SUB
+MUL
 JAE next1
 JMP next2
 :next1
-PUSH 0
+PUSH [1]
 PUSH ex
-PUSH 2
+PUSH 3
 ADD
 POP dx
 PUSH [dx]
-SUB
+MUL
 PUSH ex
 PUSH 5
 ADD
@@ -203,7 +209,7 @@ PUSH 4
 ADD
 POP dx
 PUSH [dx]
-PUSH 1
+PUSH 2
 SUB
 PUSH ex
 PUSH 4
@@ -216,4 +222,3 @@ JMP next0
 PUSH 0
 POP gx
 RET
- 

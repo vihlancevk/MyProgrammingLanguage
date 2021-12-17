@@ -1,5 +1,9 @@
+globalMinus = 0;
+
 main()
 {
+    globalMinus = 0 - 1;
+    
     a = scan();
     b = scan();
     c = scan();
@@ -74,7 +78,7 @@ f(a, b)
     }
     else
     {
-        return -1*b/a;
+        return globalMinus*b/a;
     }
     
 }

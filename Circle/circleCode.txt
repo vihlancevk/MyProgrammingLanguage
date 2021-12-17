@@ -1,3 +1,5 @@
+globalMinus = 0;
+
 pth (x,y)
 {
     return sqrt(x*x + y*y);
@@ -5,6 +7,8 @@ pth (x,y)
 
 main()
 {
+    globalMinus = 0 - 1;
+
     c = 0;
     r = 10;
 
@@ -14,9 +18,9 @@ main()
     y = width;
     x = 0;
     
-    while (y br (0 - width))
+    while (y br globalMinus * width)
     {
-        x = (0 - width);
+        x = globalMinus * length;
         while (x mr length)
         {
             p = pth(x, y);
@@ -30,10 +34,9 @@ main()
             }
             x = x + 1;
         }
-        y = y - 1;
+        y = y - 2;
         newLine();
     }
 
     return 0;
 }
- 
