@@ -7,7 +7,7 @@ const char *NAME_OUTPUT_FILE = "asm.txt";
 const int NO_VARIABLE_IN_TABLE_NAME = -1;
 const int NO_FUNCTION_IN_TABLE_NAME = -1;
 
-TableGlobalNames globalNames = {{}, 0};
+TableGlobalNames globalNames = {{}, 1};
 TableFunctions functions = {};
 
 int curLabel = 0;
@@ -403,22 +403,22 @@ static void ConvertAssignNodeInCode(Node_t *node, FILE *code, TableLocalNames *l
     assert(code       != nullptr);
     assert(localNames != nullptr);
 
-    ConvertSubtreeInCode(node->rightChild, code, localNames);
-    int curOffset = CheckTableLocalNames(node->leftChild, localNames);
-    fprintf(code, "PUSH ex\n"
-                  "PUSH %d\n"
-                  "ADD\n"
-                  "POP dx\n"
-                  "POP [dx]\n", curOffset);
-}
-
-static void ConvertConstNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
-{
-    assert(node       != nullptr);
-    assert(code       != nullptr);
-    assert(localNames != nullptr);
-
-    fprintf(code, "PUSH %g\n", node->value);
+    int  curOffset = CheckTableGlobalNames(node->leftChild);
+    if (curOffset == NO_VARIABLE_IN_TABLE_NAME)
+    {
+        ConvertSubtreeInCode(node->rightChild, code, localNames);
+        curOffset = CheckTableLocalNames(node->leftChild, localNames);
+        fprintf(code, "PUSH ex\n"
+                      "PUSH %d\n"
+                      "ADD\n"
+                      "POP dx\n"
+                      "POP [dx]\n", curOffset);
+    }
+    else
+    {
+        ConvertSubtreeInCode(node->rightChild, code, localNames);
+        fprintf(code, "POP [%d]\n", curOffset);
+    }
 }
 
 static void ConvertLocVariableNodeIncode(Node_t *node, FILE *code, TableLocalNames *localNames)
@@ -441,6 +441,15 @@ static void ConvertLocVariableNodeIncode(Node_t *node, FILE *code, TableLocalNam
     {
         fprintf(code, "PUSH [%d]\n", curOffset);
     }
+}
+
+static void ConvertConstNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)
+{
+    assert(node       != nullptr);
+    assert(code       != nullptr);
+    assert(localNames != nullptr);
+
+    fprintf(code, "PUSH %g\n", node->value);
 }
 
 static void ConvertBinaryOperationNodeInCode(Node_t *node, FILE *code, TableLocalNames *localNames)

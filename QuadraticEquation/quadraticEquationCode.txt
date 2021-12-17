@@ -74,7 +74,7 @@ f(a, b)
     }
     else
     {
-        return (0-b)/a;
+        return -1*b/a;
     }
     
 }
