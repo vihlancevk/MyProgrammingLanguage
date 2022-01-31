@@ -4,7 +4,6 @@ src/MyProgrammingLanguage.layout
 src/bin/
 src/obj/
 res/graphviz.gv
-res/graphviz.png
 CPU/Assembler/bin/
 CPU/Assembler/obj/
 CPU/Assembler/Assembler.cbp
