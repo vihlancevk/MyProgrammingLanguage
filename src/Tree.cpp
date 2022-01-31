@@ -2,15 +2,15 @@
 #include <string.h>
 #include <assert.h>
 #include <cstddef>
-#include "Tree.h"
-#include "FileOperations.h"
+#include "../include/Tree.h"
+#include "../include/FileOperations.h"
 
 #define DEBUG
 
 const size_t NODEVIEW_STR_MAX_SIZE = 20;
 const int NOT_EQUAL = 0;
 const int EQUAL = 1;
-const char *TREE_GRAPHVIZ = "graphviz.gv";
+const char *TREE_GRAPHVIZ = "../res/graphviz.gv";
 
 struct NodeView
 {
@@ -127,7 +127,7 @@ void TreeDump(Tree_t *tree)
 
     fclose(graphViz);
 
-    system("dot -Tpng graphviz.gv -o graphviz.png");
+    system("dot -Tpng ../res/graphviz.gv -o ../res/graphviz.png");
 }
 
 TreeErrorCode TreeCtor(Tree_t *tree)

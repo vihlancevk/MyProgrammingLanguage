@@ -1,0 +1,49 @@
+CRT
+PUSH 1
+POP ex
+CALL MAIN
+HLT
+:MAIN
+PUSH ex
+PUSH 1
+ADD
+POP ex
+PUSH 0
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+:next0
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+PUSH 11
+JNE next1
+JMP next2
+:next1
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+OUT
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+PUSH 1
+ADD
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+JMP next0
+:next2
+PUSH 0
+POP gx
+RET

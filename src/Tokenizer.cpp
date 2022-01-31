@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <math.h>
 #include <string.h>
-#include "Tokenizer.h"
+#include "../include/Tokenizer.h"
 
 const size_t EXPANSION_COEFFICIENT = 2   ;
 const double NO_VALUE              = -1.0;
@@ -69,7 +69,7 @@ void Tokenizer(char *str, Lexer *lexer)
                 continue;                                   \
             }
 
-        #include "Keyworld.h"
+        #include "../include/Keyworld.h"
 
         if (isdigit((int)(unsigned char)*(str + curOffset)))
         {

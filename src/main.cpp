@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "FileOperations.h"
-#include "Tokenizer.h"
-#include "Parser.h"
-#include "GenerateAsmCode.h"
+#include "../include/FileOperations.h"
+#include "../include/Tokenizer.h"
+#include "../include/Parser.h"
+#include "../include/GenerateAsmCode.h"
 
 const size_t BEGINING_SIZE  = 10;
-const char *NAME_INPUT_FILE = "code.txt";
+const char *NAME_INPUT_FILE = "../res/code.txt";
 
 int main()
 {
@@ -39,7 +39,6 @@ int main()
     free(lexer.tokens);
     TreeDtor(ptrBeginTree);
     fclose(finput);
+
     return 0;
 }
-
-//main.cpp Tokenizer.cpp Parser.cpp Tree.cpp FileOperations.cpp

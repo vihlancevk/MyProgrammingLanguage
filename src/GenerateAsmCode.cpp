@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "GenerateAsmCode.h"
+#include "../include/GenerateAsmCode.h"
 
-const char *NAME_OUTPUT_FILE = "asm.txt";
+const char *NAME_OUTPUT_FILE = "../CPU/res/asm.txt";
 const int NO_VARIABLE_IN_TABLE_NAME = -1;
 const int NO_FUNCTION_IN_TABLE_NAME = -1;
 

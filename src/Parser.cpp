@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <math.h>
 #include <string.h>
-#include "Parser.h"
+#include "../include/Parser.h"
 
 #define IS_PARSER_ERROR()                             \
     do                                                \
