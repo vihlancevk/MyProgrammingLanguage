@@ -17,8 +17,11 @@ DEF_CMD_(2, IN, 0,
                 #ifdef LOG_ENABLED
                     printf("\nIN elem (1) : %lf\n", elem1);
                 #endif // LOG_ENABLED
-
-                scanf("%lf", &elem1);
+                
+                if ( scanf("%lf", &elem1) != 1 )
+                {
+                    printf( "Error: scanf!\n" );
+                }
 
                 #ifdef LOG_ENABLED
                     printf("\nIN elem (2) : %lf\n\n", elem1);

@@ -6,6 +6,7 @@
 #include "../include/FileOperations.h"
 
 #define DEBUG
+// #undef  DEBUG
 
 #define IS_CPU_ERROR_(stackError)    \
     if(stackError != STACK_NO_ERROR) \
@@ -31,7 +32,7 @@ const size_t SIZE_MEM = 1000;
 const size_t NUMBER_REG = 7;
 const double PRECISION = 0.0;
 const int DEPTH_RECURSION = 20;
-const char *INPUT_FILE  = "../res/code.txt";
+const char *INPUT_FILE  = "CPU/res/code.txt";
 const char *OUTPUT_FILE = ".txt";
 const int FIELD_WIDTH = 31;
 
@@ -69,9 +70,11 @@ void dumpCPU(CPU_t *CPU);
 
 int main()
 {
-    ClearLogFile();
+    #ifdef DEBUG
+        ClearLogFile();
+    #endif // DEBUG
 
-    system("../Assembler/bin/Debug/Assembler");
+    // system("../Assembler/bin/Debug/Assembler");
 
     #ifdef LOG_ENABLED
         printf("%d\n\n", sizeof(stackData_t));
@@ -100,7 +103,7 @@ int main()
         printf("\n");
     #endif // LOG_ENABLED
 
-    system("../Disassembler/bin/Debug/Disassembler");
+    // system("../Disassembler/bin/Debug/Disassembler");
 
     return cpuError;
 }

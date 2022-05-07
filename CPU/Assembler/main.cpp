@@ -3,9 +3,9 @@
 #include "../include/FileOperations.h"
 #include "../include/Stack.h"
 
-const char *INPUT_FILE = "../res/asm.txt";
-const char *OUTPUT_FILE = "../res/code.txt";
-const char *LISTING = "../Assembler/lst.txt";
+const char *INPUT_FILE  = "CPU/res/asm.txt";
+const char *OUTPUT_FILE = "CPU/res/code.txt";
+const char *LISTING     = "CPU/Assembler/lst.txt";
 const int SIZE_ARRAY_LABEL_INFO = 20;
 const int MAX_SIZE_STR = 20;
 const int NUMBER_REG = 7;
@@ -351,7 +351,7 @@ StatusAssembling assemblerFile(Line *lines, int linesCount, const char *nameOutp
     assert(foutput != nullptr);
 
     fwrite(hdr, sizeof(Hdr), 1, foutput);
-    fprintf(flst, "sig = %d\nver = %d\n", SIG, VER);
+    fprintf(flst, "sig = %zu\nver = %d\n", SIG, VER);
 
     Assembler assembler = {};
     assembler.foutput = foutput;
@@ -369,32 +369,32 @@ StatusAssembling assemblerFile(Line *lines, int linesCount, const char *nameOutp
             printf("%d - %s\n", curLineNum, lines[curLineNum].str);
         #endif // LOG_ENABLED
 
-        #define DEF_CMD_(num, name, isArg, code)                                                               \
-            if (strcmp(#name, assembler.nameOperation) == 0)                                                   \
-            {                                                                                                  \
-                assembler.codeOperation = (short int)num;                                                      \
-                if (isArg)                                                                                     \
-                {                                                                                              \
-                    if (processCmdWithArg(lines, curLineNum, cnt, &assembler, #name) != ASSEMBLING_SUCCESSFUL) \
-                    {                                                                                          \
-                        return ASSEMBLING_WRONG;                                                               \
-                    }                                                                                          \
-                }                                                                                              \
-                else                                                                                           \
-                {                                                                                              \
-                    if (processCmdWithoutArg(&assembler, #name) != ASSEMBLING_SUCCESSFUL)                      \
-                    {                                                                                          \
-                        return ASSEMBLING_WRONG;                                                               \
-                    }                                                                                          \
-                }                                                                                              \
-            }                                                                                                  \
-            else if (assembler.nameOperation[0] == ':')                                                        \
-            {                                                                                                  \
-                if (processLabel(&assembler, &numberLabelInfo) != ASSEMBLING_SUCCESSFUL)                       \
-                {                                                                                              \
-                    return ASSEMBLING_WRONG;                                                                   \
-                }                                                                                              \
-            }                                                                                                  \
+        #define DEF_CMD_(num, name, isArg, code)                                                                      \
+            if (strcmp(#name, assembler.nameOperation) == 0)                                                          \
+            {                                                                                                         \
+                assembler.codeOperation = (short int)num;                                                             \
+                if (isArg)                                                                                            \
+                {                                                                                                     \
+                    if (processCmdWithArg(lines, curLineNum, cnt, &assembler, (char*)#name) != ASSEMBLING_SUCCESSFUL) \
+                    {                                                                                                 \
+                        return ASSEMBLING_WRONG;                                                                      \
+                    }                                                                                                 \
+                }                                                                                                     \
+                else                                                                                                  \
+                {                                                                                                     \
+                    if (processCmdWithoutArg(&assembler, (char*)#name) != ASSEMBLING_SUCCESSFUL)                      \
+                    {                                                                                                 \
+                        return ASSEMBLING_WRONG;                                                                      \
+                    }                                                                                                 \
+                }                                                                                                     \
+            }                                                                                                         \
+            else if (assembler.nameOperation[0] == ':')                                                               \
+            {                                                                                                         \
+                if (processLabel(&assembler, &numberLabelInfo) != ASSEMBLING_SUCCESSFUL)                              \
+                {                                                                                                     \
+                    return ASSEMBLING_WRONG;                                                                          \
+                }                                                                                                     \
+            }                                                                                                         \
             else
 
         #include "../include/Commands.h"

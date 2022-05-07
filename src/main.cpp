@@ -7,7 +7,7 @@
 #include "../include/GenerateAsmCode.h"
 
 const size_t BEGINING_SIZE  = 10;
-const char *NAME_INPUT_FILE = "../res/code.txt";
+const char *NAME_INPUT_FILE = "res/code.txt";
 
 int main()
 {

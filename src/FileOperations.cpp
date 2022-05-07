@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <string.h>
-#include "FileOperations.h"
+#include "../include/FileOperations.h"
 
 int GetFileSize(FILE *finput)
 {

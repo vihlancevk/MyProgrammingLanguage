@@ -48,38 +48,41 @@
     }                                      \
     break;
 
-#define MOVE_()                 \
-    char c = getchar();         \
-    switch ((int)c)             \
-    {                           \
-        case (int)'a':          \
-        {                       \
-            PUSH_(-1)           \
-            break;              \
-        }                       \
-        case (int)'d':          \
-        {                       \
-            PUSH_(1)            \
-            break;              \
-        }                       \
-        case (int)'w':          \
-        {                       \
-            PUSH_(-FIELD_WIDTH) \
-            break;              \
-        }                       \
-        case (int)'s':          \
-        {                       \
-            PUSH_(FIELD_WIDTH)  \
-            break;              \
-        }                       \
-        default:                \
-        {                       \
-            PUSH_(0)            \
-            break;              \
-        }                       \
-    }                           \
-    usleep(500000);             \
-    system("clear");            \
-    break;                      \
+#define MOVE_()                       \
+    char c = getchar();               \
+    switch ((int)c)                   \
+    {                                 \
+        case (int)'a':                \
+        {                             \
+            PUSH_(-1)                 \
+            break;                    \
+        }                             \
+        case (int)'d':                \
+        {                             \
+            PUSH_(1)                  \
+            break;                    \
+        }                             \
+        case (int)'w':                \
+        {                             \
+            PUSH_(-FIELD_WIDTH)       \
+            break;                    \
+        }                             \
+        case (int)'s':                \
+        {                             \
+            PUSH_(FIELD_WIDTH)        \
+            break;                    \
+        }                             \
+        default:                      \
+        {                             \
+            PUSH_(0)                  \
+            break;                    \
+        }                             \
+    }                                 \
+    usleep(500000);                   \
+    if ( system("clear") )            \
+    {                                 \
+        printf( "Error: system!\n" ); \
+    }                                 \
+    break;
 
 #endif // COMMANDS_HELP_H_

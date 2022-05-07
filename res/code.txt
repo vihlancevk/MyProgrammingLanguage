@@ -1,12 +1,27 @@
 main()
 {
-    num = 0;
+    n = 10;
+    i = 20000;
+    N = 0;
     
-    while (num != 11)
+    while(i > 0)
     {
-        print(num);
-        num = num + 1;
+        N = fac(n);
+        i = i - 1;
     }
-
+    
+    print(N);
+    
     return 0;
+}
+fac(n)
+{    
+    if (n rr 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return fac(n-1) * n;
+    }
 }

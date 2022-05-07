@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 #define DEBUG
-//#undef DEBUG
+// #undef DEBUG
 
 #define IS_STACK_ERROR_(stack, stackError)    \
     if (stackError != STACK_NO_ERROR)         \
@@ -91,10 +91,10 @@ void Dump(stack_t *stack, const char *nameFunction, size_t line, const char *fil
 #endif // DEBUG
 
 #ifdef DEBUG
-    #define ASSERT_OK(stack)                                      \
-        do{                                                       \
-        Dump(stack, __PRETTY_FUNCTION__, __LINE__, __FILE__);     \
-        assert(GetStackError(stack) == STACK_NO_ERROR);           \
+    #define ASSERT_OK(stack)                                        \
+        do{                                                         \
+        /* Dump(stack, __PRETTY_FUNCTION__, __LINE__, __FILE__); */ \
+        assert(GetStackError(stack) == STACK_NO_ERROR);             \
         }while(false);
 #else
     #define ASSERT_OK(stack)                                      \

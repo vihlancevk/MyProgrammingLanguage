@@ -7,7 +7,7 @@
 #include "../include/Stack.h"
 
 #define DEBUG
-//#undef DEBUG
+// #undef DEBUG
 
 #ifdef DEBUG
     const uint64_t STACK_LEFT_CANARY  = 0xBBAADDDDEEDD3322;
@@ -18,7 +18,7 @@
 
 const size_t STACK_MEMORY_EXPAND = 2;
 const size_t STACK_MEMORY_SHRINK = 3;
-const char *NAME_LOG_FILE = "log.txt";
+const char *NAME_LOG_FILE = "CPU/CPU/log.txt";
 const void *const ERR_PTR = (void*)(1000-7);
 const void *const ERR_CALLOC_PTR = (void*)(300);
 const void *const ERR_REALLOC_PTR = (void*)(666);
@@ -433,7 +433,7 @@ size_t GetStackSize(stack_t *stack)
         }
         else
         {
-            type = "undefine";
+            type = (char*)"undefine";
         }
         if (status != 0)
         {
@@ -458,7 +458,7 @@ size_t GetStackSize(stack_t *stack)
             fprintf(foutput, "\t\t\tDATA_LEFT_CANARY = %lu\n", *(uint64_t*)stack->data);
             for (size_t i = 0; i < stack->capacity; i++)
             {
-                fprintf(foutput, "\t\t\t(%s) [%zu] - %d\n", type, i,
+                fprintf(foutput, "\t\t\t(%s) [%zu] - %f\n", type, i,
                 ((stackData_t*)((char*)stack->data + sizeof(uint64_t)))[i]);
             }
             fprintf(foutput, "\t\t\tDATA_RIGHT_CANARY = %lu\n",

@@ -10,7 +10,7 @@
 const size_t NODEVIEW_STR_MAX_SIZE = 20;
 const int NOT_EQUAL = 0;
 const int EQUAL = 1;
-const char *TREE_GRAPHVIZ = "../res/graphviz.gv";
+const char *TREE_GRAPHVIZ = "res/graphviz.gv";
 
 struct NodeView
 {
@@ -127,7 +127,7 @@ void TreeDump(Tree_t *tree)
 
     fclose(graphViz);
 
-    system("dot -Tpng ../res/graphviz.gv -o ../res/graphviz.png");
+    // system("dot -Tpng ../res/graphviz.gv -o ../res/graphviz.png");
 }
 
 TreeErrorCode TreeCtor(Tree_t *tree)

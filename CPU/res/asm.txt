@@ -8,20 +8,32 @@ PUSH ex
 PUSH 1
 ADD
 POP ex
-PUSH 0
+PUSH 10
 PUSH ex
 PUSH 0
 ADD
 POP dx
 POP [dx]
+PUSH 20000
+PUSH ex
+PUSH 1
+ADD
+POP dx
+POP [dx]
+PUSH 0
+PUSH ex
+PUSH 2
+ADD
+POP dx
+POP [dx]
 :next0
 PUSH ex
-PUSH 0
+PUSH 1
 ADD
 POP dx
 PUSH [dx]
-PUSH 11
-JNE next1
+PUSH 0
+JA next1
 JMP next2
 :next1
 PUSH ex
@@ -29,21 +41,84 @@ PUSH 0
 ADD
 POP dx
 PUSH [dx]
+POP ax
+PUSH ex
+PUSH ex
+PUSH 3
+ADD
+POP ex
+CALL 'fac'
+POP ex
+PUSH gx
+PUSH ex
+PUSH 2
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 1
+ADD
+POP dx
+PUSH [dx]
+PUSH 1
+SUB
+PUSH ex
+PUSH 1
+ADD
+POP dx
+POP [dx]
+JMP next0
+:next2
+PUSH ex
+PUSH 2
+ADD
+POP dx
+PUSH [dx]
 OUT
+PUSH 0
+POP gx
+RET
+:'fac'
+PUSH ax
+PUSH ex
+PUSH 0
+ADD
+POP dx
+POP [dx]
+PUSH ex
+PUSH 0
+ADD
+POP dx
+PUSH [dx]
+PUSH 0
+JE next3
 PUSH ex
 PUSH 0
 ADD
 POP dx
 PUSH [dx]
 PUSH 1
+SUB
+POP ax
+PUSH ex
+PUSH ex
+PUSH 1
 ADD
+POP ex
+CALL 'fac'
+POP ex
+PUSH gx
 PUSH ex
 PUSH 0
 ADD
 POP dx
-POP [dx]
-JMP next0
-:next2
-PUSH 0
+PUSH [dx]
+MUL
 POP gx
 RET
+JMP next4
+:next3
+PUSH 1
+POP gx
+RET
+:next4
