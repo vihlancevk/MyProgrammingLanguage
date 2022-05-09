@@ -11,9 +11,9 @@ out:
 	g++ -c CPU/Assembler/FileOperations.cpp -o CPU/Assembler/FileOperations.o
 	g++ CPU/Assembler/main.o CPU/Assembler/FileOperations.o -o CPU/Assembler/asm
 	
-	g++ -c CPU/CPU/main.cpp           -o CPU/CPU/main.o
-	g++ -c CPU/CPU/FileOperations.cpp -o CPU/CPU/FileOperations.o
-	g++ -c CPU/CPU/Stack.cpp          -o CPU/CPU/Stack.cpp.o
+	g++ -O3 -c CPU/CPU/main.cpp           -o CPU/CPU/main.o
+	g++ -O3 -c CPU/CPU/FileOperations.cpp -o CPU/CPU/FileOperations.o
+	g++ -O3 -c CPU/CPU/Stack.cpp          -o CPU/CPU/Stack.cpp.o
 	g++ CPU/CPU/main.o CPU/CPU/FileOperations.o CPU/CPU/Stack.cpp.o -o CPU/CPU/cpu
 	
 	src/generateAsmCode
