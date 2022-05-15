@@ -71,10 +71,8 @@ void dumpCPU(CPU_t *CPU);
 int main()
 {
     #ifdef DEBUG
-        ClearLogFile();
+        // ClearLogFile();
     #endif // DEBUG
-
-    // system("../Assembler/bin/Debug/Assembler");
 
     #ifdef LOG_ENABLED
         printf("%d\n\n", sizeof(stackData_t));
@@ -92,7 +90,7 @@ int main()
     #endif // LOG_ENABLED
 
     cpuError = executeCode(&cpu);
-
+    
     #ifdef LOG_ENABLED
         int i;
         printf("\na : %lf\nb : %lf\nc : %lf\ncntNumAdress : %d\n\n", cpu.registers[0], cpu.registers[1], cpu.registers[2], cpu.cntNumAddress);
@@ -102,8 +100,6 @@ int main()
         }
         printf("\n");
     #endif // LOG_ENABLED
-
-    // system("../Disassembler/bin/Debug/Disassembler");
 
     return cpuError;
 }

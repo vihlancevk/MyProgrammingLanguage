@@ -18,7 +18,7 @@ DEF_CMD_(2, IN, 0,
                     printf("\nIN elem (1) : %lf\n", elem1);
                 #endif // LOG_ENABLED
                 
-                if ( scanf("%lf", &elem1) != 1 )
+                if ( scanf("%d", &elem1) != 1 )
                 {
                     printf( "Error: scanf!\n" );
                 }
@@ -32,9 +32,11 @@ DEF_CMD_(2, IN, 0,
             })
 
 DEF_CMD_(3, PUSH, 1,
-            {
+            {   // printf( "OK1!\n" );
                 arg = getArg(codeOperation, cpu, &cpuError);
+                // printf( "%d - OK2!\n", arg );
                 PUSH_(*arg)
+                // printf( "OK3!\n" );
                 break;
             })
 
@@ -73,7 +75,7 @@ DEF_CMD_(7, DIV, 0,
 DEF_CMD_(8, OUT, 0,
             {
                 POP_(&elem1)
-                printf("%g\n", elem1);
+                printf("%d\n", elem1);
                 break;
             })
 

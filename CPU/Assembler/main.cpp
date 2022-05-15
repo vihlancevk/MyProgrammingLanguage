@@ -253,7 +253,7 @@ StatusAssembling processCmdWithArg(Line *lines, int curLineNum, int cnt, Assembl
                 fwrite(&assembler->codeOperation, sizeof(short int), 1, assembler->foutput);
                 fwrite(&assembler->elem, sizeof(stackData_t), 1, assembler->foutput);
                 assembler->numberBytesFile += sizeof(short int) + sizeof(stackData_t);
-                fprintf(assembler->flst, "%-5s %-5x %lf\n", name, assembler->codeOperation, assembler->elem);
+                fprintf(assembler->flst, "%-5s %-5x %d\n", name, assembler->codeOperation, assembler->elem);
             }
         }
         else if (assembler->nameOperation[0] == 'J' || assembler->nameOperation[0] == 'C')
@@ -267,7 +267,7 @@ StatusAssembling processCmdWithArg(Line *lines, int curLineNum, int cnt, Assembl
             fwrite(&assembler->codeOperation, sizeof(short int), 1, assembler->foutput);
             fwrite(&assembler->elem, sizeof(stackData_t), 1, assembler->foutput);
             assembler->numberBytesFile += sizeof(short int) + sizeof(stackData_t);
-            fprintf(assembler->flst, "%-5s %-5x %lf\n", name, assembler->codeOperation, assembler->elem);
+            fprintf(assembler->flst, "%-5s %-5x %d\n", name, assembler->codeOperation, assembler->elem);
         }
         else
         {
@@ -300,7 +300,7 @@ StatusAssembling processCmdWithArg(Line *lines, int curLineNum, int cnt, Assembl
         fwrite(&assembler->codeOperation, sizeof(short int), 1, assembler->foutput);
         fwrite(&assembler->elem, sizeof(stackData_t), 1, assembler->foutput);
         assembler->numberBytesFile += sizeof(short int) + sizeof(stackData_t);
-        fprintf(assembler->flst, "%-5s %-5x %lf\n", name, assembler->codeOperation, assembler->elem);
+        fprintf(assembler->flst, "%-5s %-5x %d\n", name, assembler->codeOperation, assembler->elem);
     }
 
     return ASSEMBLING_SUCCESSFUL;
@@ -362,7 +362,7 @@ StatusAssembling assemblerFile(Line *lines, int linesCount, const char *nameOutp
 
     for (int curLineNum = 0; curLineNum < linesCount; curLineNum++)
     {
-        cnt = sscanf(lines[curLineNum].str, "%s %lf", assembler.nameOperation, &assembler.elem);
+        cnt = sscanf(lines[curLineNum].str, "%s %d", assembler.nameOperation, &assembler.elem);
 
         #ifdef LOG_ENABLED
             printf("\nnumnberBytesFile : %d\n\n", assembler.numberBytesFile);

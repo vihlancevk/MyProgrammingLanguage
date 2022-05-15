@@ -1,20 +1,21 @@
-#ifndef STACK_H_
-#define STACK_H_
+#ifndef STACK_H
+#define STACK_H
 
 #include <stdio.h>
 #include <stdint.h>
+#include <assert.h>
 
 #define DEBUG
-// #undef DEBUG
+// #undef  DEBUG
 
 #define IS_STACK_ERROR_(stack, stackError)    \
     if (stackError != STACK_NO_ERROR)         \
     {                                         \
-        ASSERT_OK(stack);                     \
+        /* ASSERT_OK(stack); */               \
         return stackError;                    \
     }
 
-typedef double stackData_t;
+typedef int stackData_t;
 
 enum StackStatus
 {
@@ -87,14 +88,14 @@ void ClearLogFile();
 StackErrorCode GetStackError(stack_t *stack);
 
 #ifdef DEBUG
-void Dump(stack_t *stack, const char *nameFunction, size_t line, const char *filePath);
+    void Dump(stack_t *stack, const char *nameFunction, size_t line, const char *filePath);
 #endif // DEBUG
 
 #ifdef DEBUG
     #define ASSERT_OK(stack)                                        \
         do{                                                         \
         /* Dump(stack, __PRETTY_FUNCTION__, __LINE__, __FILE__); */ \
-        assert(GetStackError(stack) == STACK_NO_ERROR);             \
+        /* assert(GetStackError(stack) == STACK_NO_ERROR); */       \
         }while(false);
 #else
     #define ASSERT_OK(stack)                                      \
@@ -112,10 +113,11 @@ StackErrorCode StackCtor(stack_t *stack, size_t capacity);
 #endif // DEBUG
 
 #ifdef DEBUG
-    #define STACKCTOR_(stack, capacity)                                         \
-        StackCtorForDebug(stack, capacity, #stack, __LINE__, __FILE__)
+    #define STACKCTOR_(stack, capacity)                                      \
+        /* StackCtorForDebug(stack, capacity, #stack, __LINE__, __FILE__) */ \
+        StackCtor(stack, capacity)
 #else
-    #define STACKCTOR_(stack, capacity)                                         \
+    #define STACKCTOR_(stack, capacity)                                      \
         StackCtor(stack, capacity)
 #endif // DEBUG
 
@@ -131,5 +133,4 @@ size_t GetStackCapacity(stack_t *stack);
 
 size_t GetStackSize(stack_t *stack);
 
-#endif // STACK_H_
-
+#endif
